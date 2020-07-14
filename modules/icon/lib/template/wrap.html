@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        @page {
+            size: A4{{landscape}};
+            margin: 5mm;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+            {{print}}
+            {{css}}
+    </style>
+</head>
+<body>
+$content
+</body>
+</html>

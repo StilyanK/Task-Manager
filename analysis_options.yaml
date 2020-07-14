@@ -1,0 +1,5 @@
+include: package:cl_base/analysis_options.yaml
+analyzer:
+  exclude:
+    - lib/intl/client/messages*dart
+    - lib/intl/server/messages*dart

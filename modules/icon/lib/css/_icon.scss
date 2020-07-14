@@ -1,0 +1,51 @@
+.icon {
+  svg {
+    &.account_balance,
+    &.account_balance_wallet,
+    &.ballot,
+    &.business,
+    &.category,
+    &.compare_arrows,
+    &.description,
+    &.build,
+    &.fingerprint,
+    &.swap_horiz,
+    &.restaurant_menu,
+    &.weekend,
+    &.vpn_key,
+    &.style,
+    &.subject,
+    &.hotel,
+    &.library_books,
+    &.place,
+    &.receipt,
+    &.group,
+    &.store,
+    &.flag,
+    &.public,
+    &.language,
+    &.event_seat,
+    &.show_chart,
+    &.equalizer,
+    &.event_note,
+    &.local_shipping,
+    &.lock_open,
+    &.lock_outline,
+    &.rhif,
+    &.timer,
+    &.implant,
+    &.bacteria,
+    &.virus,
+    &.chromosome,
+    &.antibody,
+    &.invoice {
+      padding: $icons-padding-internal;
+    }
+    &.qr_code, &.enter, &.exit, &.writing {
+      padding: 8px;
+    }
+    &.writing {
+      padding: 7px;
+    }
+  }
+}

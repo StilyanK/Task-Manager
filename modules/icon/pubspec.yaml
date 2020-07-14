@@ -1,0 +1,14 @@
+name: protocol_icon
+
+environment:
+  sdk: '>=2.2.0 <3.0.0'
+
+dependencies:
+  cl:
+    git: git@repo.centryl.org:centryl/cl.git
+  cl_builder:
+    git: git@repo.centryl.org:centryl/cl_builder.git
+  resource: ^2.1.5
+  sass: ^1.13.3
+  template:
+    git: git@repo.centryl.org:centryl/template.git

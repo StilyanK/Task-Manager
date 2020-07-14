@@ -1,0 +1,103 @@
+# Generate config from this template file:
+# <project_path> cl_nginx > config/centryl-nginx
+
+# Nginx image filter declarations - resize and cache images
+server {
+    listen 127.0.0.1:<port_media>;
+
+    set $path       <path>;
+
+    location ~ ^/(media|tmp)/image(\d+)x(\d+)/(.*)$ {
+        alias                       $path/$1/$4;
+        image_filter                resize $2 $3;
+        image_filter_jpeg_quality   90;
+        image_filter_buffer         10M;
+    }
+}
+
+# Front panel declarations
+server {
+    listen 443 ssl http2;
+
+    set $path           <path>;
+    set $front          <path>/front;
+    set $pass_front     http://127.0.0.1:<port_front>;
+    set $pass_media     http://127.0.0.1:<port_media>;
+
+    server_name 127.0.0.1;
+    access_log  <path>/log/nginx/access.log;
+    error_log   <path>/log/nginx/error.log;
+
+    ssl_certificate     <cert>;
+    ssl_certificate_key <cert_key>;
+
+    location @img {
+        proxy_intercept_errors on;
+        error_page 404 415 = /noimage;
+        proxy_pass  $pass_media/media/image$1/$2;
+        proxy_store $path/tmp/$1/$2;
+    }
+
+    location ~ ^/noimage {
+        default_type                image/svg+xml;
+        alias                       $path/web/images/noimage.svg;
+    }
+
+    include <path>/config/nginx-front;
+}
+
+# Centryl panel declarations
+server {
+    listen 443 ssl http2;
+
+    set $path           <path>;
+    set $pass           http://127.0.0.1:<port>;
+    set $pass_api       http://127.0.0.1:<port_api>;
+    set $pass_front     http://127.0.0.1:<port_front>;
+    set $pass_media     http://127.0.0.1:<port_media>;
+
+    server_name <site>;
+    access_log  <path>/log/nginx/access.log;
+    error_log   <path>/log/nginx/error.log;
+
+    ssl_certificate     <cert>;
+    ssl_certificate_key <cert_key>;
+
+    location @img {
+        proxy_intercept_errors on;
+        error_page 404 415 = /noimage;
+        proxy_pass  $pass_media/media/image$1/$2;
+        proxy_store $path/tmp/$1/$2;
+    }
+
+    location ~ ^/noimage {
+        default_type                image/svg+xml;
+        alias                       $path/web/images/noimage.svg;
+    }
+
+    error_page 400 401 402 403 404 405 406 407 408 409 410 411 412 413 414 415 416 417 418 421
+    422 423 424 426 428 429 431 451 500 501 502 503 504 505 506 507 508 510 511 /error.html;
+
+    location = /error.html {
+        ssi on;
+        internal;
+        root <path>/web;
+    }
+
+    #<nginx-dev>
+    include <path>/config/nginx-panel;
+}
+
+# Forward any www.<site> requests on port 443 to <site>
+server {
+    listen 443 ssl http2;
+    server_name www.<site>;
+    rewrite ^ https://<site>$request_uri permanent;
+}
+
+# Forward any <site> and www.<site> requests on port 80 to <site> on port 443
+server {
+    listen 80;
+    server_name <site> www.<site>;
+    rewrite ^ https://<site>$request_uri permanent;
+}

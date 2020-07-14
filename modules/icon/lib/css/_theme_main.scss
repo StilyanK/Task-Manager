@@ -1,0 +1,26 @@
+$footer-background: #F9F9F9;
+
+$win-tab-background: transparent;
+$win-tab-background-active: #FFFFFF;
+$footer-addons-icon-color: #666666;
+$win-tab-color: none;
+$win-tab-border: none;
+$win-tab-border-active: 1px solid #CDCDCD;
+$footer-addons-hover-background: #EEEEEE;
+
+$menu-background: #44525f;
+$menu-element-background: none;
+$menu-element-hover-background: lighten($menu-background, 5%);
+$menu-width: 65;
+$menu-width-type2: 250;
+$menu-color: #C1C1C1;
+$menu-border: transparent;
+$menu-brand-background: darken($menu-background, 20%);
+$menu-submenu-background: lighten($menu-background, 5%);
+$menu-submenu-hover-background: darken($menu-background, 10%);
+$menu-submenu-shadow: 0 4px 8px $menu-background;
+$menu-submenu-color: #FFFFFF;
+
+$font-size: 13;
+$rem: 2.5;
+$prem: 0.5;

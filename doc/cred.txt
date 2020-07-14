@@ -1,0 +1,10 @@
+Изпращам ключове за достъп до тестова среда на Евротръст.
+
+https://developers.evrotrust.com/
+
+API key:
+57e9e95c-77bd-4644-abd8-e7543cce34e4
+
+Vendor Nr:
+j4r7QYMAesC6enqZ
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+    <title>MedicFrame - login</title>
+    <style>
+        @font-face {
+            font-family: "Roboto";
+            src: url(/packages/cl/fonts/roboto-regular.woff2) format("woff2"), /* Modern Browsers */ url(/packages/cl/fonts/roboto-regular.woff) format("woff"), /* Modern Browsers */ url(/packages/cl/fonts/roboto-regular.otf) format("opentype"), /* Open Type Font */ url(/packages/cl/fonts/roboto-regular.svg) format("svg"), /* Legacy iOS */ url(/packages/cl/fonts/roboto-regular.ttf) format("truetype"); /* Safari, Android, iOS */
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel='stylesheet' type='text/css' href='/packages/protocol_auth/css/login.css'/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/manifest.json">
+    <meta name="msapplication-config" content="/images/browserconfig.xml"/>
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+<div class='container' id="head">
+    <div class='login-head'></div>
+    <form method='post' action=''>
+        <input class='input' placeholder='Потребител' type='text' name='user' id='focus' value=''/>
+        <input class='input' placeholder='Парола' type='password' name='password' value=''/>
+        <a href="/forgotten">Забравена парола</a>
+        <button type='submit' class='button' value=''>
+            <svg version="1.1">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="/packages/cl/images/icons-sprite.svg#chevron_right"></use>
+            </svg>
+        </button>
+    </form>
+</div>
+<div class="footer">Protocol © 2020</div>
+<script type='text/javascript'>
+    window.setTimeout(function () {
+        document.getElementById('head').className = 'container active';
+    }, 0);
+    document.getElementById('focus').focus();
+</script>
+</body>
+</html>

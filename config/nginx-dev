@@ -1,0 +1,14 @@
+location ~ ^/.*(client\.dart\.bootstrap\.js|client\.dart\.js|client\.digests|sw\.dart\.js|\$requireDigestsPath.*)$ {
+    rewrite ^/.*(client\.dart\.bootstrap\.js|client\.dart\.js|client\.digests|sw\.dart\.js|\$requireDigestsPath.*) /$1 break;
+    proxy_pass https://localhost:8080;
+    proxy_http_version 1.1;
+}
+location ~ ^/.*\.(dart|js|errors|map|css|json)$ {
+    proxy_pass https://localhost:8080;
+    proxy_http_version 1.1;
+}
+location ~ ^/.*(packages/.*)$ {
+    rewrite ^/.*(packages/.*) /$1 break;
+    proxy_pass https://localhost:8080;
+    proxy_http_version 1.1;
+}

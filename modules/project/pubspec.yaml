@@ -1,0 +1,23 @@
+name: project_core
+
+environment:
+  sdk: '>=2.8.0 <3.0.0'
+
+dependencies:
+  dbcrypt: ^1.0.0
+  cl:
+    git: git@repo.centryl.org:centryl/cl.git
+  cl_base:
+    git: git@repo.centryl.org:centryl/cl_base.git
+  cl_local:
+    git: git@repo.centryl.org:centryl/cl_local.git
+  protocol_icon:
+    path: ../icon
+  protocol_auth:
+    path: ../auth
+  pdf:
+    git: git@repo.centryl.org:centryl/pdf.git
+
+dev_dependencies:
+  test: ^1.9.4
+  build_runner: ^1.7.2

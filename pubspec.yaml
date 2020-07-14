@@ -1,0 +1,20 @@
+name: hms_cloud
+
+environment:
+  sdk: '>=2.8.0 <3.0.0'
+
+dependencies:
+  cl:
+    git: git@repo.centryl.org:centryl/cl.git
+  cl_base:
+    git: git@repo.centryl.org:centryl/cl_base.git
+  pdf:
+    git: git@repo.centryl.org:centryl/pdf.git
+  auth:
+    path: modules/auth
+  project:
+    path: modules/project
+
+dev_dependencies:
+  build_runner: ^1.7.2
+  build_web_compilers: ^2.7.1

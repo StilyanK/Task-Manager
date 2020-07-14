@@ -1,0 +1,10 @@
+.idea
+.dart_tool
+build
+media
+tmp
+log
+.pub
+packages
+.packages
+pubspec.lock

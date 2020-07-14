@@ -1,0 +1,499 @@
+@font-face {
+  font-family: "PT";
+  src: url({{pathCore}}fonts/pt-narrow.woff2) format("woff2"), /* Modern Browsers */
+  url({{pathCore}}fonts/pt-narrow.woff) format("woff"), /* Modern Browsers */
+  url({{pathCore}}fonts/pt-narrow.ttf) format("truetype"); /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.page {
+  width: 200mm;
+  padding: 0;
+
+  &.land {
+    width: 287mm;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    line-height: 11px;
+    font-family: 'PT';
+    box-sizing: border-box;
+  }
+
+  .copy {
+    float: right;
+    padding: 3px;
+  }
+
+  .border {
+    border: 1px solid #4f4f4f;
+    padding: 3px;
+    overflow: hidden;
+  }
+
+  .right {
+    float: right;
+  }
+
+  hr {
+    text-align: center;
+    font-size: 21px;
+    margin: 1rem 0;
+    border: 1px solid #000000;
+  }
+
+  .box-container {
+    float: left;
+    display: inline-block;
+
+    div {
+      display: inline-block;
+      overflow: hidden;
+      float: right;
+    }
+
+    & > span {
+      margin: 0 4px 0 0;
+      float: left;
+      display: inline-block;
+      line-height: 14px;
+    }
+
+    em {
+      display: block;
+      clear: both;
+      text-align: center;
+      width: 100%;
+      font-size: 8px;
+      line-height: 8px;
+    }
+
+    .cell-x {
+      width: 22px;
+      height: 22px;
+      display: block;
+      float: left;
+      font-weight: bold;
+      background-color: #eee;
+      text-align: center;
+      line-height: 20px;
+      border: 1px solid #c0c5ce;
+    }
+
+    .cell-y {
+      width: 17px;
+      height: 17px;
+
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px
+      }
+
+      display: block;
+      float: left;
+      background-color: white;
+      text-align: center;
+      line-height: 15px;
+      border: 1px solid #c0c5ce;
+    }
+
+    .dot {
+      padding: 2px;
+      font-size: 14px;
+      float: left;
+    }
+
+    .pair-margin {
+      margin-right: 7px;
+    }
+  }
+
+  .text-holder {
+    &.full {
+      width: 100%;
+
+      span {
+        display: block;
+        overflow: hidden;
+        float: none;
+      }
+    }
+
+    label {
+      float: left;
+
+      &:nth-child(2) {
+        float: right;
+      }
+    }
+
+    span {
+      display: inline-block;
+      text-align: center;
+      border-bottom: 1px solid #a6a8ad;
+      text-transform: uppercase;
+      min-width: 40px;
+      min-height: 12px;
+      float: left;
+    }
+
+    em {
+      display: block;
+      text-align: center;
+      width: 100%;
+      font-size: 8px;
+      line-height: 8px;
+    }
+  }
+
+  div.checkbox {
+    & > span {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      text-align: center;
+      border: 1px solid #a6a8ad;
+      background-color: white;
+
+      &::after {
+        content: '✓';
+        display: block;
+        line-height: 10px;
+        font-size: 10px;
+      }
+    }
+
+    &:not(.true) > span::after {
+      color: transparent;
+    }
+
+  }
+
+  .row {
+    overflow: hidden;
+
+    & > * {
+      float: left;
+    }
+
+    &:not(:first-child) {
+      margin-top: 4px;
+    }
+  }
+
+  .hospital-header {
+    overflow: hidden;
+    border-bottom: 1px solid black;
+
+    & > * {
+      float: left;
+    }
+
+    .hospital-logo {
+      background-size: cover;
+      background-position: center;
+      margin: 8px;
+      display: none;
+
+      &.true {
+        display: block;
+      }
+
+      img {
+        height: 60px;
+        width: 60px;
+      }
+    }
+
+    .hospital-headline {
+      margin: 8px 0 23px 68px;
+
+      &.true {
+        margin: 8px 0 0 0;
+      }
+
+      span {
+        text-align: center;
+        font-size: 25px;
+        text-transform: uppercase;
+        min-width: 40px;
+      }
+
+      em {
+        display: block;
+        text-align: center;
+        width: 100%;
+        font-size: 15px;
+        line-height: 8px;
+      }
+    }
+  }
+
+  .multiple-lines {
+    position: relative;
+
+    .text {
+      position: absolute;
+      line-height: 18px;
+    }
+
+    .line {
+      width: 100%;
+      position: relative;
+      height: 18px;
+      margin: 0;
+      border-bottom: 1px solid #a6a8ad;;
+    }
+  }
+
+  .header {
+    .col {
+      border: 1px solid;
+      float: left;
+      width: 50%;
+
+      li {
+        text-align: center;
+        list-style: none;
+      }
+
+      span {
+        font-size: 17px;
+        line-height: 1.5;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+
+    .left-col {
+      padding: 2.74rem 0;
+    }
+
+    .right-col {
+      padding: 1.96rem 0.5rem;
+      border-left: none;
+      text-align: center;
+
+      li {
+        list-style-type: none;
+
+        img {
+          width: 3rem;
+          float: left;
+        }
+      }
+    }
+  }
+
+  .logo-header {
+    overflow: hidden;
+    padding-bottom: 3px;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    ul {
+      list-style-type: none;
+      float: left;
+
+      .hospital {
+        font-size: 24px !important;
+        margin-bottom: 2px;
+      }
+
+      li {
+        font-size: 12px !important;;
+      }
+    }
+
+    border-bottom: 1px solid #CDCDCD;
+  }
+
+  ul {
+    list-style-type: none;
+    float: left;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  &.large {
+    * {
+      font-size: 17px;
+      line-height: 17px;
+    }
+
+    .row:not(:first-child) {
+      margin-top: 10px;
+    }
+
+    .text-holder {
+      & > span {
+        text-transform: initial;
+        min-height: 20px;
+      }
+
+      em {
+        font-size: 14px;
+        line-height: 14px;
+      }
+    }
+
+    .text {
+      white-space: pre-wrap;
+    }
+
+    div.checkbox {
+      & > span {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+
+        &::after {
+          line-height: 14px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .heading {
+      text-align: center;
+      padding: 10px 0;
+
+      h2 {
+        font-size: 15px;
+        line-height: 15px;
+        margin-top: 10px;
+      }
+
+      h1 {
+        font-size: 19px;
+        line-height: 19px;
+        text-transform: uppercase;
+      }
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 10px
+    }
+  }
+}
+
+.template {
+  width: 200mm;
+  padding: 0;
+  margin: 0;
+
+  &.land {
+    width: 287mm;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: 'PT';
+    box-sizing: border-box;
+  }
+
+  & > div {
+    overflow: hidden;
+  }
+
+  .text-holder {
+    &.full {
+      width: 100%;
+
+      span {
+        display: block;
+        overflow: hidden;
+      }
+    }
+
+    label {
+      float: left;
+
+      &:nth-child(2) {
+        float: right;
+      }
+    }
+
+    span {
+      display: inline-block;
+      text-align: center;
+      border-bottom: 1px solid #a6a8ad;
+      text-transform: uppercase;
+      min-width: 40px;
+
+      &:empty:before {
+        content: "\200b"; // unicode zero width space character
+      }
+    }
+
+    em {
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  .logo-header {
+    overflow: hidden;
+    padding-bottom: 0.2rem;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    ul {
+      list-style-type: none;
+      float: left;
+
+      .hospital {
+        font-size: 1.5rem;
+      }
+
+      li {
+        font-size: 0.8rem;
+      }
+    }
+
+    border-bottom: 1px solid #CDCDCD;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+}
