@@ -81,7 +81,7 @@ class CLogin extends base.Base<App> {
     final f = File('${base.path}/web/login.html');
     final data = f.existsSync()
         ? await f.readAsString()
-        : await loadResource('protocol_auth/templates/login.html');
+        : await loadResource('auth/templates/login.html');
     responseHtml(
         await Template(data, lenient: true, htmlEscapeValues: false)
             .renderString({}));
@@ -91,7 +91,7 @@ class CLogin extends base.Base<App> {
     final f = File('${base.path}/web/forgotten.html');
     final data = f.existsSync()
         ? await f.readAsString()
-        : await loadResource('protocol_auth/templates/forgotten.html');
+        : await loadResource('auth/templates/forgotten.html');
     responseHtml(
         await Template(data, lenient: true, htmlEscapeValues: false)
             .renderString(param));

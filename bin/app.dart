@@ -6,15 +6,15 @@ import 'package:cl_base/server.dart' as cl_base;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:logging/logging.dart';
 import 'package:mapper/mapper.dart' show Database, Pool;
-import 'package:protocol/intl/server/messages_all.dart';
-import 'package:protocol_auth/server.dart' as auth;
-import 'package:protocol_document/server.dart' as doc;
+//import 'package:protocol/intl/server/messages_all.dart';
+import 'package:auth/server.dart' as auth;
+import 'package:project/server.dart' as project;
 import 'package:task/task.dart';
 import 'package:yaml/yaml.dart';
 // Base server libraries
 
 // Registering init function for each package
-Object init = [cl_base.init, auth.init, doc.init];
+Object init = [cl_base.init, auth.init, project.init];
 
 void main(List<String> args) {
   cl_base.path = args.length == 1
@@ -28,7 +28,6 @@ void main(List<String> args) {
     // Initialize default server locale
     await Future.forEach(['bg', 'de', 'el', 'es', 'fr', 'it', 'ro', 'ru'],
         (locale) async {
-      await initializeMessages(locale);
       await initializeDateFormatting(locale, null);
     });
 

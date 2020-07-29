@@ -9,7 +9,7 @@ dependencies:
     git: git@repo.centryl.org:centryl/cl.git
   cl_base:
     git: git@repo.centryl.org:centryl/cl_base.git
-  protocol_icon:
+  icon:
     path: ../icon
 
 dev_dependencies:

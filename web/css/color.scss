@@ -1,6 +1,6 @@
 @import "package:cl/css/theme/color";
 // Override default variables
-@import "package:protocol_icon/css/theme_color";
+@import "package:icon/css/theme_color";
 
 @import "package:cl/css/partial/mixin";
 @import "package:cl/css/partial/base";
@@ -27,7 +27,7 @@
 @import "package:cl/css/partial/accordion";
 @import "package:cl/css/partial/chat";
 
-@import "package:protocol_icon/css/dashboard";
-@import "package:protocol_icon/css/icon";
-@import "package:protocol_document/css/document";
+@import "package:icon/css/dashboard";
+@import "package:icon/css/icon";
+//@import "package:protocol_document/css/document";
 

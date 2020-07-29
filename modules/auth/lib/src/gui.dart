@@ -13,7 +13,7 @@ import 'package:cl/gui.dart' as cl_gui;
 import 'package:cl/utils.dart' as cl_util;
 import 'package:cl_base/client.dart';
 import 'package:communicator/client.dart';
-import 'package:protocol_icon/icon.dart' as icon;
+import 'package:icon/icon.dart' as icon;
 
 import '../intl/client.dart' as intl;
 import 'entity.dart';

@@ -1,19 +1,19 @@
 part of project.mapper;
 
-class RecordTimeMapper extends Mapper<RecordTime, RecordTimeCollection, App> {
-  String table = e.RecordTime.$table;
-  dynamic pkey = e.$RecordTime.tim_id;
+class TaskMapper extends Mapper<Task, TaskCollection, App> {
+  String table = 'task';
+  dynamic pkey = 'task_id';
 
-  RecordTimeMapper(m) : super(m);
+  TaskMapper(m) : super(m);
 
-  Future<RecordTimeCollection> findAllByRecord(int rec_id) =>
-      loadC(selectBuilder()
-        ..where('${e.$RecordTime.rec_id} = @rec')
-        ..setParameter('rec', rec_id)
-        ..orderBy(e.$RecordTime.stamp)
-        ..addOrderBy(e.$RecordTime.user_id));
+//  Future<RecordTimeCollection> findAllByRecord(int rec_id) =>
+//      loadC(selectBuilder()
+//        ..where('${entity.$RecordTime.rec_id} = @rec')
+//        ..setParameter('rec', rec_id)
+//        ..orderBy(entity.$RecordTime.stamp)
+//        ..addOrderBy(entity.$RecordTime.user_id));
 }
 
-class RecordTime extends e.RecordTime with Entity<App> {}
+class Task extends entity.Task with Entity<App> {}
 
-class RecordTimeCollection extends e.RecordTimeCollection<RecordTime> {}
+class TaskCollection extends entity.TaskCollection<Task> {}

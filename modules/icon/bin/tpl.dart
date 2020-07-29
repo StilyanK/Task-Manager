@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:protocol_icon/resource.dart';
+import 'package:icon/resource.dart';
 
 Future main() async {
   final server = await HttpServer.bind('localhost', 5050);

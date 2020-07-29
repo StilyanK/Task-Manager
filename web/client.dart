@@ -10,9 +10,9 @@ import 'package:communicator/client.dart';
 import 'package:cl_base/client.dart' as base;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:protocol/intl/client/messages_all.dart';
-import 'package:protocol_auth/client.dart' as auth;
-import 'package:protocol_document/client.dart' as document;
+//import 'package:protocol/intl/client/messages_all.dart';
+import 'package:auth/client.dart' as auth;
+//import 'package:protocol_document/client.dart' as document;
 
 Future<void> main() async {
   final settings = cl_app.AppSettings()
@@ -41,7 +41,7 @@ Future<void> main() async {
 
   base.init(ap);
   auth.init(ap);
-  document.init(ap);
+//  document.init(ap);
 
   ap.setMenu(
       [auth.MenuItem.UserMain, auth.MenuItem.Users, auth.MenuItem.Groups]);
@@ -52,7 +52,6 @@ Future<void> main() async {
 Future initLocale(Application ap) async {
   final locale = ap.client.locale ?? Intl.getCurrentLocale();
   if (locale != 'en_US') {
-    await initializeMessages(locale.split('_').first);
     Intl.defaultLocale = locale;
     await initializeDateFormatting(locale, null);
   }
