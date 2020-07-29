@@ -16,7 +16,6 @@ import 'package:auth/client.dart' as auth;
 import 'package:cl_base/client.dart';
 import 'package:cl_local/client.dart' as local;
 import 'package:communicator/client.dart';
-import 'package:pdf/pdf.dart';
 import 'package:icon/icon.dart' as icon;
 
 import '../intl/client.dart' as intl;

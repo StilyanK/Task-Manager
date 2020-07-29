@@ -1,5 +1,5 @@
 abstract class Icon {
-  static const String _spr = 'packages/protocol_icon/images/icons-sprite.svg';
+  static const String _spr = 'packages/icon/images/icons-sprite.svg';
 
   static const String account_balance = '$_spr#account_balance';
   static const String account_balance_wallet = '$_spr#account_balance_wallet';

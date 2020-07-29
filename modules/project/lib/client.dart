@@ -12,10 +12,14 @@ export 'src/path.dart';
 export 'src/permission.dart';
 
 abstract class MenuItem {
-  static final cl_app.MenuElement PatientRecord = cl_app.MenuElement()
-    ..title = intl.Documents()
-    ..icon = Icon.UserMain;
-
+  static final cl_app.MenuElement CreatTask = cl_app.MenuElement()
+    ..title = 'Добави задача'
+    ..icon = Icon.DocComments
+    ..action = (ap) => ap.run('user/list');
+  static final cl_app.MenuElement TaskList = cl_app.MenuElement()
+    ..title = 'Задачи'
+    ..icon = Icon.Calendar
+    ..action = (ap) => ap.run('user/list');
 
 }
 
@@ -26,7 +30,7 @@ void addRoutes(cl_app.Application ap) {
 
 void init(cl_app.Application ap) {
   addRoutes(ap);
-  ap.setMenu([MenuItem.PatientRecord]);
+//  ap.setMenu([MenuItem.CreatTask]);
 
   ///For doctors
 //  ap.serverCall(RoutesDoctor.findByUser.reverse([]), {}).then(
