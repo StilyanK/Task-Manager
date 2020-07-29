@@ -21,7 +21,7 @@ void main(List<String> args) {
       ? args.first
       : Directory.current.path.endsWith('bin') ? '..' : '.';
   cl_base.baseURL = '';
-  cl_base.appTitle = 'Protocol';
+  cl_base.appTitle = 'Таск мениджър';
   cl_base.logHandler();
   final log = Logger('App');
   runZoned(() async {
