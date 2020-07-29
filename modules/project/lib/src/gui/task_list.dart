@@ -8,7 +8,7 @@ class TaskList extends base.Listing {
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..title = 'Списък със задачи'
-    ..icon = Icon.Calendar
+    ..icon = Icon.Tasks
     ..width = 900
     ..height = 600;
 

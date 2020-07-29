@@ -17,7 +17,7 @@ abstract class MenuItem {
     ..action = (ap) => ap.run('task/create');
   static final cl_app.MenuElement TaskList = cl_app.MenuElement()
     ..title = 'Задачи'
-    ..icon = Icon.Calendar
+    ..icon = Icon.Tasks
     ..action = (ap) => ap.run('task/list');
 }
 

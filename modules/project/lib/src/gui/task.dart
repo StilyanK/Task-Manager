@@ -6,7 +6,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   UrlPattern contr_del = RoutesTask.itemDelete;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
-    ..icon = Icon.Calendar
+    ..icon = Icon.Tasks
     ..title = 'Задача'
     ..width = 1100
     ..height = 800

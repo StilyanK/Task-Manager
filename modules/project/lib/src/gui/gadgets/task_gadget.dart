@@ -3,7 +3,7 @@ part of project.gui;
 class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardWaiting> {
   TaskGadget(ap)
       : super(ap, 'Задачи', 'hospital/hospitalization-queue-patient/list',
-            Icon.Calendar);
+            cl.Icon.schedule);
 
   cl_app.GadgetController<List<TaskDTO>> getController() {
 //    final init = (el) async {
