@@ -55,7 +55,6 @@ Future<void> main() async {
     ..setMenu([
       project.MenuItem.CreatTask,
       project.MenuItem.TaskList,
-
     ]);
 
   ap.done();

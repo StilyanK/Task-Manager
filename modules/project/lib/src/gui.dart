@@ -20,11 +20,12 @@ import 'package:icon/icon.dart' as icon;
 
 import '../intl/client.dart' as intl;
 import '../path.dart';
-import 'entity.dart' as e;
+import 'entity.dart' as entity;
 import 'path.dart';
 import 'permission.dart';
 
 part 'gui/task.dart';
+part 'gui/task_list.dart';
 
 abstract class Icon {
   static const String Calendar = cl.Icon.schedule;
