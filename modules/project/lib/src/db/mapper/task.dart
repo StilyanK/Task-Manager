@@ -6,12 +6,10 @@ class TaskMapper extends Mapper<Task, TaskCollection, App> {
 
   TaskMapper(m) : super(m);
 
-//  Future<RecordTimeCollection> findAllByRecord(int rec_id) =>
-//      loadC(selectBuilder()
-//        ..where('${entity.$RecordTime.rec_id} = @rec')
-//        ..setParameter('rec', rec_id)
-//        ..orderBy(entity.$RecordTime.stamp)
-//        ..addOrderBy(entity.$RecordTime.user_id));
+  CollectionBuilder<Task, TaskCollection, App> findAllByBuilder() {
+    final cb = collectionBuilder(selectBuilder());
+    return cb;
+  }
 }
 
 class Task extends entity.Task with Entity<App> {}

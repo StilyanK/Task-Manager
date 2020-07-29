@@ -1,5 +1,6 @@
 abstract class Group {
   static const String Document = 'document';
+  static const String Task = 'document';
 }
 
 abstract class Scope {
@@ -8,6 +9,7 @@ abstract class Scope {
   static const String PatientRecord = 'patient_record';
   static const String Commission = 'commission';
   static const String Disease = 'disease';
+  static const String Task = 'task';
 }
 
 abstract class Right {

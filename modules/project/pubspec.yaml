@@ -11,6 +11,10 @@ dependencies:
     git: git@repo.centryl.org:centryl/cl_base.git
   cl_local:
     git: git@repo.centryl.org:centryl/cl_local.git
+  hms_local:
+    git: git@repo.centryl.org:hms/hms_local.git
+  hms_auth:
+    git: git@repo.centryl.org:hms/hms_auth.git
   icon:
     path: ../icon
   auth:

@@ -6,13 +6,17 @@ import 'dart:js';
 
 import 'package:cl/app.dart' as cl_app;
 import 'package:cl/base.dart' as cl;
-import 'package:communicator/client.dart';
 import 'package:cl_base/client.dart' as base;
+import 'package:communicator/client.dart';
+
+import 'package:hms_local/client.dart' as local;
+
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+
 //import 'package:protocol/intl/client/messages_all.dart';
-import 'package:auth/client.dart' as auth;
+import 'package:hms_auth/client.dart' as auth;
 import 'package:project/client.dart' as project;
 //import 'package:protocol_document/client.dart' as document;
 
@@ -45,7 +49,42 @@ Future<void> main() async {
   auth.init(ap);
   project.init(ap);
 //  document.init(ap);
+  initMain(ap);
+//  ap
+//    ..setMenu([
+//      auth.MenuItem.UserMain,
+//      auth.MenuItem.Users,
+//      auth.MenuItem.Groups,
+//    ])
+//    ..setMenu([
+//      project.MenuItem.CreatTask,
+//      project.MenuItem.TaskList,
+//    ]);
+//
+//  final leftCont = new cl.Container()..addClass('gadgets-left');
+//  final rightCont = new cl.Container()..addClass('gadgets-right');
+//  ap.gadgetsContainer..addCol(leftCont..auto = true)..addCol(rightCont);
+//
+////  leftCont.addRow(ap.iconContainer);
+//  final cont = new cl_app.GadgetContainer();
+//
+//  final cont2 = new cl_app.GadgetContainer()..addClass('gadget-outer');
+////    ..append(hospital.chartPatients(ap)
+////      ..addClass('chart')
+////      ..load());
+//
+//  rightCont.append(
+//      project.TaskGadget(ap));
+//  leftCont..addRow(cont)..addRow(cont2);
+//
+////  hospital.circleBeds(ap, cont);
+////  hospital.circleDepartmentLimit(ap, cont);
+//
+//  ap.done();
+}
 
+
+void initMain(cl_app.Application ap) {
   ap
     ..setMenu([
       auth.MenuItem.UserMain,
@@ -53,12 +92,28 @@ Future<void> main() async {
       auth.MenuItem.Groups,
     ])
     ..setMenu([
-      project.MenuItem.CreatTask,
+      project.MenuItem.CreatTask..desktop = true,
       project.MenuItem.TaskList,
-    ]);
+    ])
+    ..done();
 
-  ap.done();
+  final leftCont = new cl.Container()..addClass('gadgets-left');
+  final rightCont = new cl.Container()..addClass('gadgets-right');
+  ap.gadgetsContainer..addCol(leftCont..auto = true)..addCol(rightCont);
+
+//  leftCont.addRow(ap.iconContainer);
+  final cont = new cl_app.GadgetContainer();
+
+  final cont2 = new cl_app.GadgetContainer()..addClass('gadget-outer');
+//    ..append(hospital.chartPatients(ap)
+//      ..addClass('chart')
+//      ..load());
+
+  rightCont.append(
+      project.TaskGadget(ap)..load());
+  leftCont..addRow(cont)..addRow(cont2);
 }
+
 
 Future initLocale(Application ap) async {
   final locale = ap.client.locale ?? Intl.getCurrentLocale();

@@ -1,9 +1,9 @@
 part of project.gui;
 
-class TaskList extends Listing {
+class TaskList extends base.Listing {
   UrlPattern contr_get = RoutesTask.collectionGet;
   UrlPattern contr_del = RoutesTask.collectionDelete;
-  String mode = Listing.MODE_LIST;
+  String mode = base.Listing.MODE_LIST;
   String key = entity.$Task.task_id;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
@@ -35,14 +35,14 @@ class TaskList extends Listing {
           ..title = 'Зададена от'
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.modified_by)
-          ..title = 'Модифицирана от'
+          ..title = 'Модифициран от'
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.date_modified)
           ..title = 'Дата на модифициране'
           ..sortable = false,
       ];
 
-  TaskList onEdit(dynamic id) => null;
+  void onEdit(dynamic id) => TaskGui(ap, id: id);
 
   void customRow(dynamic row, dynamic obj) {}
 }

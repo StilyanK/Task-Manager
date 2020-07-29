@@ -1,6 +1,6 @@
 part of project.gui;
 
-class TaskGui extends ItemBuilder<auth.Client> {
+class TaskGui extends base.ItemBuilder<auth.Client> {
   UrlPattern contr_get = RoutesTask.itemGet;
   UrlPattern contr_save = RoutesTask.itemSave;
   UrlPattern contr_del = RoutesTask.itemDelete;

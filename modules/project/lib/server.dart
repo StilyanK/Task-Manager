@@ -12,7 +12,6 @@ import 'src/path.dart';
 import 'src/permission.dart';
 
 export 'src/ctrl.dart';
-export 'src/mapper.dart';
 export 'src/path.dart';
 
 
