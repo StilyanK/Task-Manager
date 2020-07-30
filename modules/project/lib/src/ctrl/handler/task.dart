@@ -15,9 +15,6 @@ class ITask extends base.Item<App, Task, int> {
 
   Future<int> doSave(int id, Map data) async {
     final task = await manager.app.task.prepare(id, data);
-
-    ///Assign doctors to commission
-
     await manager.commit();
     return task.task_id;
   }

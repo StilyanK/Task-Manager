@@ -17,7 +17,7 @@ class RoutesTask {
   static UrlPattern get collectionDelete =>
       UrlPattern('task/collection/delete');
 
-
+  static UrlPattern get cardInfo => UrlPattern('task/card/info');
 
   static const String onCreate = '${Group.Document}:${Scope.Doctor}:create';
   static const String onUpdate = '${Group.Document}:${Scope.Doctor}:update';

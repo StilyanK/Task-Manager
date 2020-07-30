@@ -12,8 +12,8 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = false])
-      : super(ap, autoload: autoload ?? false);
+  TaskList(ap, [bool autoload = true])
+      : super(ap, autoload: autoload ?? true);
 
   List<cl_form.GridColumn> initHeader() => [
         new cl_form.GridColumn(entity.$Task.date_created)

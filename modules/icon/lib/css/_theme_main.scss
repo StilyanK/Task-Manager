@@ -20,6 +20,11 @@ $menu-submenu-background: lighten($menu-background, 5%);
 $menu-submenu-hover-background: darken($menu-background, 10%);
 $menu-submenu-shadow: 0 4px 8px $menu-background;
 $menu-submenu-color: #FFFFFF;
+$card-background: #FFFFFF;
+$card-border: #EEEEEE;
+$card-shadow: 0 1px 4px 0 #F2F2F2;
+$card-background-hover: darken($card-background, 3%);
+
 
 $font-size: 13;
 $rem: 2.5;

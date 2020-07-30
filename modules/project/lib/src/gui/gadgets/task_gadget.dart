@@ -1,52 +1,38 @@
 part of project.gui;
 
-class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardWaiting> {
+class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardTask> {
   TaskGadget(ap)
-      : super(ap, 'Задачи', 'hospital/hospitalization-queue-patient/list',
-            cl.Icon.schedule);
+      : super(ap, 'Задачи', 'task/list', cl.Icon.schedule);
 
   cl_app.GadgetController<List<TaskDTO>> getController() {
-//    final init = (el) async {
-//      final res = await ap.serverCall<List>(
-//          RoutesGadget.allWaiting.reverse([]),
-//          {
-//            'date': date.getValue(),
-//            'code': getDepStationary(ap.client.departments)
-//          },
-//          el);
-//
-//      return res.map((el) => new WaitingPatientsDTO.fromMap(el)).toList();
-//    };
-//
+
+    final init = (el) async {
+      final List<TaskDTO> result = [];
+      final res = await ap.serverCall(
+          RoutesTask.cardInfo.reverse([]),
+          {
+            'date': date.getValue(),
+          },
+          el);
+
+      return (res.map((el) => new TaskDTO.fromMap(el)).toList()).cast<TaskDTO>();
+    };
+
 //    ap.onServerCall
-//        .filter(RoutesHospitalizationQueuePatient.eventCreate)
+//        .filter(RoutesTask.eventCreate)
 //        .listen((r) async {
-//      await _updateCardWaiting(r);
 //    });
 //
 //    ap.onServerCall
-//        .filter(RoutesHospitalizationQueuePatient.eventUpdate)
+//        .filter(RoutesTask.eventUpdate)
 //        .listen((r) async {
-//      await _updateCardWaiting(r);
-//    });
-//
-//    ap.onServerCall.filter(RoutesCaseHistory.eventUpdate).listen((r) async {
-//      final res = await ap.serverCall<Map>(
-//          RoutesGadget.waiting.reverse([]),
-//          {
-//            'case_history_id': r,
-//            'date': date.getValue(),
-//            'dep': getDepStationary(ap.client.departments)
-//          },
-//          this);
-//      if (res != null) updateCard(new WaitingPatientsDTO.fromMap(res));
 //    });
 //
 //    ap.onServerCall
-//        .filter(RoutesHospitalizationQueuePatient.eventDelete)
+//        .filter(RoutesTask.eventDelete)
 //        .listen(removeCard);
 
-    return new cl_app.GadgetController<List<TaskDTO>>(
+    return new cl_app.GadgetController<List<TaskDTO>>(init: init,
         feed: ap.onServerCall.filter('event'));
   }
 
@@ -63,5 +49,5 @@ class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardWaiting> {
 //    if (res != null) updateCard(new WaitingPatientsDTO.fromMap(res));
 //  }
 
-  CardWaiting getCard(TaskDTO r) => new CardWaiting(ap, r);
+  CardTask getCard(TaskDTO r) => new CardTask(ap, r);
 }

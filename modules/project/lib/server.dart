@@ -1,13 +1,10 @@
 import 'dart:async';
 
-//import 'package:mapper/mapper.dart';
 import 'package:cl_base/server.dart' as base;
 
-//import 'intl/server.dart' as intl;
 
 import 'src/ctrl.dart';
 
-//import 'src/mapper.dart';
 import 'src/path.dart';
 import 'src/permission.dart';
 
@@ -67,4 +64,5 @@ void addRoutes() {
 Future<void> init() async {
   registerPermissions();
   addRoutes();
+  base.routes.add(routesTask);
 }

@@ -10,12 +10,15 @@ void routesTask(Router router) {
   router
       .serve(RoutesTask.itemDelete, method: 'POST')
       .listen((req) => new ITask(req).delete());
-//  router
-//      .serve(RoutesBloodRequest.collectionGet, method: 'POST')
-//      .listen((req) => new CBloodRequest(req).get());
-//  router
-//      .serve(RoutesBloodRequest.collectionDelete, method: 'POST')
-//      .listen((req) => new CBloodRequest(req).delete());
+  router
+      .serve(RoutesTask.collectionGet, method: 'POST')
+      .listen((req) => new TaskCollection(req).get());
+  router
+      .serve(RoutesTask.collectionDelete, method: 'POST')
+      .listen((req) => new TaskCollection(req).delete());
+  router
+      .serve(RoutesTask.cardInfo, method: 'POST')
+      .listen((req) => new TaskCollection(req).getCardInfo());
 //  router
 //      .serve(RoutesBloodRequest.getPatientBloodGroup, method: 'POST')
 //      .listen((req) => new IBloodRequest(req).getPatientBloodGroup());

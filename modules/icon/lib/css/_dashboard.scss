@@ -216,3 +216,53 @@
     color: #000000;
   }
 }
+.task-card {
+  padding: 1rem;
+  background-color: $card-background;
+  border: 1px solid $card-border;
+    display: flex;
+    margin-bottom: 1rem;
+    @include box-shadow($card-shadow);
+  height: 120px;
+    width: 100%;
+    opacity: 0;
+    position: relative;
+    @include transform(translateX(-200px));
+  &.show {
+    @include transition(transform 0.5s ease-in-out);
+    opacity: 1;
+    @include transform(translateX(0));
+  }
+
+
+  &:hover {
+    background: $card-background-hover;
+    cursor: pointer;
+  }
+
+}
+//.patient {
+//  padding: 1rem;
+//  background: $card-background;
+//  border: 1px solid $card-border;
+//  display: flex;
+//  margin-bottom: 1rem;
+//  @include box-shadow($card-shadow);
+//  height: 120px;
+//  width: 100%;
+//  opacity: 0;
+//  position: relative;
+//  @include transform(translateX(-200px));
+//
+//  &.show {
+//    @include transition(transform 0.5s ease-in-out);
+//    opacity: 1;
+//    @include transform(translateX(0));
+//  }
+//
+//
+//  &:hover {
+//    background: $card-background-hover;
+//    cursor: pointer;
+//  }
+//}

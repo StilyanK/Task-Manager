@@ -1,10 +1,10 @@
 part of project.gui;
 
-class CardWaiting extends hms_local.Card<TaskDTO> {
-  CardWaiting(ap, TaskDTO rCard) : super(ap, 1, rCard);
+class CardTask extends hms_local.Card<TaskDTO> {
+  CardTask(ap, TaskDTO rCard) : super(ap, rCard.id, rCard);
 
   void createDom() {
-//    addClass('patient');
+    addClass('task-card');
 //    addClass('waiting-card');
 //
 //    final status = getStatusInfo(rCard.status);
@@ -50,24 +50,24 @@ class CardWaiting extends hms_local.Card<TaskDTO> {
 //        define_hospital_api.loadCaseHistory(ap, rCard.caseHistoryId);
 //      });
 //
-//    final headCont = new cl_base.CLElement(
-//        new DivElement()..classes.add('journal-card-head'));
+    final headCont = new cl.CLElement(
+        new DivElement()..classes.add('journal-card-head'));
 //
-//    final bodyCont = new cl_base.CLElement(
-//        new DivElement()..classes.add('journal-card-body'));
+    final bodyCont = new cl.CLElement(
+        new DivElement()..classes.add('journal-card-body'));
 //
-//    final bodyContent = new cl_base.CLElement(
-//        new DivElement()..classes.add('journal-card-dates'));
+    final bodyContent = new cl.CLElement(
+        new DivElement()..classes.add('journal-card-dates'));
 //
-//    final actionCont = new cl_base.CLElement(
-//        new DivElement()..classes.add('journal-card-actions'));
+    final actionCont = new cl.CLElement(
+        new DivElement()..classes.add('journal-card-actions'));
 //
-//    final nameCont = new cl_base.CLElement(
-//        new SpanElement()..append(new HeadingElement.h1()..text = rCard.name));
+    final nameCont = new cl.CLElement(
+        new SpanElement()..append(new HeadingElement.h1()..text = rCard.title));
 //
-//    final statusCont = new cl_base.CLElement(new DivElement())
-//      ..setClass('status-waiting color${status['color']}')
-//      ..setText(status['text']);
+    final statusCont = new cl.CLElement(new DivElement())
+      ..setClass('status-waiting color blue')
+      ..setText('ivannnnnn');
 //
 //    final dateCont = new cl_base.CLElement(new SpanElement()
 //      ..append(new Text(hms_local.Date(rCard.addedDate).get()))
@@ -113,11 +113,12 @@ class CardWaiting extends hms_local.Card<TaskDTO> {
 //    } else {
 //      actionCont.append(hospButton);
 //    }
-//    headCont..append(nameCont)..append(statusCont);
-//    bodyCont.append(bodyContent);
+    headCont..append(nameCont)
+    ..append(statusCont);
+    bodyCont.append(bodyContent);
 //
-//    append(headCont);
-//    append(bodyCont);
+    append(headCont);
+    append(bodyCont);
 //    append(actionCont);
 //
 //    addAction((e) {
