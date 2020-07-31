@@ -241,28 +241,41 @@
   }
 
 }
-//.patient {
-//  padding: 1rem;
-//  background: $card-background;
-//  border: 1px solid $card-border;
-//  display: flex;
-//  margin-bottom: 1rem;
-//  @include box-shadow($card-shadow);
-//  height: 120px;
-//  width: 100%;
-//  opacity: 0;
-//  position: relative;
-//  @include transform(translateX(-200px));
-//
-//  &.show {
-//    @include transition(transform 0.5s ease-in-out);
-//    opacity: 1;
-//    @include transform(translateX(0));
-//  }
-//
-//
-//  &:hover {
-//    background: $card-background-hover;
-//    cursor: pointer;
-//  }
-//}
+
+.journal-card {
+  display: flex;
+  flex-direction: column;
+  height: auto !important;
+}
+
+.journal-card-head {
+  display: flex;
+  justify-content: space-between;
+
+  & > span {
+
+  }
+}
+
+.task-card-status {
+  display: flex;
+  justify-content: space-between;
+
+  & > span {
+    display: inline-flex;
+    border-radius: 3px;
+    margin-left: 2px;
+    .icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  .icon use {
+    fill: #FFFFFF;
+  }
+}
+
+.status1 {
+  background-color: red;
+}

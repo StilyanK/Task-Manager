@@ -9,12 +9,13 @@ import 'package:mapper/mapper.dart' show Database, Pool;
 //import 'package:protocol/intl/server/messages_all.dart';
 import 'package:auth/server.dart' as auth;
 import 'package:project/server.dart' as project;
+import 'package:local/server.dart' as local;
 import 'package:task/task.dart';
 import 'package:yaml/yaml.dart';
 // Base server libraries
 
 // Registering init function for each package
-Object init = [cl_base.init, auth.init, project.init];
+Object init = [cl_base.init, auth.init, project.init, local.init()];
 
 void main(List<String> args) {
   cl_base.path = args.length == 1

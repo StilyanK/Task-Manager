@@ -1,0 +1,28 @@
+name: local
+description: Local module - task manager
+
+environment:
+  sdk: '>=2.2.0 <3.0.0'
+
+dependencies:
+  http: any
+  cl_base:
+    git: git@repo.centryl.org:centryl/cl_base.git
+  icon:
+    path: ../icon
+  auth:
+    path: ../auth
+  epay:
+    git:
+      url: git@repo.centryl.org:centryl/epay.git
+      ref: master
+  paypalsdk:
+    git: git@repo.centryl.org:centryl/paypalsdk.git
+  stripe: any
+  cl_annotation:
+    git: git@repo.centryl.org:centryl/cl_annotation.git
+  timezone: ^0.5.6
+
+dev_dependencies:
+  test: ^1.9.4
+  build_runner: ^1.7.2

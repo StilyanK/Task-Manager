@@ -10,8 +10,7 @@ import 'package:cl/forms.dart' as cl_form;
 import 'package:cl/gui.dart' as cl_gui;
 import 'package:cl_base/client.dart' as base;
 import 'package:communicator/client.dart';
-import 'package:hms_auth/client.dart' as auth;
-import 'package:hms_local/client.dart' as hms_local;
+import 'package:local/client.dart' as local;
 import 'package:icon/icon.dart' as icon;
 
 import 'entity.dart' as entity;

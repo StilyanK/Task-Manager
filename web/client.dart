@@ -1,17 +1,18 @@
-library hms_bundle;
+library hms_cloud.client;
 
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 
+import 'package:auth/client.dart' as auth;
 import 'package:cl/app.dart' as cl_app;
 import 'package:cl/base.dart' as cl;
 import 'package:cl_base/client.dart' as base;
 import 'package:communicator/client.dart';
-import 'package:hms_auth/client.dart' as auth;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:project/client.dart' as project;
+import 'package:local/client.dart' as local;
 
 Future<void> main() async {
   final settings = cl_app.AppSettings()
@@ -40,43 +41,13 @@ Future<void> main() async {
 
   base.init(ap);
   auth.init(ap);
+//  local.init(ap);
   project.init(ap);
-//  document.init(ap);
   initMain(ap);
-//  ap
-//    ..setMenu([
-//      auth.MenuItem.UserMain,
-//      auth.MenuItem.Users,
-//      auth.MenuItem.Groups,
-//    ])
-//    ..setMenu([
-//      project.MenuItem.CreatTask,
-//      project.MenuItem.TaskList,
-//    ]);
-//
-//  final leftCont = new cl.Container()..addClass('gadgets-left');
-//  final rightCont = new cl.Container()..addClass('gadgets-right');
-//  ap.gadgetsContainer..addCol(leftCont..auto = true)..addCol(rightCont);
-//
-////  leftCont.addRow(ap.iconContainer);
-//  final cont = new cl_app.GadgetContainer();
-//
-//  final cont2 = new cl_app.GadgetContainer()..addClass('gadget-outer');
-////    ..append(hospital.chartPatients(ap)
-////      ..addClass('chart')
-////      ..load());
-//
-//  rightCont.append(
-//      project.TaskGadget(ap));
-//  leftCont..addRow(cont)..addRow(cont2);
-//
-////  hospital.circleBeds(ap, cont);
-////  hospital.circleDepartmentLimit(ap, cont);
-//
-//  ap.done();
 }
 
-void initMain(cl_app.Application ap) {
+//
+void initMain(Application ap) {
   ap
     ..setMenu([
       auth.MenuItem.UserMain,
@@ -113,6 +84,7 @@ Future initLocale(Application ap) async {
   }
 }
 
+//
 Future<Map> initData(Application ap) async {
   final communicator = Communicator(ap.baseurl);
   final port =

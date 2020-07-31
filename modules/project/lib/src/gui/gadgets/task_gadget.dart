@@ -1,11 +1,9 @@
 part of project.gui;
 
-class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardTask> {
-  TaskGadget(ap)
-      : super(ap, 'Задачи', 'task/list', cl.Icon.schedule);
+class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
+  TaskGadget(ap) : super(ap, 'Задачи', 'task/list', cl.Icon.schedule);
 
   cl_app.GadgetController<List<TaskDTO>> getController() {
-
     final init = (el) async {
       final List<TaskDTO> result = [];
       final res = await ap.serverCall(
@@ -15,7 +13,8 @@ class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardTask> {
           },
           el);
 
-      return (res.map((el) => new TaskDTO.fromMap(el)).toList()).cast<TaskDTO>();
+      return (res.map((el) => new TaskDTO.fromMap(el)).toList())
+          .cast<TaskDTO>();
     };
 
 //    ap.onServerCall
@@ -32,8 +31,8 @@ class TaskGadget extends hms_local.CardListGadget<TaskDTO, CardTask> {
 //        .filter(RoutesTask.eventDelete)
 //        .listen(removeCard);
 
-    return new cl_app.GadgetController<List<TaskDTO>>(init: init,
-        feed: ap.onServerCall.filter('event'));
+    return new cl_app.GadgetController<List<TaskDTO>>(
+        init: init, feed: ap.onServerCall.filter('event'));
   }
 
 //

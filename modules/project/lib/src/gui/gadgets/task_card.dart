@@ -1,10 +1,11 @@
 part of project.gui;
 
-class CardTask extends hms_local.Card<TaskDTO> {
+class CardTask extends local.Card<TaskDTO> {
   CardTask(ap, TaskDTO rCard) : super(ap, rCard.id, rCard);
 
   void createDom() {
     addClass('task-card');
+    addClass('journal-card');
 
     final headCont =
         new cl.CLElement(new DivElement()..classes.add('journal-card-head'));
@@ -22,8 +23,15 @@ class CardTask extends hms_local.Card<TaskDTO> {
         new SpanElement()..append(new HeadingElement.h1()..text = rCard.title));
 
     final statusCont = new cl.CLElement(new DivElement())
-      ..setClass('status-waiting color blue')
-      ..setText('ivannnnnn');
+      ..setClass('task-card-status');
+
+    final st1 = new cl.CLElement(new SpanElement())
+      ..setClass('status1')
+      ..setText('In Progress');
+
+    statusCont.append(st1);
+
+
 //
 //    final dateCont = new cl_base.CLElement(new SpanElement()
 //      ..append(new Text(hms_local.Date(rCard.addedDate).get()))
@@ -69,7 +77,9 @@ class CardTask extends hms_local.Card<TaskDTO> {
 //    } else {
 //      actionCont.append(hospButton);
 //    }
-    headCont..append(nameCont)..append(statusCont);
+    headCont
+      ..append(nameCont)
+      ..append(statusCont);
     bodyCont.append(bodyContent);
 //
     append(headCont);
