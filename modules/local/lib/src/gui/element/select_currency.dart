@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectCurrency extends cl_form.Select {
   SelectCurrency() : super() {

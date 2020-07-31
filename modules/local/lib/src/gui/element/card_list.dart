@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 abstract class Card<T> extends cl.CLElement {
   cl_app.Application ap;

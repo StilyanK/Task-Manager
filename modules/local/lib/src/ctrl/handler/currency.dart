@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class ICurrency extends base.Item<App, Currency, int> {
   final String group = Group.Local;

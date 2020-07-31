@@ -1,4 +1,4 @@
-library hms_local.entity;
+library local.entity;
 
 import 'dart:async';
 

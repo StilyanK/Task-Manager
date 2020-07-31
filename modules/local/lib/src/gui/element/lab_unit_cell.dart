@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class LabUnitCell extends cl_form.RowDataCell<shared.LabUnit> {
   cl_app.Application ap;

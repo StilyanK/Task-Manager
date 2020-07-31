@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class IPlace extends base.Item<App, Place, int> {
   final String group = Group.Local;

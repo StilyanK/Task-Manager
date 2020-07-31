@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectPlace extends cl_form.Select {
   SelectPlace(cl_app.Application ap, [first]) : super() {

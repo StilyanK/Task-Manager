@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of hms_local.entity;
+part of local.entity;
 
 // **************************************************************************
 // EntitySerializableGenerator

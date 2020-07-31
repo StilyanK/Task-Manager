@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 abstract class Update {
   void refresh([DateTime d, String code]);

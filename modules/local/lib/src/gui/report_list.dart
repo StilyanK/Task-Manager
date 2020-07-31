@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 abstract class BaseReportsClass {
   final StreamController<BaseReportsClass> contr =

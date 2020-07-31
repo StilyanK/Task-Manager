@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class IDictionary extends base.Item<App, Dictionary, int> {
   final String group = Group.Local;

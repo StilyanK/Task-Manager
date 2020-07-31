@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class CheckCell extends cl_form.RowFormDataCell<bool> {
   cl_form.Check el;

@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class QuantityEditorCell extends cl_form.RowDataCell<shared.Quantity> {
   cl.CLElement el;

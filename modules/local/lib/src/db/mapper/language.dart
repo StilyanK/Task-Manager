@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class LanguageMapper extends Mapper<Language, LanguageCollection, App> {
   String table = 'language';

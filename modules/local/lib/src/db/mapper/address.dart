@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class AddressMapper extends Mapper<Address, AddressCollection, App> {
   String table = 'address';

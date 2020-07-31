@@ -1,4 +1,4 @@
-library hms_local.mapper;
+library local.mapper;
 
 import 'dart:async';
 

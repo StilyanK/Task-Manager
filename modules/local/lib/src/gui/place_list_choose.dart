@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class PlaceListChoose extends PlaceList {
   String mode = Listing.MODE_CHOOSE;

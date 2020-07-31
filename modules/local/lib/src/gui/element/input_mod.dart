@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class InputMod extends cl_form.DataElement<Map, SpanElement> {
   cl_form.Input inpValue;

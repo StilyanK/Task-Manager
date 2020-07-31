@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class DictionaryMapper extends Mapper<Dictionary, DictionaryCollection, App> {
   String table = 'dictionary';

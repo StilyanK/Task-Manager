@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class QuantityCell extends cl_form.RowDataCell<shared.Quantity> {
   QuantityCell(cl_form.GridColumn column, row, cell, object)

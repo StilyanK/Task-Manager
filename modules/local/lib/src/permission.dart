@@ -1,4 +1,4 @@
-library hms_local.permission;
+library local.permission;
 
 abstract class Group {
   static const String Local = 'local';

@@ -1,4 +1,4 @@
-part of hms_local.server;
+part of local.server;
 
 abstract class CUpdater {
   Manager<App> manager;

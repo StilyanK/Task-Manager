@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class CountryZoneMapper
     extends Mapper<CountryZone, CountryZoneCollection, App> {

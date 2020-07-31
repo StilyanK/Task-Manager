@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectMonth extends cl_form.Select {
   SelectMonth() : super() {

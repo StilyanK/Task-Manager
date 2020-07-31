@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectRegion extends cl_form.Select {
   SelectRegion(cl_app.Application ap, [first]) : super() {

@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectPaymentMethod extends cl_form.Select {
   SelectPaymentMethod([List first]) : super() {

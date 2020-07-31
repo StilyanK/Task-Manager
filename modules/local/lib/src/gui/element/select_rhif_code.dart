@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectRhifCode extends cl_form.Select {
   SelectRhifCode(cl_app.Application ap, [first]) : super() {

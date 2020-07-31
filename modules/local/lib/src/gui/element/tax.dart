@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class TaxCell extends cl_form.RowDataCell<shared.Tax> {
   static shared.TaxService ts = new shared.TaxService();

@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class PaymentMethodBase extends ItemBuilder {
   UrlPattern contr_get = RoutesPayment.itemGet;

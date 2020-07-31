@@ -1,4 +1,4 @@
-part of hms_local.shared;
+part of local.shared;
 
 class Weight {
   WeightService _ws;

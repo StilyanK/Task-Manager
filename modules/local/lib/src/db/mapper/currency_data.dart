@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class CurrencyDataMapper
     extends Mapper<CurrencyData, CurrencyDataCollection, App> {

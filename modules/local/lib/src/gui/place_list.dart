@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class PlaceList extends Listing {
   UrlPattern contr_get = RoutesPlace.collectionGet;

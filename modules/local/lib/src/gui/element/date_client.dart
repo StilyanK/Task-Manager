@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class DateCell extends cl_form.RowDataCell<shared.Date> {
   DateCell(cl_form.GridColumn column, row, cell, object)

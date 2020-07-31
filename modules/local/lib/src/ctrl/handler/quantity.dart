@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class IQuantity extends base.Item<App, QuantityUnit, int> {
   final String group = Group.Local;

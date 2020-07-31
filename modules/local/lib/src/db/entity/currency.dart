@@ -1,4 +1,4 @@
-part of hms_local.entity;
+part of local.entity;
 
 @MSerializable()
 class Currency {

@@ -1,4 +1,4 @@
-library hms_local.api;
+library local.api;
 
 import 'dart:async';
 

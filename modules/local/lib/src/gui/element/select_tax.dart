@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectTaxRate extends cl_form.Select {
   SelectTaxRate([first]) : super() {

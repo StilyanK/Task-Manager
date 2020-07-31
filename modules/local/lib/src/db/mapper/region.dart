@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class RegionMapper extends Mapper<Region, RegionCollection, App> {
   String table = 'region';

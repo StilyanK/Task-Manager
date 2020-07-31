@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class CurrencyMapper extends Mapper<Currency, CurrencyCollection, App> {
   String table = 'currency';

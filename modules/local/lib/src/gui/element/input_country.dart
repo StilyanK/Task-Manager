@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class InputCountry extends cl_form.InputLoader {
   InputCountry(ap) : super() {

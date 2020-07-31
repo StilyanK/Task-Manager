@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CTaxRate extends base.Collection<App, TaxRate, int> {
   final String group = Group.Local;

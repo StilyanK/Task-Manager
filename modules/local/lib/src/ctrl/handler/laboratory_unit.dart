@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class ILabUnit extends base.Item<App, LaboratoryUnit, int> {
   final String group = Group.Local;

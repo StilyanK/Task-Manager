@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class InputPrice extends cl_form.DataElement<Map, SpanElement> {
   cl_form.Input<num> price;

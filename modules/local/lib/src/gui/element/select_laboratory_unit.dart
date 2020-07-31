@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectLabUnit extends cl_form.Select {
   String unitSystem = 'Conventional';

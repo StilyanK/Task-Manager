@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectZones extends cl_form.Select {
   SelectZones(cl_app.Application ap, [first]) : super() {

@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class PlaceMapper extends Mapper<Place, PlaceCollection, App> {
   String table = 'place';

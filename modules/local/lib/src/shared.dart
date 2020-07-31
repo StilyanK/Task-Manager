@@ -1,4 +1,4 @@
-library hms_local.shared;
+library local.shared;
 
 import 'dart:collection';
 import 'dart:math';

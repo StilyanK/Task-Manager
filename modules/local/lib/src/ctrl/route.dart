@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 Future<Map<dynamic, dynamic>> bootCall(Map data) {
   data['quantity'] = fetchQuantityUnits();

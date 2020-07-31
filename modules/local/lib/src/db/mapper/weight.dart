@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class WeightUnitMapper extends Mapper<WeightUnit, WeightUnitCollection, App> {
   String table = 'weight_unit';

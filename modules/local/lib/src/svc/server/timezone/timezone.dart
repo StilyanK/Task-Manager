@@ -1,4 +1,4 @@
-library hms_local.timezone;
+library local.timezone;
 
 import 'dart:async';
 

@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectQuantity extends cl_form.Select {
   List first;

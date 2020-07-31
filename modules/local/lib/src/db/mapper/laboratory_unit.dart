@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class LaboratoryUnitMapper
     extends Mapper<LaboratoryUnit, LaboratoryUnitCollection, App> {

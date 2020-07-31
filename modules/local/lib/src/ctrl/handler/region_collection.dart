@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CRegion extends base.Collection<App, Region, int> {
   final String group = Group.Local;

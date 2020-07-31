@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class ILanguage extends base.Item<App, Language, int> {
   final String group = Group.Local;

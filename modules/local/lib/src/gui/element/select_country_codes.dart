@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class SelectCountryCodes extends cl_form.Select {
   SelectCountryCodes(cl_app.Application ap, [first]) : super() {

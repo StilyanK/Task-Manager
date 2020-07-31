@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CQuantity extends base.Collection<App, QuantityUnit, int> {
   final String group = Group.Local;

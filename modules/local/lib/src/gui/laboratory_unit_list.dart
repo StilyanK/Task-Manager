@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class LaboratoryUnitList extends Listing {
   UrlPattern contr_get = RoutesLabUnit.collectionGet;

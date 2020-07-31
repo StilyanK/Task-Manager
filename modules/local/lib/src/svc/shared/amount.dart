@@ -1,4 +1,4 @@
-part of hms_local.shared;
+part of local.shared;
 
 class Amount extends Object {
   final int round;

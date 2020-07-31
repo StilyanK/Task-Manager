@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CWeight extends base.Collection<App, WeightUnit, int> {
   final String group = Group.Local;

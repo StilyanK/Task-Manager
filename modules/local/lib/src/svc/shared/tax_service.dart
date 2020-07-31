@@ -1,4 +1,4 @@
-part of hms_local.shared;
+part of local.shared;
 
 class TaxApplied {
   int tax_rate_id;

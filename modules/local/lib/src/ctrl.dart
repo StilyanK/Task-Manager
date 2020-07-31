@@ -1,4 +1,4 @@
-library hms_local.ctrl;
+library local.ctrl;
 
 import 'dart:async';
 import 'dart:io';

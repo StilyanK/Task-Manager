@@ -1,4 +1,4 @@
-part of hms_local.api;
+part of local.api;
 
 @DTOSerializable()
 class CurrencyDTO {

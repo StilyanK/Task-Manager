@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CPayment extends base.Collection<App, PaymentMethod, int> {
   final String group = Group.Local;

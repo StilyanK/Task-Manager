@@ -1,4 +1,4 @@
-library hms_local.server;
+library local.server;
 
 import 'dart:async';
 import 'dart:collection';

@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 void schedCurrencyUpdate() {
   new task.ScheduleManager()

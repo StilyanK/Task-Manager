@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class InputPlace extends cl_form.InputLoader {
   InputPlace(ap) : super() {

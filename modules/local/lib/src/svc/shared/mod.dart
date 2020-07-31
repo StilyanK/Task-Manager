@@ -1,4 +1,4 @@
-part of hms_local.shared;
+part of local.shared;
 
 class Mod {
   num mod = 0;

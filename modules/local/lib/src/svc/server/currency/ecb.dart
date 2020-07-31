@@ -1,4 +1,4 @@
-part of hms_local.server;
+part of local.server;
 
 class UpdaterECB extends CUpdater {
   final String _link =

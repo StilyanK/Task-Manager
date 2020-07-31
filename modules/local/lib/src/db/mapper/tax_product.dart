@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class TaxProductMapper extends Mapper<TaxProduct, TaxProductCollection, App> {
   String table = 'tax_product';

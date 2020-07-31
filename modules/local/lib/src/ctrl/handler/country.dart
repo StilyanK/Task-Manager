@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class ICountry extends base.Item<App, Country, int> {
   final String group = Group.Local;

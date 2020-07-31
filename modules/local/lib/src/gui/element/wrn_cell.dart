@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class WrnEditorCell extends cl_form.RowEditCell {
   final Map<String, String> _warning = {};

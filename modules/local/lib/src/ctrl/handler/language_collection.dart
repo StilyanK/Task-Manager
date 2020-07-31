@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CLanguage extends base.Collection<App, Language, int> {
   final String group = Group.Local;

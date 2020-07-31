@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CRhif extends base.Collection<App, Rhif, int> {
   final String group = Group.Local;

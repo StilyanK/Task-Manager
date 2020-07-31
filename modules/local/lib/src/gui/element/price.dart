@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class PriceSumator extends cl_form.Sumator {
   shared.PriceCollection pc = new shared.PriceCollection();

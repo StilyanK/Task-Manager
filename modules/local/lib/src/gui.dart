@@ -1,4 +1,4 @@
-library hms_local.gui;
+library local.gui;
 
 import 'dart:async';
 import 'dart:convert';

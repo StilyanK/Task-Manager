@@ -1,4 +1,4 @@
-part of hms_local.mapper;
+part of local.mapper;
 
 class RhifMapper extends Mapper<Rhif, RhifCollection, App> {
   String table = 'rhif';

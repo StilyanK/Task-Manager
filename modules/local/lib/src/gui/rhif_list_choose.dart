@@ -1,4 +1,4 @@
-part of hms_local.gui;
+part of local.gui;
 
 class RhifListChoose extends RhifList {
   String mode = Listing.MODE_CHOOSE;

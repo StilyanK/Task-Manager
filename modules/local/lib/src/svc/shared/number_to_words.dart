@@ -1,4 +1,4 @@
-part of hms_local.shared;
+part of local.shared;
 
 //TODO Добавяне на -ма, -има, (седмина, осмина ?) за човешки същества
 

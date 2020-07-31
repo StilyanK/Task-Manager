@@ -1,4 +1,4 @@
-part of hms_local.ctrl;
+part of local.ctrl;
 
 class CAddress extends base.Collection<App, Address, int> {
   final String group = Group.Local;
