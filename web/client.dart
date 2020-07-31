@@ -8,17 +8,10 @@ import 'package:cl/app.dart' as cl_app;
 import 'package:cl/base.dart' as cl;
 import 'package:cl_base/client.dart' as base;
 import 'package:communicator/client.dart';
-
-import 'package:hms_local/client.dart' as local;
-
+import 'package:hms_auth/client.dart' as auth;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-
-
-//import 'package:protocol/intl/client/messages_all.dart';
-import 'package:hms_auth/client.dart' as auth;
 import 'package:project/client.dart' as project;
-//import 'package:protocol_document/client.dart' as document;
 
 Future<void> main() async {
   final settings = cl_app.AppSettings()
@@ -83,7 +76,6 @@ Future<void> main() async {
 //  ap.done();
 }
 
-
 void initMain(cl_app.Application ap) {
   ap
     ..setMenu([
@@ -109,11 +101,9 @@ void initMain(cl_app.Application ap) {
 //      ..addClass('chart')
 //      ..load());
 
-  rightCont.append(
-      project.TaskGadget(ap)..load());
+  rightCont.append(project.TaskGadget(ap)..load());
   leftCont..addRow(cont)..addRow(cont2);
 }
-
 
 Future initLocale(Application ap) async {
   final locale = ap.client.locale ?? Intl.getCurrentLocale();

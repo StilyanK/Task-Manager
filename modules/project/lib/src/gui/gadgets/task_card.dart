@@ -5,66 +5,22 @@ class CardTask extends hms_local.Card<TaskDTO> {
 
   void createDom() {
     addClass('task-card');
-//    addClass('waiting-card');
-//
-//    final status = getStatusInfo(rCard.status);
-//
-//    final hospButton = new cl_action.Button()
-//      ..setTip(intl.New_hospitalization())
-//      ..setIcon(Icon.Hospitalizaion)
-//      ..setStyle({'margin-left': '5px'})
-//      ..addClass('important')
-//      ..addAction((_) async {
-//        _.stopPropagation();
-//        final res = await ap.serverCall<Map>(
-//            RoutesHospitalizationQueuePatient.initHospitalization.reverse([]), {
-//          'kdb_id': rCard.kdbExaminationId,
-//          'queue_id': rCard.id,
-//        });
-//        final dto = new HospitalizationInitDTO.fromMap(res);
-//
-//        final initData = new HospitalizationInit(rCard.patientId)
-//          ..clinicalPathId = dto.clinicalPathId
-//          ..externalReferralId = dto.externalRefferalId
-//          ..plannedDate = rCard.plannedDate
-//          ..kdbExaminationId = rCard.kdbExaminationId
-//          ..kdbExaminationEnd = dto.examinationEnd
-//          ..customerGroup = dto.customerGroup
-//          ..departmentCode = dto.departmentCode
-//          ..treatingDoctor = dto.treatingDoctor
-//          ..hospitalizationQueueId = rCard.id
-//          ..ambulatoryProcedureId = dto.ambulatoryPrId
-//          ..mainDiagnosis = [dto.icd10, dto.icd10_second]
-//          ..accDiseases = dto.accDisease;
-//
-//        new Hospitalization(ap, null, initData);
-//      });
-//
-//    final caseHistoryButton = new cl_action.Button()
-//      ..setTip(intl.Case_history())
-//      ..setIcon(Icon.CaseHistory)
-//      ..setStyle({'margin-left': '5px'})
-//      ..addClass('important')
-//      ..addAction((e) {
-//        e.stopPropagation();
-//        define_hospital_api.loadCaseHistory(ap, rCard.caseHistoryId);
-//      });
-//
-    final headCont = new cl.CLElement(
-        new DivElement()..classes.add('journal-card-head'));
-//
-    final bodyCont = new cl.CLElement(
-        new DivElement()..classes.add('journal-card-body'));
-//
-    final bodyContent = new cl.CLElement(
-        new DivElement()..classes.add('journal-card-dates'));
-//
-    final actionCont = new cl.CLElement(
-        new DivElement()..classes.add('journal-card-actions'));
-//
+
+    final headCont =
+        new cl.CLElement(new DivElement()..classes.add('journal-card-head'));
+
+    final bodyCont =
+        new cl.CLElement(new DivElement()..classes.add('journal-card-body'));
+
+    final bodyContent =
+        new cl.CLElement(new DivElement()..classes.add('journal-card-dates'));
+
+    final actionCont =
+        new cl.CLElement(new DivElement()..classes.add('journal-card-actions'));
+
     final nameCont = new cl.CLElement(
         new SpanElement()..append(new HeadingElement.h1()..text = rCard.title));
-//
+
     final statusCont = new cl.CLElement(new DivElement())
       ..setClass('status-waiting color blue')
       ..setText('ivannnnnn');
@@ -113,16 +69,12 @@ class CardTask extends hms_local.Card<TaskDTO> {
 //    } else {
 //      actionCont.append(hospButton);
 //    }
-    headCont..append(nameCont)
-    ..append(statusCont);
+    headCont..append(nameCont)..append(statusCont);
     bodyCont.append(bodyContent);
 //
     append(headCont);
     append(bodyCont);
 //    append(actionCont);
 //
-//    addAction((e) {
-//      new HospitalizationQueuePatient(ap, rCard.id);
-//    });
   }
 }
