@@ -15,7 +15,7 @@ import 'package:yaml/yaml.dart';
 // Base server libraries
 
 // Registering init function for each package
-Object init = [cl_base.init, auth.init, project.init, local.init()];
+Object init = [cl_base.init, auth.init, project.init,];
 
 void main(List<String> args) {
   cl_base.path = args.length == 1

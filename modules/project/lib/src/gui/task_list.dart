@@ -12,13 +12,15 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = true])
-      : super(ap, autoload: autoload ?? true);
+  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true);
 
-  List<cl_form.GridColumn> initHeader() => [
+  List<cl_form.GridColumn> initHeader() =>
+      [
         new cl_form.GridColumn(entity.$Task.date_created)
           ..title = 'Дата на създаване'
-          ..sortable = true,
+          ..sortable = true
+          ..type = (grid, row, cell, object) =>
+          new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
           ..title = 'Поел'
           ..sortable = false,
@@ -28,9 +30,14 @@ class TaskList extends base.Listing {
         new cl_form.GridColumn(entity.$Task.description)
           ..title = 'Описание'
           ..sortable = false,
+        new cl_form.GridColumn(entity.$Task.priority)
+          ..title = 'Приоритет'
+          ..sortable = false,
         new cl_form.GridColumn(entity.$Task.status)
           ..title = 'Статус'
-          ..sortable = false,
+          ..sortable = false
+          ..type = (grid, row, cell, object) =>
+          new TaskStatusCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.created_by)
           ..title = 'Зададена от'
           ..sortable = false,
@@ -39,7 +46,9 @@ class TaskList extends base.Listing {
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.date_modified)
           ..title = 'Дата на модифициране'
-          ..sortable = false,
+          ..sortable = false
+          ..type = (grid, row, cell, object) =>
+          new local.DateTimeCell(grid, row, cell, object),
       ];
 
   void onEdit(dynamic id) => TaskGui(ap, id: id);

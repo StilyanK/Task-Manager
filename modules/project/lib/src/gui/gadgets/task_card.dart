@@ -7,6 +7,8 @@ class CardTask extends local.Card<TaskDTO> {
     addClass('task-card');
     addClass('journal-card');
 
+    final statusSelect = new SelectTaskStatus();
+    final prioritySelect = new SelectTaskPriority();
     final headCont =
         new cl.CLElement(new DivElement()..classes.add('journal-card-head'));
 
@@ -19,72 +21,98 @@ class CardTask extends local.Card<TaskDTO> {
     final actionCont =
         new cl.CLElement(new DivElement()..classes.add('journal-card-actions'));
 
-    final nameCont = new cl.CLElement(
-        new SpanElement()..append(new HeadingElement.h1()..text = rCard.title));
+    final nameCont = new cl.CLElement(new SpanElement()
+      ..append(new HeadingElement.h1()
+        ..text = 'Добавяне на опция в селекта на КДБ прегледа'));
 
-    final statusCont = new cl.CLElement(new DivElement())
-      ..setClass('task-card-status');
+    final description = new cl.CLElement(new SpanElement())
+      ..setText('Необходимо е да се добави...');
 
-    final st1 = new cl.CLElement(new SpanElement())
-      ..setClass('status1')
-      ..setText('In Progress');
+    setHover(
+        nameCont,
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа, '
+        'Добавяне на опция в селекта на КДБ прегледа');
+    setHover(
+        description,
+        'Необходимо е да се добави опция в селекта на КДБ прегледа,'
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа, '
+        'опция в селекта на КДБ прегледа');
 
-    statusCont.append(st1);
+    final dateCreated = new cl.CLElement(new SpanElement())
+      ..setClass('date-format')
+      ..setText('25/07/2020');
 
+    final dateContent = new cl.CLElement(new DivElement())..setClass('time');
 
-//
-//    final dateCont = new cl_base.CLElement(new SpanElement()
-//      ..append(new Text(hms_local.Date(rCard.addedDate).get()))
-//      ..classes.add('time'));
-//
-//    final pid = new SpanElement()..text = 'ЕГН: ${rCard.pid}';
-//
-//    final dateContent = new cl_base.CLElement(new DivElement());
-//
-//    final dateIconHosp = new cl_base.CLElement(
-//        new SpanElement()..append(new cl_base.Icon(Icon.HadisIn).dom));
-//
-//    final dateIconDisch = new cl_base.CLElement(
-//        new SpanElement()..append(new cl_base.Icon(Icon.HadisOut).dom));
-//
-//    final dateIconWait = new cl_base.CLElement(
-//        new SpanElement()..append(new cl_base.Icon(hms_icon.Icon.timer).dom));
-//
-//    if (rCard.status == HospitalizationStatus.Hospitalized) {
-//      dateContent.append(dateIconHosp);
-//    } else if (rCard.status == HospitalizationStatus.Discharged) {
-//      dateContent.append(dateIconDisch);
-//    } else {
-//      dateContent.append(dateIconWait);
-//    }
-//
-//    dateContent.append(dateCont);
-//
-//    setHover(dateCont, status['hover']);
-//
-//    bodyContent..append(pid)..append(dateContent);
-//
-//    actionCont.append(new cl_action.Button()
-//      ..setTip(intl.KDB_Examination())
-//      ..setIcon(Icon.Examination)
-//      ..addAction((e) {
-//        e.stopPropagation();
-//        new KDBExamination(ap, rCard.kdbExaminationId);
-//      }));
-//
-//    if (rCard.caseHistoryId != null) {
-//      actionCont.append(caseHistoryButton);
-//    } else {
-//      actionCont.append(hospButton);
-//    }
-    headCont
-      ..append(nameCont)
-      ..append(statusCont);
-    bodyCont.append(bodyContent);
-//
+    final dateIconWait = new cl.CLElement(
+        new SpanElement()..append(new cl.Icon(icon.Icon.timer).dom));
+
+    dateContent..append(dateIconWait)..append(dateCreated);
+
+    final statusCont = new cl.CLElement(new DivElement())..append(statusSelect);
+
+    final priorityCont = new cl.CLElement(new DivElement())
+      ..setClass('priority')
+      ..append(prioritySelect);
+
+    int percent = 68;
+    final bar = new cl_chart.BarSmall(100)..setPercents(percent);
+
+    setHover(bar, 'Прогрес');
+    setHover(dateContent, 'Дата за завършване');
+
+    final cl_action.ButtonOption group = new cl_action.ButtonOption()
+      ..setIcon(cl.Icon.print)
+      ..addAction<Event>((e) => e.stopPropagation());
+
+    final btn1 = new cl_action.Button()
+      ..setTitle('20%')
+      ..addAction((e) => null);
+    final btn2 = new cl_action.Button()
+      ..setTitle('40%')
+      ..addAction((e) => null);
+    final btn3 = new cl_action.Button()
+      ..setTitle('60%')
+      ..addAction((e) => null);
+    final btn4 = new cl_action.Button()
+      ..setTitle('80%')
+      ..addAction((e) => null);
+    final btn5 = new cl_action.Button()
+      ..setTitle('100%')
+      ..addAction((e) => null);
+
+    group..addSub(btn1)..addSub(btn2)..addSub(btn3)..addSub(btn4)..addSub(btn5);
+
+    final actionCont2 = new cl.CLElement(new DivElement())
+      ..append(bar.dom)
+      ..append(group);
+    actionCont.append(actionCont2);
+//    actionCont.append(group);
+
+    bodyCont..append(description)..append(priorityCont);
+
+    headCont..append(nameCont)..append(statusCont);
+
+    actionCont.append(dateContent);
+
     append(headCont);
     append(bodyCont);
-//    append(actionCont);
-//
+    append(actionCont);
   }
+}
+
+void setHover(cl.CLElement el, String text) {
+  new cl_app.BubbleVisualizer(el, () => new DivElement()..text = '$text');
 }
