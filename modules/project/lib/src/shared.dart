@@ -19,7 +19,7 @@ abstract class TaskStatus {
     const {'v': 'Postponed', 'k': Postponed},
   ];
 
-  static String getTaskTitleByID(String key) =>
+  static String getTaskTitleByID(int key) =>
       taskStatus.firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 }
 
@@ -36,6 +36,6 @@ abstract class TaskPriority {
     const {'v': 'Urgent', 'k': Urgent},
   ];
 
-  static String getTaskPriorityByID(String key) => taskPriority
+  static String getTaskPriorityByID(int key) => taskPriority
       .firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 }
