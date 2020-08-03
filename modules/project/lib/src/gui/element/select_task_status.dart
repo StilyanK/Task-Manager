@@ -1,20 +1,11 @@
 part of project.gui;
 
 class SelectTaskStatus extends cl_form.Select {
-  static final List taskStatus = [
-    {'v': 'To-Do', 'k': 0},
-    {'v': 'Done', 'k': 1},
-    {'v': 'Test', 'k': 2},
-    {'v': 'In progress', 'k': 3},
-    {'v': 'For discussion', 'k': 4},
-    {'v': 'Canceled', 'k': 5},
-    {'v': 'Postponed', 'k': 6},
-  ];
-
   SelectTaskStatus([first]) : super() {
     addClass('task-status');
     if (first != null) addOption(first[0], first[1]);
-    taskStatus.forEach((option) => addOption(option['k'], option['v']));
+    TaskStatus.taskStatus
+        .forEach((option) => addOption(option['k'], option['v']));
   }
 
   cl.CLElement addOption(dynamic value, dynamic title,

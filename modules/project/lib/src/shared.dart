@@ -8,6 +8,19 @@ abstract class TaskStatus {
   static const int ForDiscussion = 4;
   static const int Canceled = 5;
   static const int Postponed = 6;
+
+  static const List taskStatus = const [
+    const {'v': 'To-Do', 'k': ToDo},
+    const {'v': 'Done', 'k': Done},
+    const {'v': 'Test', 'k': Test},
+    const {'v': 'In Progress', 'k': InProgress},
+    const {'v': 'For discussion', 'k': ForDiscussion},
+    const {'v': 'Canceled', 'k': Canceled},
+    const {'v': 'Postponed', 'k': Postponed},
+  ];
+
+  static String getTaskTitleByID(String key) =>
+      taskStatus.firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 }
 
 abstract class TaskPriority {
@@ -15,4 +28,14 @@ abstract class TaskPriority {
   static const int Medium = 1;
   static const int High = 2;
   static const int Urgent = 3;
+
+  static const List taskPriority = const [
+    const {'v': 'Low', 'k': Low},
+    const {'v': 'Medium', 'k': Medium},
+    const {'v': 'High', 'k': High},
+    const {'v': 'Urgent', 'k': Urgent},
+  ];
+
+  static String getTaskPriorityByID(String key) => taskPriority
+      .firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 }
