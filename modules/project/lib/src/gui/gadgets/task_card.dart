@@ -48,23 +48,21 @@ class CardTask extends local.Card<TaskDTO> {
       ..setClass('priority')
       ..append(prioritySelect);
 
-    final bar = new cl_chart.BarSmall(100);
+    final bar = new cl_chart.BarSmall(100)..setPercents(0);
 
-    manageProgressData(bar, rCard.progress);
-    manageProgressStyle(bar, rCard.progress);
-
-    statusSelect.onValueChanged.listen((e) async {
+    Future<void> persistData(Map data) async {
       await ap.serverCall<Map>(RoutesTask.itemSave.reverse([]), {
         'id': rCard.id,
-        'data': {'status': e.getValue()},
+        'data': data,
       });
+    }
+
+    statusSelect.onValueChanged.listen((e) async {
+      await persistData({'status': e.getValue()});
     });
 
     prioritySelect.onValueChanged.listen((e) async {
-      await ap.serverCall<Map>(RoutesTask.itemSave.reverse([]), {
-        'id': rCard.id,
-        'data': {'priority': e.getValue()},
-      });
+      await persistData({'priority': e.getValue()});
     });
 
     setHover(bar, 'Прогрес');
@@ -74,36 +72,28 @@ class CardTask extends local.Card<TaskDTO> {
       ..setIcon(cl.Icon.print)
       ..addAction<Event>((e) => e.stopPropagation());
 
+    void manageFields(int value) {
+      if (value == rCard.progress) return;
+      persistData({'progress': value});
+    }
+
     final btn1 = new cl_action.Button()
       ..setTitle('20%')
-      ..addAction((e) {
-        manageProgressStyle(bar, 20);
-        manageProgressData(bar, 20);
-      });
+      ..addAction((e) => manageFields(20));
     final btn2 = new cl_action.Button()
       ..setTitle('40%')
-      ..addAction((e) {
-        manageProgressStyle(bar, 40);
-        manageProgressData(bar, 40);
-      });
+      ..addAction((e) => manageFields(40));
     final btn3 = new cl_action.Button()
       ..setTitle('60%')
-      ..addAction((e) {
-        manageProgressStyle(bar, 60);
-        manageProgressData(bar, 60);
-      });
+      ..addAction((e) => manageFields(60));
+
     final btn4 = new cl_action.Button()
       ..setTitle('80%')
-      ..addAction((e) {
-        manageProgressStyle(bar, 80);
-        manageProgressData(bar, 80);
-      });
+      ..addAction((e) => manageFields(80));
+
     final btn5 = new cl_action.Button()
       ..setTitle('100%')
-      ..addAction((e) {
-        manageProgressStyle(bar, 100);
-        manageProgressData(bar, 100);
-      });
+      ..addAction((e) => manageFields(100));
 
     group..addSub(btn1)..addSub(btn2)..addSub(btn3)..addSub(btn4)..addSub(btn5);
 
@@ -111,6 +101,8 @@ class CardTask extends local.Card<TaskDTO> {
       ..append(bar.dom)
       ..append(group);
     actionCont.append(actionCont2);
+
+    manageProgressStyle(bar, rCard.progress);
 
     bodyCont..append(description)..append(priorityCont);
 
@@ -128,51 +120,15 @@ class CardTask extends local.Card<TaskDTO> {
     });
   }
 
-  Future<void> manageProgressData(cl_chart.BarSmall el, int percentage) async {
-    el.setPercents(percentage);
-    await ap.serverCall<Map>(RoutesTask.itemSave.reverse([]), {
-      'id': rCard.id,
-      'data': {'progress': percentage},
-    });
-  }
-
   void manageProgressStyle(cl_chart.BarSmall el, int percentage) {
-    if (percentage == 20) {
-      el
-        ..removeClass('progress-40')
-        ..removeClass('progress-60')
-        ..removeClass('progress-80')
-        ..removeClass('progress-100')
-        ..addClass('progress-20');
-    } else if (percentage == 40) {
-      el
-        ..removeClass('progress-20')
-        ..removeClass('progress-60')
-        ..removeClass('progress-80')
-        ..removeClass('progress-100')
-        ..addClass('progress-40');
-    } else if (percentage == 60) {
-      el
-        ..removeClass('progress-20')
-        ..removeClass('progress-40')
-        ..removeClass('progress-80')
-        ..removeClass('progress-100')
-        ..addClass('progress-60');
-    } else if (percentage == 80) {
-      el
-        ..removeClass('progress-20')
-        ..removeClass('progress-40')
-        ..removeClass('progress-60')
-        ..removeClass('progress-100')
-        ..addClass('progress-80');
-    } else if (percentage == 100) {
-      el
-        ..removeClass('progress-20')
-        ..removeClass('progress-40')
-        ..removeClass('progress-60')
-        ..removeClass('progress-80')
-        ..addClass('progress-100');
-    }
+    el
+      ..removeClass('progress-20')
+      ..removeClass('progress-40')
+      ..removeClass('progress-60')
+      ..removeClass('progress-80')
+      ..removeClass('progress-100')
+      ..addClass('progress-$percentage')
+      ..setPercents(percentage);
   }
 }
 
