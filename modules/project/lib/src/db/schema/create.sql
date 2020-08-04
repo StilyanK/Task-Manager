@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS "task"
     "date_modified" timestamptz NOT NULL DEFAULT NOW(),
     "created_by"    integer     NOT NULL,
     "assigned_to"   integer     NOT NULL,
-    "modified_by"   integer
+    "modified_by"   integer,
+    "deadline"      timestamptz NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS "task_comment"

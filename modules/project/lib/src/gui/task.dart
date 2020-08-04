@@ -16,7 +16,7 @@ class TaskGui extends base.ItemBuilder {
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
-
+    form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
   }
 
   Future setData() async {
@@ -25,19 +25,43 @@ class TaskGui extends base.ItemBuilder {
     }
   }
 
-
-
   void setUI() {
-
-
-    final cl_gui.FormElement inVitroForm = new cl_gui.FormElement(form)
+    final cl_gui.FormElement taskForm = new cl_gui.FormElement(form)
       ..addClass('top');
-//
-//    inVitroForm
-//      ..addRow(intl.Patient(), [inputSource]).addClass('col2');
-//
 
-    final cl_gui.TabElement mainTab = createTab(null, inVitroForm);
+    final createdById = cl_form.Data()
+    ..setName(entity.$Task.created_by);
+    form.add(createdById);
+
+    final title = new cl_form.Input()
+      ..setName(entity.$Task.title)
+      ..setRequired(true);
+
+    final priority = new SelectTaskPriority()
+      ..setName(entity.$Task.priority)
+      ..setRequired(true);
+
+    final status = new SelectTaskStatus()
+      ..setName(entity.$Task.status)
+      ..setRequired(true);
+
+    final deadline = new cl_form.InputDateTime()
+      ..setName(entity.$Task.deadline)
+      ..setRequired(true);
+
+    final assignedTo = new SelectUser(ap)
+      ..load()
+      ..setName(entity.$Task.assigned_to)
+      ..setRequired(true);
+
+    taskForm
+      ..addRow('Заглавие', [title]).addClass('col6')
+      ..addRow('Поет от', [assignedTo]).addClass('col3')
+      ..addRow('Краен срок', [deadline]).addClass('col3')
+      ..addRow('Приоритет', [priority]).addClass('col3')
+      ..addRow('Статус', [status]).addClass('col3');
+
+    final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
   }
 

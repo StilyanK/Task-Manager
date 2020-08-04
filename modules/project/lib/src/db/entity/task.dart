@@ -13,6 +13,8 @@ class Task {
   int created_by;
   int assigned_to;
   int modified_by;
+  DateTime deadline;
+
 
 
 
