@@ -21,7 +21,7 @@ class ITask extends base.Item<App, Task, int> {
   Future<int> doSave(int id, Map data) async {
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
-    if(id != null) {
+    if (id != null) {
       task
         ..modified_by = user_id
         ..date_modified = DateTime.now();
@@ -39,32 +39,8 @@ class ITask extends base.Item<App, Task, int> {
     if (taskId == null) return response(null);
     final task = await manager.app.task.find(taskId);
     if (task != null) {
-      if (task.assigned_to == userId && task.status != TaskStatus.Done) {
-        final dto = new TaskDTO()
-          ..id = task.task_id
-          ..status = task.status
-          ..longTitle = task.title
-          ..longDescription = task.description
-          ..assignedTo = task.assigned_to
-          ..createdBy = task.created_by
-          ..createdTime = task.date_created
-          ..modifiedBy = task.modified_by
-          ..deadLine = task.deadline
-          ..progress = task.progress ?? 0
-          ..priority = task.priority;
-
-        if (task.title.length > 30)
-          dto.shortTitle = '${task.title.substring(0, 30)}..';
-        else
-          dto.shortTitle = task.title;
-
-        if (task.description != null) {
-          if (task.description.length > 19) {
-            dto.shortDescription = '${task.description.substring(0, 19)}..';
-          } else {
-            dto.shortDescription = task.description;
-          }
-        }
+      if (task.assigned_to == userId) {
+        final dto = new TaskCardDTOSetter(task).setDto();
         return response(dto);
       } else {
         return response(null);

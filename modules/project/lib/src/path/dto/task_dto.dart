@@ -3,10 +3,8 @@ part of project.path;
 @DTOSerializable()
 class TaskDTO {
   int id;
-  String longTitle;
-  String shortTitle;
-  String shortDescription;
-  String longDescription;
+  String title;
+  String description;
   DateTime createdTime;
   DateTime deadLine;
   int createdBy;
