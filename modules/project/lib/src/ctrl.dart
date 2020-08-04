@@ -10,6 +10,7 @@ import 'mapper.dart';
 import 'path.dart';
 import 'permission.dart';
 import 'shared.dart';
+import 'svc.dart';
 
 part 'ctrl/handler/task.dart';
 

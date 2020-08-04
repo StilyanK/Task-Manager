@@ -19,37 +19,10 @@ class TaskCollection extends base.Collection<App, Task, int> {
         final data = await getData();
         manager = await new Database().init(new App());
         final userId = data['user_id'];
-        final date = data['date'];
-        final dateFormatted = DateTime.parse(date);
         final res = await manager.app.task.findByAllToDo(userId);
         final List<TaskDTO> resData = [];
         for (final o in res) {
-          final dto = new TaskDTO()
-            ..id = o.task_id
-            ..status = o.status
-            ..longTitle = o.title
-            ..longDescription = o.description
-            ..assignedTo = o.assigned_to
-            ..createdBy = o.created_by
-            ..createdTime = o.date_created
-            ..modifiedBy = o.modified_by
-            ..deadLine = o.deadline
-            ..progress = o.progress ?? 0
-            ..priority = o.priority;
-
-          if (o.title.length > 30)
-            dto.shortTitle = '${o.title.substring(0, 30)}..';
-          else
-            dto.shortTitle = o.title;
-
-          if (o.description != null) {
-            if (o.description.length > 19) {
-              dto.shortDescription = '${o.description.substring(0, 19)}..';
-            } else {
-              dto.shortDescription = o.description;
-            }
-          }
-
+          final dto = new TaskCardDTOSetter(o).setDto();
           resData.add(dto);
         }
         return response(resData);

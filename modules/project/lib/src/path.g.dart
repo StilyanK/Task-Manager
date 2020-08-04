@@ -8,10 +8,8 @@ part of project.path;
 
 abstract class $TaskDTO {
   static const String id = 'id';
-  static const String longTitle = 'longTitle';
-  static const String shortTitle = 'shortTitle';
-  static const String shortDescription = 'shortDescription';
-  static const String longDescription = 'longDescription';
+  static const String title = 'title';
+  static const String description = 'description';
   static const String createdTime = 'createdTime';
   static const String deadLine = 'deadLine';
   static const String createdBy = 'createdBy';
@@ -24,10 +22,8 @@ abstract class $TaskDTO {
 
 TaskDTO _$TaskDTOFromMap(Map data) => new TaskDTO()
   ..id = data[$TaskDTO.id]
-  ..longTitle = data[$TaskDTO.longTitle]
-  ..shortTitle = data[$TaskDTO.shortTitle]
-  ..shortDescription = data[$TaskDTO.shortDescription]
-  ..longDescription = data[$TaskDTO.longDescription]
+  ..title = data[$TaskDTO.title]
+  ..description = data[$TaskDTO.description]
   ..createdTime = data[$TaskDTO.createdTime] is String
       ? DateTime.tryParse(data[$TaskDTO.createdTime])
       : data[$TaskDTO.createdTime]
@@ -43,10 +39,8 @@ TaskDTO _$TaskDTOFromMap(Map data) => new TaskDTO()
 
 Map<String, dynamic> _$TaskDTOToMap(TaskDTO obj) => <String, dynamic>{
       $TaskDTO.id: obj.id,
-      $TaskDTO.longTitle: obj.longTitle,
-      $TaskDTO.shortTitle: obj.shortTitle,
-      $TaskDTO.shortDescription: obj.shortDescription,
-      $TaskDTO.longDescription: obj.longDescription,
+      $TaskDTO.title: obj.title,
+      $TaskDTO.description: obj.description,
       $TaskDTO.createdTime: obj.createdTime?.toIso8601String(),
       $TaskDTO.deadLine: obj.deadLine?.toIso8601String(),
       $TaskDTO.createdBy: obj.createdBy,
