@@ -30,7 +30,7 @@ class CardTask extends local.Card<TaskDTO> {
     setHover(nameCont, rCard.longTitle);
     setHover(description, rCard.longDescription);
 
-    final endDate = local.Date(rCard.deadLine).get().toString();
+    final endDate = local.Date(rCard.deadLine).getWithTime().toString();
     final dateCreated = new cl.CLElement(new SpanElement())
       ..setClass('date-format')
       ..setText(endDate);

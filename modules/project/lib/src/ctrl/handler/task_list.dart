@@ -18,6 +18,9 @@ class TaskCollection extends base.Collection<App, Task, int> {
   Future<void> getCardInfo() async => run(group, scope, 'read', () async {
         final data = await getData();
         manager = await new Database().init(new App());
+        final userId = data['user_id'];
+        final date = data['date'];
+        final dateFormatted = DateTime.parse(date);
         final res = await manager.app.task.findAll();
         final List<TaskDTO> resData = [];
         for (final o in res) {

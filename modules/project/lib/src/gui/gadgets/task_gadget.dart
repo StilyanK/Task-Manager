@@ -7,9 +7,10 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
     final init = (el) async {
       final List<TaskDTO> result = [];
       final res = await ap.serverCall(
-          RoutesTask.cardInfo.reverse([]),
+          RoutesGadget.cardInfo.reverse([]),
           {
             'date': date.getValue(),
+            'user_id': ap.client.userId,
           },
           el);
 
@@ -17,36 +18,30 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
           .cast<TaskDTO>();
     };
 
-//    ap.onServerCall
-//        .filter(RoutesTask.eventCreate)
-//        .listen((r) async {
-//    });
-//
-//    ap.onServerCall
-//        .filter(RoutesTask.eventUpdate)
-//        .listen((r) async {
-//    });
-//
-//    ap.onServerCall
-//        .filter(RoutesTask.eventDelete)
-//        .listen(removeCard);
+    ap.onServerCall.filter(RoutesTask.onCreate).listen((r) async {
+      await _updateTaskWaiting(r);
+    });
+
+    ap.onServerCall.filter(RoutesTask.onUpdate).listen((r) async {
+      await _updateTaskWaiting(r);
+    });
+
+    ap.onServerCall.filter(RoutesTask.onDelete).listen(removeCard);
 
     return new cl_app.GadgetController<List<TaskDTO>>(
         init: init, feed: ap.onServerCall.filter('event'));
   }
 
-//
-//  Future<void> _updateCardWaiting(int id) async {
-//    final res = await ap.serverCall<Map>(
-//        RoutesGadget.waiting.reverse([]),
-//        {
-//          'id': id,
-//          'date': date.getValue(),
-//          'dep': getDepStationary(ap.client.departments)
-//        },
-//        this);
-//    if (res != null) updateCard(new WaitingPatientsDTO.fromMap(res));
-//  }
+  Future<void> _updateTaskWaiting(int id) async {
+    final res = await ap.serverCall<Map>(
+        RoutesGadget.updateCard.reverse([]),
+        {
+          'id': id,
+          'user_id': ap.client.userId,
+        },
+        this);
+    if (res != null) updateCard(new TaskDTO.fromMap(res));
+  }
 
   CardTask getCard(TaskDTO r) => new CardTask(ap, r);
 }

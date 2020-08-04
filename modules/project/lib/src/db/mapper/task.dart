@@ -10,6 +10,15 @@ class TaskMapper extends Mapper<Task, TaskCollection, App> {
     final cb = collectionBuilder(selectBuilder());
     return cb;
   }
+
+
+  Future<TaskCollection> findByAllToDo(
+     int user_id, DateTime date) =>
+      loadC(selectBuilder()
+        ..where('${entity.$Task.date_created} >= @p1')
+        ..andWhere('${entity.$Task.date_created} < @p1')
+        ..setParameter('p1', date)
+        ..setParameter('p2', user_id));
 }
 
 class Task extends entity.Task with Entity<App> {}

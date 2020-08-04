@@ -15,12 +15,16 @@ class RoutesTask {
   static UrlPattern get collectionDelete =>
       UrlPattern('task/collection/delete');
 
-  static UrlPattern get cardInfo => UrlPattern('task/card/info');
-
   static UrlPattern get collectionPair =>
       new UrlPattern(r'/task/collection/pair');
 
   static const String onCreate = '${Group.Document}:${Scope.Doctor}:create';
   static const String onUpdate = '${Group.Document}:${Scope.Doctor}:update';
   static const String onDelete = '${Group.Document}:${Scope.Doctor}:delete';
+}
+
+class RoutesGadget {
+  static UrlPattern get cardInfo => UrlPattern('task/card/info');
+
+  static UrlPattern get updateCard => UrlPattern('task/card/update');
 }

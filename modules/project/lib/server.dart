@@ -58,6 +58,7 @@ Future<void> init() async {
   registerPermissions();
   addRoutes();
   base.routes.add(routesTask);
+  base.routes.add(routesGadget);
 
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
@@ -126,7 +127,6 @@ Future<void> init() async {
   notifierTask.onDelete.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final dec = await manager.app.task.find(event.entity.task_id);
-      base.sendEvent(RoutesTask.onDelete, '${dec?.task_id}');
     });
   });
 }
