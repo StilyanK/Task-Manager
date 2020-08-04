@@ -24,7 +24,7 @@ class TaskList extends base.Listing {
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
           ..title = 'Поел'
-          ..filter = (new SelectUser(ap,[null,'All'])
+          ..filter = (new MultiSelectUser(ap,[null,'All'])
             ..setName(entity.$Task.assigned_to)
             ..load())
           ..sortable = false,
@@ -40,23 +40,23 @@ class TaskList extends base.Listing {
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = 'Приоритет'
-          ..filter = (new SelectTaskPriority([null,'All'])
+          ..filter = (new SelectMultiPriority([null,'All'])
             ..setName(entity.$Task.priority))
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.status)
           ..title = 'Статус'
-          ..filter = (new SelectTaskStatus([null,'All'])
+          ..filter = (new SelectMultiTaskStatus([null,'All'])
             ..setName(entity.$Task.status))
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.created_by)
           ..title = 'Зададена от'
-          ..filter = (new SelectUser(ap,[null,'All'])
+          ..filter = (new MultiSelectUser(ap,[null,'All'])
             ..setName(entity.$Task.created_by)
             ..load())
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.modified_by)
           ..title = 'Модифициран от'
-          ..filter = (new SelectUser(ap,[null,'All'])
+          ..filter = (new MultiSelectUser(ap,[null,'All'])
             ..setName(entity.$Task.modified_by)
             ..load())
           ..sortable = false,
