@@ -71,15 +71,15 @@ Future<void> init() async {
       if (event.isInserted) {
         subject = 'Имате нова задача!';
         text =
-        '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
+            '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
       } else if (event.isUpdated) {
         subject = 'Задача ${task.title} e променена';
         text =
-        '${task.title}\n${task.description}\nПроменена от: ${modifiedBy.name}';
+            '${task.title}\n${task.description}\nПроменена от: ${modifiedBy.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-        '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy.name}';
+            '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy.name}';
       }
 
       if (user != null && user.mail != null) {
@@ -115,8 +115,10 @@ Future<void> init() async {
       if (wsClients == null || wsClients.isEmpty) return;
       await manager.begin();
       final user_id = wsClients.first.req.session['client']['user_id'];
-      await manager.app.task
-          .prepare(event.entity.task_id, {entity.$Task.modified_by: user_id});
+      await manager.app.task.prepare(event.entity.task_id, {
+        entity.$Task.modified_by: user_id,
+        entity.$Task.date_modified: DateTime.now()
+      });
       await manager.commit();
     });
   });
