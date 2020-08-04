@@ -33,7 +33,6 @@ class TaskCollection extends base.Collection<App, Task, int> {
             ..priority = o.priority;
           resData.add(dto);
         }
-        resData.forEach((element) => print(element.toMap()));
         return response(resData);
       });
 
@@ -41,21 +40,23 @@ class TaskCollection extends base.Collection<App, Task, int> {
       Future.wait(ids.map(manager.app.task.deleteById)).then((_) => true);
 
   Future<void> pair() => run(group, scope, 'read', () async {
-    manager = await new Database().init(new App());
-    final users  = await manager.app.user.findAll();
-    return response(users.pair());
-  });
+        manager = await new Database().init(new App());
+        final users = await manager.app.user.findAll();
+        return response(users.pair());
+      });
 
   Future<Map> lister(Task o) async {
     final data = o.toJson();
     final priority = TaskPriority.getTaskPriorityByID(data['priority']);
-   final createdBy = await manager.app.user.find(data['created_by']);
-   final modifiedBy = await manager.app.user.find(data['modified_by']);
-   final status = TaskStatus.getTaskTitleByID(data['status']);
+    final createdBy = await manager.app.user.find(data['created_by']);
+    final modifiedBy = await manager.app.user.find(data['modified_by']);
+    final assignedTo = await manager.app.user.find(data['assigned_to']);
+    final status = TaskStatus.getTaskTitleByID(data['status']);
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
     data['status'] = status;
     data['modified_by'] = modifiedBy.name;
+    data['assigned_to'] = assignedTo.name;
     return data;
   }
 }
