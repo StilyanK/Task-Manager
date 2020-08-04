@@ -54,12 +54,16 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.assigned_to)
       ..setRequired(true);
 
+    final description = new cl_form.TextArea()
+      ..setName(entity.$Task.description);
+
     taskForm
       ..addRow('Заглавие', [title]).addClass('col6')
       ..addRow('Поет от', [assignedTo]).addClass('col3')
       ..addRow('Краен срок', [deadline]).addClass('col3')
       ..addRow('Приоритет', [priority]).addClass('col3')
-      ..addRow('Статус', [status]).addClass('col3');
+      ..addRow('Статус', [status]).addClass('col3')
+      ..addRow('Описание', [description]).addClass('col6');
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);

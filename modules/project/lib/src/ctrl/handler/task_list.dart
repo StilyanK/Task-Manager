@@ -45,4 +45,17 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final users  = await manager.app.user.findAll();
     return response(users.pair());
   });
+
+  Future<Map> lister(Task o) async {
+    final data = o.toJson();
+    final priority = TaskPriority.getTaskPriorityByID(data['priority']);
+   final createdBy = await manager.app.user.find(data['created_by']);
+   final modifiedBy = await manager.app.user.find(data['modified_by']);
+   final status = TaskStatus.getTaskTitleByID(data['status']);
+    data['priority'] = priority;
+    data['created_by'] = createdBy.name;
+    data['status'] = status;
+    data['modified_by'] = modifiedBy.name;
+    return data;
+  }
 }

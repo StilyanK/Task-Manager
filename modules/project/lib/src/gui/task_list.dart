@@ -35,9 +35,7 @@ class TaskList extends base.Listing {
           ..sortable = false,
         new cl_form.GridColumn(entity.$Task.status)
           ..title = 'Статус'
-          ..sortable = false
-          ..type = (grid, row, cell, object) =>
-          new TaskStatusCell(grid, row, cell, object),
+          ..sortable = false,
         new cl_form.GridColumn(entity.$Task.created_by)
           ..title = 'Зададена от'
           ..sortable = false,
