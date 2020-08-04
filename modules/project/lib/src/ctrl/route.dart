@@ -19,6 +19,12 @@ void routesTask(Router router) {
   router
       .serve(RoutesTask.collectionPair, method: 'POST')
       .listen((req) => new TaskCollection(req).pair());
+  notifierTask.onCreate
+      .listen((o) => base.sendEvent(RoutesTask.eventCreate, o.entity.task_id));
+  notifierTask.onUpdate
+      .listen((o) => base.sendEvent(RoutesTask.eventUpdate, o.entity.task_id));
+  notifierTask.onDelete
+      .listen((o) => base.sendEvent(RoutesTask.eventDelete, o.entity.task_id));
 }
 
 void routesGadget(Router router) {

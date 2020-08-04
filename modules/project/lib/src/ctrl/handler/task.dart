@@ -18,6 +18,13 @@ class ITask extends base.Item<App, Task, int> {
 
   Future<int> doSave(int id, Map data) async {
     final task = await manager.app.task.prepare(id, data);
+    final user_id = req.session['client']['user_id'];
+    if(id != null) {
+      task
+        ..modified_by = user_id
+        ..date_modified = DateTime.now();
+      manager.addDirty(task);
+    }
     await manager.commit();
     return task.task_id;
   }
@@ -30,7 +37,7 @@ class ITask extends base.Item<App, Task, int> {
     if (taskId == null) return response(null);
     final task = await manager.app.task.find(taskId);
     if (task != null) {
-      if (task.assigned_to == userId) {
+      if (task.assigned_to == userId && task.status != TaskStatus.Done) {
         final dto = new TaskDTO()
           ..id = task.task_id
           ..status = task.status

@@ -18,9 +18,9 @@ class RoutesTask {
   static UrlPattern get collectionPair =>
       new UrlPattern(r'/task/collection/pair');
 
-  static const String onCreate = '${Group.Document}:${Scope.Doctor}:create';
-  static const String onUpdate = '${Group.Document}:${Scope.Doctor}:update';
-  static const String onDelete = '${Group.Document}:${Scope.Doctor}:delete';
+  static const String eventCreate = '${Group.Document}:${Scope.Doctor}:create';
+  static const String eventUpdate = '${Group.Document}:${Scope.Doctor}:update';
+  static const String eventDelete = '${Group.Document}:${Scope.Doctor}:delete';
 }
 
 class RoutesGadget {
