@@ -71,7 +71,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
     data['status'] = status;
-    data['modified_by'] = modifiedBy.name;
+    data['modified_by'] = modifiedBy?.name;
     return data;
   }
 }

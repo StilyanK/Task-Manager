@@ -257,8 +257,18 @@
   justify-content: space-between;
 
   & > span {
-    padding-right: 7px;
+    padding-right: 3px;
   }
+}
+
+
+.journal-card-head .task-status .inner {
+  border-radius: 2px;
+  border-width: 0;
+}
+.journal-card-body .task-status .inner {
+  border-radius: 2px;
+  border-width: 0;
 }
 
 .task-card-status {
@@ -314,14 +324,6 @@
   }
 
 }
-
-.task-status {
-  .inner {
-    border-radius: 2px;
-    border-width: 0;
-  }
-}
-
 
 .time {
   display: flex;
@@ -404,11 +406,13 @@
     background-color: #7b99e2;
   }
 }
+
 .progress-60 {
   & > div {
     background-color: #537ce3;
   }
 }
+
 .progress-80 {
   & > div {
     background-color: #2d5fde;
