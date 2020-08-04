@@ -13,10 +13,8 @@ class Task {
   int created_by;
   int assigned_to;
   int modified_by;
+  int progress;
   DateTime deadline;
-
-
-
 
   Task();
 
@@ -25,7 +23,6 @@ class Task {
   Map<String, dynamic> toJson() => _$TaskToMap(this, true);
 
   Map<String, dynamic> toMap() => _$TaskToMap(this);
-
 }
 
 class TaskCollection<E extends Task> extends Collection<E> {}
