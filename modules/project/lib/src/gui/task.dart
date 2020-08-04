@@ -12,7 +12,6 @@ class TaskGui extends base.ItemBuilder {
     ..height = 800
     ..type = 'bound';
 
-
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
@@ -30,8 +29,7 @@ class TaskGui extends base.ItemBuilder {
     final cl_gui.FormElement taskForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
-    final createdById = cl_form.Data()
-    ..setName(entity.$Task.created_by);
+    final createdById = cl_form.Data()..setName(entity.$Task.created_by);
     form.add(createdById);
 
     final title = new cl_form.Input()
@@ -49,7 +47,7 @@ class TaskGui extends base.ItemBuilder {
     final dateCreated = new cl_form.InputDateTime()
       ..setName(entity.$Task.date_created)
       ..setRequired(true)
-    ..disable();
+      ..disable();
 
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
@@ -67,21 +65,25 @@ class TaskGui extends base.ItemBuilder {
       ..setName('modified_by_name')
       ..disable();
 
+    final createdBy = new cl_form.Input()
+      ..setName('created_by_name')
+      ..disable();
+
     final dateModified = new cl_form.InputDateTime()
       ..setName(entity.$Task.date_modified)
       ..disable();
 
     taskForm
       ..addRow('Заглавие', [title]).addClass('col6')
-      ..addRow('Да се поеме от', [assignedTo]).addClass('col6')
-      ..addRow('Дата на създаване', [dateCreated]).addClass('col3')
+      ..addRow('Да се поеме от', [assignedTo]).addClass('col3')
       ..addRow('Краен срок', [deadline]).addClass('col3')
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
       ..addRow('Описание', [description]).addClass('col6')
-    ..addSection('Модифициран')
-    ..addRow('Oт:', [modifiedBy]).addClass('col3')
-    ..addRow('Дата', [dateModified]).addClass('col3');
+      ..addRow('Създаден от:', [createdBy]).addClass('col3')
+      ..addRow('Дата на създаване', [dateCreated]).addClass('col3')
+      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
+      ..addRow('Модифициран на', [dateModified]).addClass('col3');
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
