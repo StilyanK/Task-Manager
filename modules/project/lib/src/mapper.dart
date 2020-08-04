@@ -5,6 +5,7 @@ import 'package:cl_base/server.dart' as base;
 import 'package:mapper/mapper.dart';
 
 import 'entity.dart' as entity;
+import 'shared.dart';
 
 part 'db/mapper/task.dart';
 

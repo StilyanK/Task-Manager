@@ -21,7 +21,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
         final userId = data['user_id'];
         final date = data['date'];
         final dateFormatted = DateTime.parse(date);
-        final res = await manager.app.task.findAll();
+        final res = await manager.app.task.findByAllToDo(userId);
         final List<TaskDTO> resData = [];
         for (final o in res) {
           final dto = new TaskDTO()

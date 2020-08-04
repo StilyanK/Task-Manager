@@ -72,15 +72,15 @@ Future<void> init() async {
       if (event.isInserted) {
         subject = 'Имате нова задача!';
         text =
-        '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
+            '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
       } else if (event.isUpdated) {
         subject = 'Задача ${task.title} e променена';
         text =
-        '${task.title}\n${task.description}\nПроменена от: ${modifiedBy.name}';
+            '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-        '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy.name}';
+            '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
       }
 
       if (user != null && user.mail != null) {
@@ -102,13 +102,6 @@ Future<void> init() async {
     });
   });
 
-  notifierTask.onCreate.listen((event) async {
-    await base.dbWrap<void, App>(new App(), (manager) async {
-      final dec = await manager.app.task.find(event.entity.task_id);
-      base.sendEvent(RoutesTask.onCreate, '${dec?.task_id}');
-    });
-  });
-
   notifierTask.onUpdate.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final wsClients = base.getWSClients();
@@ -119,14 +112,6 @@ Future<void> init() async {
       final ent = await manager.app.task
           .prepare(event.entity.task_id, {entity.$Task.modified_by: user_id});
       await manager.commit();
-      base.sendEvent(RoutesTask.onUpdate, '${ent?.task_id}');
-    });
-  });
-
-  notifierTask.onDelete.listen((event) async {
-    await base.dbWrap<void, App>(new App(), (manager) async {
-      final dec = await manager.app.task.find(event.entity.task_id);
-      base.sendEvent(RoutesTask.onDelete, '${dec?.task_id}');
     });
   });
 }

@@ -18,15 +18,15 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
           .cast<TaskDTO>();
     };
 
-    ap.onServerCall.filter(RoutesTask.onCreate).listen((r) async {
+    ap.onServerCall.filter(RoutesTask.eventCreate).listen((r) async {
       await _updateTaskWaiting(r);
     });
 
-    ap.onServerCall.filter(RoutesTask.onUpdate).listen((r) async {
+    ap.onServerCall.filter(RoutesTask.eventUpdate).listen((r) async {
       await _updateTaskWaiting(r);
     });
 
-    ap.onServerCall.filter(RoutesTask.onDelete).listen(removeCard);
+    ap.onServerCall.filter(RoutesTask.eventDelete).listen(removeCard);
 
     return new cl_app.GadgetController<List<TaskDTO>>(
         init: init, feed: ap.onServerCall.filter('event'));

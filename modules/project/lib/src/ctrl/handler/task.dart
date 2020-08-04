@@ -26,7 +26,7 @@ class ITask extends base.Item<App, Task, int> {
     if (taskId == null) return response(null);
     final task = await manager.app.task.find(taskId);
     if (task != null) {
-      if (task.assigned_to == userId) {
+      if (task.assigned_to == userId && task.status != TaskStatus.Done) {
         final dto = new TaskDTO()
           ..id = task.task_id
           ..status = task.status
