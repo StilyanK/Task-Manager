@@ -67,7 +67,6 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final createdBy = await manager.app.user.find(data['created_by']);
     final modifiedBy = await manager.app.user.find(data['modified_by']);
     final assignedTo = await manager.app.user.find(data['assigned_to']);
-
     final status = TaskStatus.getTaskTitleByID(data['status']);
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
