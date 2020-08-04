@@ -5,7 +5,6 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
 
   cl_app.GadgetController<List<TaskDTO>> getController() {
     final init = (el) async {
-      final List<TaskDTO> result = [];
       final res = await ap.serverCall(
           RoutesGadget.cardInfo.reverse([]),
           {
@@ -13,7 +12,6 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
             'user_id': ap.client.userId,
           },
           el);
-
       return (res.map((el) => new TaskDTO.fromMap(el)).toList())
           .cast<TaskDTO>();
     };

@@ -44,21 +44,17 @@ void registerPermissions() {
       Group.Document, Scope.Disease, [base.$RunRights.read], true);
 }
 
-void addRoutes() {
-  base.routes.add((router) => router
-//
-    ..serve(RoutesTask.itemGet, method: 'WS').listen((req) => ITask(req).get())
-    ..serve(RoutesTask.itemSave, method: 'WS')
-        .listen((req) => ITask(req).save())
-    ..serve(RoutesTask.itemDelete, method: 'WS')
-        .listen((req) => ITask(req).delete()));
-}
-
 Future<void> init() async {
   registerPermissions();
-  addRoutes();
   base.routes.add(routesTask);
   base.routes.add(routesGadget);
+
+  notifierTask.onCreate
+      .listen((o) => base.sendEvent(RoutesTask.eventCreate, o.entity.task_id));
+  notifierTask.onUpdate
+      .listen((o) => base.sendEvent(RoutesTask.eventUpdate, o.entity.task_id));
+  notifierTask.onDelete
+      .listen((o) => base.sendEvent(RoutesTask.eventDelete, o.entity.task_id));
 
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
