@@ -17,9 +17,15 @@ void routesTask(Router router) {
       .serve(RoutesTask.collectionDelete, method: 'POST')
       .listen((req) => new TaskCollection(req).delete());
   router
-      .serve(RoutesTask.cardInfo, method: 'POST')
-      .listen((req) => new TaskCollection(req).getCardInfo());
-  router
       .serve(RoutesTask.collectionPair, method: 'POST')
       .listen((req) => new TaskCollection(req).pair());
+}
+
+void routesGadget(Router router) {
+  router
+      .serve(RoutesGadget.updateCard, method: 'POST')
+      .listen((req) => new ITask(req).updateTaskCard());
+  router
+      .serve(RoutesGadget.cardInfo, method: 'POST')
+      .listen((req) => new TaskCollection(req).getCardInfo());
 }

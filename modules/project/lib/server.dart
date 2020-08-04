@@ -57,6 +57,7 @@ Future<void> init() async {
   registerPermissions();
   addRoutes();
   base.routes.add(routesTask);
+  base.routes.add(routesGadget);
 
   notifierTask.onCreate.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
@@ -72,9 +73,10 @@ Future<void> init() async {
       if (wsClients == null || wsClients.isEmpty) return;
       await manager.begin();
       final user_id = wsClients.first.req.session['client']['user_id'];
-      await manager.app.task
+      final ent = await manager.app.task
           .prepare(event.entity.task_id, {entity.$Task.modified_by: user_id});
       await manager.commit();
+      base.sendEvent(RoutesTask.onUpdate, '${ent?.task_id}');
     });
   });
 
