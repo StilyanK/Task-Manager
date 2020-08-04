@@ -10,8 +10,10 @@ class ITask extends base.Item<App, Task, int> {
     final task = await manager.app.task.find(id);
     final ret = task.toJson();
     final modifiedBy = await manager.app.user.find(task.modified_by);
-    if (modifiedBy != null) {
+    final createdBy = await manager.app.user.find(task.created_by);
+    if(modifiedBy != null){
       ret['modified_by_name'] = modifiedBy.name;
+      ret['created_by_name'] = createdBy.name;
     }
     return ret;
   }

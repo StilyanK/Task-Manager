@@ -1,10 +1,11 @@
 .idea
+.pub
 .dart_tool
 build
-media
 tmp
 log
-.pub
-packages
+media
 .packages
 pubspec.lock
+config/centryl-nginx
+config/config.yaml
