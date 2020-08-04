@@ -56,7 +56,7 @@ void initMain(Application ap) {
     ])
     ..setMenu([
       project.MenuItem.CreatTask..desktop = true,
-      project.MenuItem.TaskList,
+      project.MenuItem.TaskList..desktop = true,
     ])
     ..done();
 
@@ -64,13 +64,9 @@ void initMain(Application ap) {
   final rightCont = new cl.Container()..addClass('gadgets-right');
   ap.gadgetsContainer..addCol(leftCont..auto = true)..addCol(rightCont);
 
-//  leftCont.addRow(ap.iconContainer);
   final cont = new cl_app.GadgetContainer();
 
   final cont2 = new cl_app.GadgetContainer()..addClass('gadget-outer');
-//    ..append(hospital.chartPatients(ap)
-//      ..addClass('chart')
-//      ..load());
 
   rightCont.append(project.TaskGadget(ap)..load());
   leftCont..addRow(cont)..addRow(cont2);
@@ -84,7 +80,6 @@ Future initLocale(Application ap) async {
   }
 }
 
-//
 Future<Map> initData(Application ap) async {
   final communicator = Communicator(ap.baseurl);
   final port =
