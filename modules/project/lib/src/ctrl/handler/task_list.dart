@@ -49,7 +49,6 @@ class TaskCollection extends base.Collection<App, Task, int> {
 
           resData.add(dto);
         }
-
         return response(resData);
       });
 
@@ -67,11 +66,13 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final priority = TaskPriority.getTaskPriorityByID(data['priority']);
     final createdBy = await manager.app.user.find(data['created_by']);
     final modifiedBy = await manager.app.user.find(data['modified_by']);
+    final assignedTo = await manager.app.user.find(data['assigned_to']);
     final status = TaskStatus.getTaskTitleByID(data['status']);
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
     data['status'] = status;
     data['modified_by'] = modifiedBy?.name;
+    data['assigned_to'] = assignedTo.name;
     return data;
   }
 }
