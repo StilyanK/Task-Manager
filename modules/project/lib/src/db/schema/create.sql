@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS "task"
     "created_by"    integer     NOT NULL,
     "assigned_to"   integer     NOT NULL,
     "modified_by"   integer,
+    "progress"      integer,
     "deadline"      timestamptz NOT NULL DEFAULT NOW()
 );
 

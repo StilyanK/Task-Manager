@@ -24,13 +24,29 @@ class TaskCollection extends base.Collection<App, Task, int> {
           final dto = new TaskDTO()
             ..id = o.task_id
             ..status = o.status
-            ..title = o.title
-            ..description = o.description
+            ..longTitle = o.title
+            ..longDescription = o.description
             ..assignedTo = o.assigned_to
             ..createdBy = o.created_by
             ..createdTime = o.date_created
             ..modifiedBy = o.modified_by
+            ..deadLine = o.deadline
+            ..progress = o.progress ?? 0
             ..priority = o.priority;
+
+          if (o.title.length > 30)
+            dto.shortTitle = '${o.title.substring(0, 30)}..';
+          else
+            dto.shortTitle = o.title;
+
+          if (o.description != null) {
+            if (o.description.length > 19) {
+              dto.shortDescription = '${o.description.substring(0, 19)}..';
+            } else {
+              dto.shortDescription = o.description;
+            }
+          }
+
           resData.add(dto);
         }
         return response(resData);
@@ -51,6 +67,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final createdBy = await manager.app.user.find(data['created_by']);
     final modifiedBy = await manager.app.user.find(data['modified_by']);
     final assignedTo = await manager.app.user.find(data['assigned_to']);
+
     final status = TaskStatus.getTaskTitleByID(data['status']);
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
