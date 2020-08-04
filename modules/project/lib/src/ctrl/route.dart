@@ -19,7 +19,7 @@ void routesTask(Router router) {
   router
       .serve(RoutesTask.cardInfo, method: 'POST')
       .listen((req) => new TaskCollection(req).getCardInfo());
-//  router
-//      .serve(RoutesBloodRequest.getPatientBloodGroup, method: 'POST')
-//      .listen((req) => new IBloodRequest(req).getPatientBloodGroup());
+  router
+      .serve(RoutesTask.collectionPair, method: 'POST')
+      .listen((req) => new TaskCollection(req).pair());
 }

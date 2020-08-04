@@ -39,4 +39,10 @@ class TaskCollection extends base.Collection<App, Task, int> {
 
   Future<bool> doDelete(List ids) =>
       Future.wait(ids.map(manager.app.task.deleteById)).then((_) => true);
+
+  Future<void> pair() => run(group, scope, 'read', () async {
+    manager = await new Database().init(new App());
+    final users  = await manager.app.user.findAll();
+    return response(users.pair());
+  });
 }

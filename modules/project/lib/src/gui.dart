@@ -25,6 +25,7 @@ part 'gui/task.dart';
 part 'gui/task_list.dart';
 part 'gui/element/select_task_status.dart';
 part 'gui/element/select_task_priority.dart';
+part 'gui/element/select_user.dart';
 part 'gui/element/task_status_cell.dart';
 
 abstract class Icon {
