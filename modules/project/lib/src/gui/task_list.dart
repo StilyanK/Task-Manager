@@ -12,7 +12,11 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true);
+  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true){
+    registerServerListener(RoutesTask.eventCreate, debounceGet);
+    registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
+    registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
+  }
 
   List<cl_form.GridColumn> initHeader() => [
         new cl_form.GridColumn(entity.$Task.date_created)

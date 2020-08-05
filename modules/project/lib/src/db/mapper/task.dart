@@ -11,11 +11,12 @@ class TaskMapper extends Mapper<Task, TaskCollection, App> {
     return cb;
   }
 
-  Future<TaskCollection> findByAllToDo(int user) => loadC(selectBuilder()
-    ..where('${entity.$Task.status} != @p1')
-    ..andWhere('${entity.$Task.assigned_to} = @p2')
-    ..setParameter('p1', TaskStatus.Done)
-    ..setParameter('p2', user));
+  Future<TaskCollection> findByAllToDo(int user) =>
+      loadC(selectBuilder()
+        ..where('${entity.$Task.status} != @p1')
+        ..andWhere('${entity.$Task.assigned_to} = @p2')
+        ..setParameter('p1', TaskStatus.Done)
+        ..setParameter('p2', user));
 }
 
 class Task extends entity.Task with Entity<App> {}

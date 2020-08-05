@@ -30,11 +30,22 @@ class TaskCollection extends base.Collection<App, Task, int> {
         final data = await getData();
         manager = await new Database().init(new App());
         final userId = data['user_id'];
+        final cardDate = DateTime.parse(data['date']);
         final res = await manager.app.task.findByAllToDo(userId);
         final List<TaskDTO> resData = [];
         for (final o in res) {
-          final dto = new TaskCardDTOSetter(o).setDto();
-          resData.add(dto);
+          final dateCreated = new DateTime(
+              o.date_created.year, o.date_created.month, o.date_created.day);
+          final dateDeadline =
+              new DateTime(o.deadline.year, o.deadline.month, o.deadline.day);
+          final dateCreatedCheck = cardDate.isAfter(dateCreated) ||
+              cardDate.isAtSameMomentAs(dateCreated);
+          final dateDeadlineCheck = cardDate.isBefore(dateDeadline) ||
+              cardDate.isAtSameMomentAs(dateDeadline);
+          if (dateCreatedCheck && dateDeadlineCheck) {
+            final dto = new TaskCardDTOSetter(o).setDto();
+            resData.add(dto);
+          }
         }
         return response(resData);
       });
@@ -62,6 +73,4 @@ class TaskCollection extends base.Collection<App, Task, int> {
     data['assigned_to'] = assignedTo.name;
     return data;
   }
-
-
 }
