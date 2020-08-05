@@ -18,13 +18,13 @@ import 'entity.dart' as entity;
 import 'path.dart';
 import 'shared.dart';
 
+part 'gui/element/document_stamp.dart';
 part 'gui/element/file_container.dart';
 part 'gui/element/multi_select_priority.dart';
 part 'gui/element/multi_select_status.dart';
 part 'gui/element/multi_select_user.dart';
 part 'gui/element/select_task_priority.dart';
 part 'gui/element/select_task_status.dart';
-part 'gui/element/document_stamp.dart';
 part 'gui/element/select_user.dart';
 part 'gui/element/task_status_cell.dart';
 part 'gui/gadgets/task_card.dart';

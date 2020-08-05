@@ -14,7 +14,8 @@ class ITask extends base.Item<App, Task, int> {
     if (modifiedBy != null) {
       ret['doc_stamp_modified'] = {
         'by': modifiedBy.getRepresentation(),
-        'date': task.date_modified.toString()
+        'date':
+            DateFormat('dd/MM/yyyy HH:mm').format(task.date_modified.toLocal())
       };
     }
     ret['doc_stamp_created'] = {
@@ -26,6 +27,7 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
+    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {

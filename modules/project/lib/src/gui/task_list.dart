@@ -65,7 +65,7 @@ class TaskList extends base.Listing {
               new local.DateTimeCell(grid, row, cell, object),
       ];
 
-  void onEdit(dynamic id) => TaskGui(ap, id: id);
+  void onEdit(dynamic id) => ap.run('task/item/$id');
 
   void customRow(dynamic row, dynamic obj) {}
 }

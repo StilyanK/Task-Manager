@@ -55,25 +55,33 @@ class TaskGui extends base.ItemBuilder {
     final description = new cl_form.TextArea()
       ..setName(entity.$Task.description);
 
+    final docStampCreated = new DocumentStamp(0)..setName('doc_stamp_created');
 
-    final docStampCreated = new DocumentStamp()
-    ..setName('doc_stamp_created');
-
-    final docStampModified = new DocumentStamp()
+    final docStampModified = new DocumentStamp(1)
       ..setName('doc_stamp_modified');
 
 
+    final fileuploader = new cl_action.FileUploader(ap)
+      ..setTitle('Attach')
+      ..setIcon(cl.Icon.attach_file);
 
+    final fu = new cl_gui.FileAttach<FileContainer>(
+        fileuploader,
+        () => '${ap.baseurl}tmp',
+        () => '${ap.baseurl}media/task/${getId()}',
+        (p) => new FileContainer(p))
+      ..setName('files');
 
     taskForm
-
-      ..addRow(null, [docStampCreated,docStampModified]).addClass('col6')
+      ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
       ..addRow('Да се поеме от', [assignedTo]).addClass('col3')
       ..addRow('Краен срок', [deadline]).addClass('col3')
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
-      ..addRow('Описание', [description]).addClass('col6');
+      ..addRow('Описание', [description]).addClass('col6')
+      ..addRow(fileuploader, [fu]);
+
 //      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
 //      ..addRow('Модифициран на', [dateModified]).addClass('col3');
 
