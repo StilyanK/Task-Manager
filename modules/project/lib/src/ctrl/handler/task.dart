@@ -11,10 +11,17 @@ class ITask extends base.Item<App, Task, int> {
     final ret = task.toJson();
     final modifiedBy = await manager.app.user.find(task.modified_by);
     final createdBy = await manager.app.user.find(task.created_by);
-    if(modifiedBy != null){
-      ret['modified_by_name'] = modifiedBy.name;
-      ret['created_by_name'] = createdBy.name;
+    if (modifiedBy != null) {
+      ret['doc_stamp_modified'] = {
+        'by': modifiedBy.getRepresentation(),
+        'date': task.date_modified.toString()
+      };
     }
+    ret['doc_stamp_created'] = {
+      'by': createdBy.getRepresentation(),
+      'date': task.date_created.toString()
+    };
+
     return ret;
   }
 

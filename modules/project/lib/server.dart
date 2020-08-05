@@ -56,6 +56,7 @@ Future<void> init() async {
   notifierTask.onDelete
       .listen((o) => base.sendEvent(RoutesTask.eventDelete, o.entity.task_id));
 
+
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;

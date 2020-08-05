@@ -16,7 +16,6 @@ class TaskGui extends base.ItemBuilder {
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
-    form.getElement(entity.$Task.date_created).setValue(DateTime.now());
   }
 
   Future setData() async {
@@ -44,11 +43,6 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.status)
       ..setRequired(true);
 
-    final dateCreated = new cl_form.InputDateTime()
-      ..setName(entity.$Task.date_created)
-      ..setRequired(true)
-      ..disable();
-
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
       ..setRequired(true);
@@ -61,29 +55,27 @@ class TaskGui extends base.ItemBuilder {
     final description = new cl_form.TextArea()
       ..setName(entity.$Task.description);
 
-    final modifiedBy = new cl_form.Input()
-      ..setName('modified_by_name')
-      ..disable();
 
-    final createdBy = new cl_form.Input()
-      ..setName('created_by_name')
-      ..disable();
+    final docStampCreated = new DocumentStamp()
+    ..setName('doc_stamp_created');
 
-    final dateModified = new cl_form.InputDateTime()
-      ..setName(entity.$Task.date_modified)
-      ..disable();
+    final docStampModified = new DocumentStamp()
+      ..setName('doc_stamp_modified');
+
+
+
 
     taskForm
+
+      ..addRow(null, [docStampCreated,docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
       ..addRow('Да се поеме от', [assignedTo]).addClass('col3')
       ..addRow('Краен срок', [deadline]).addClass('col3')
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
-      ..addRow('Описание', [description]).addClass('col6')
-      ..addRow('Създаден от:', [createdBy]).addClass('col3')
-      ..addRow('Дата на създаване', [dateCreated]).addClass('col3')
-      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
-      ..addRow('Модифициран на', [dateModified]).addClass('col3');
+      ..addRow('Описание', [description]).addClass('col6');
+//      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
+//      ..addRow('Модифициран на', [dateModified]).addClass('col3');
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
