@@ -5,6 +5,8 @@ class TaskList extends base.Listing {
   UrlPattern contr_del = RoutesTask.collectionDelete;
   String mode = base.Listing.MODE_LIST;
   String key = entity.$Task.task_id;
+  cl.Container listButtonsContainer;
+  cl_action.Button newTaskBtn;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..title = 'Списък със задачи'
@@ -13,6 +15,17 @@ class TaskList extends base.Listing {
     ..height = 600;
 
   TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true){
+    newTaskBtn = new cl_action.Button()
+      ..addClass('attention')
+      ..setStyle({'margin-left': 'auto'})
+      ..setTitle('Добавяне на таск')
+      ..setIcon(cl.Icon.add)
+      ..addAction((_) => new TaskGui(ap));
+
+    listButtonsContainer = new cl.Container()..append(newTaskBtn);
+
+    layout.contMenu.append(listButtonsContainer);
+
     registerServerListener(RoutesTask.eventCreate, debounceGet);
     registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
     registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
