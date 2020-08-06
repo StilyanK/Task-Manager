@@ -12,6 +12,7 @@ class TaskGui extends base.ItemBuilder {
     ..height = 800
     ..type = 'bound';
 
+
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
