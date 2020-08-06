@@ -19,4 +19,19 @@ class IProject extends base.Item<App, Project, int> {
   }
 
   Future<bool> doDelete(int id) => manager.app.task.deleteById(id);
+
+  Future<void> suggest() => run(group, scope, 'read', () async {
+    final params = await getData();
+    manager = await new Database().init(new App());
+    entity.ProjectCollection col;
+    if (params['id'] != null) {
+      col = new ProjectCollection()
+        ..add(await manager.app.project.find(params['id']));
+    }
+    else {
+      col = await manager.app.project
+          .findBySuggestion(params['suggestion']);
+    }
+    return response(col.pair());
+  });
 }

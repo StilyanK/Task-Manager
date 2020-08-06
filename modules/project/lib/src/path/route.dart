@@ -40,4 +40,7 @@ class RoutesProject {
 
   static UrlPattern get collectionDelete =>
       UrlPattern('project/collection/delete');
+
+  static UrlPattern get collectionSuggest =>
+      UrlPattern('project/collection/suggest');
 }

@@ -21,6 +21,7 @@ import 'shared.dart';
 part 'gui/element/document_stamp.dart';
 part 'gui/element/file_container.dart';
 part 'gui/element/multi_select_priority.dart';
+part 'gui/element/input_project.dart';
 part 'gui/element/multi_select_status.dart';
 part 'gui/element/multi_select_user.dart';
 part 'gui/element/select_task_priority.dart';

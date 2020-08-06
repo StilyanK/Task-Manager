@@ -12,7 +12,6 @@ class Project extends base.ItemBuilder {
     ..height = 800
     ..type = 'bound';
 
-
   Project(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {}
@@ -27,11 +26,13 @@ class Project extends base.ItemBuilder {
     final cl_gui.FormElement projectForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
-
-//    projectForm
-//      ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
-
-
+    final title = new cl_form.Input()..setName(entity.$Project.title);
+    final from = new cl_form.InputDate()..setName(entity.$Project.from);
+    final to = new cl_form.InputDate()..setName(entity.$Project.to);
+    projectForm
+      ..addRow('Име на проекта', [title]).addClass('col6')
+      ..addRow('Начало', [from]).addClass('col3')
+      ..addRow('До', [to]).addClass('col3');
 
     final cl_gui.TabElement mainTab = createTab(null, projectForm);
     layout.contInner.activeTab(mainTab);

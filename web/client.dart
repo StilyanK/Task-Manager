@@ -58,7 +58,8 @@ void initMain(Application ap) {
       project.MenuItem.TaskList..desktop = true,
       project.MenuItem.Settings
         ..desktop = true
-        ..addChild(project.MenuItem.createProject),
+        ..addChild(project.MenuItem.CreateProject)
+        ..addChild(project.MenuItem.ProjectList),
     ])
     ..done();
 

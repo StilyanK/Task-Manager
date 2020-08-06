@@ -16,4 +16,8 @@ class Project {
   Map<String, dynamic> toMap() => _$ProjectToMap(this);
 }
 
-class ProjectCollection<E extends Project> extends Collection<E> {}
+class ProjectCollection<E extends Project> extends Collection<E> {
+  List<Map> pair() =>
+      map((p) => {'k': p.project_id, 'v': p.title}).toList();
+}
+
