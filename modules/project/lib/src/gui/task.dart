@@ -12,7 +12,6 @@ class TaskGui extends base.ItemBuilder {
     ..height = 800
     ..type = 'bound';
 
-
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
@@ -61,7 +60,6 @@ class TaskGui extends base.ItemBuilder {
     final docStampModified = new DocumentStamp(1)
       ..setName('doc_stamp_modified');
 
-
     final fileuploader = new cl_action.FileUploader(ap)
       ..setTitle('Attach')
       ..setIcon(cl.Icon.attach_file);
@@ -82,9 +80,6 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Статус', [status]).addClass('col3')
       ..addRow('Описание', [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
-
-//      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
-//      ..addRow('Модифициран на', [dateModified]).addClass('col3');
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);

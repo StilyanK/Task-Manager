@@ -29,3 +29,23 @@ void routesGadget(Router router) {
       .serve(RoutesGadget.cardInfo, method: 'POST')
       .listen((req) => new TaskCollection(req).getCardInfo());
 }
+
+void routesProject(Router router) {
+  router
+      .serve(RoutesProject.itemGet, method: 'POST')
+      .listen((req) => new IProject(req).get());
+  router
+      .serve(RoutesProject.itemSave, method: 'POST')
+      .listen((req) => new IProject(req).save());
+  router
+      .serve(RoutesProject.itemDelete, method: 'POST')
+      .listen((req) => new IProject(req).delete());
+  router
+      .serve(RoutesProject.collectionGet, method: 'POST')
+      .listen((req) => new CProject(req).get());
+  router
+      .serve(RoutesProject.collectionDelete, method: 'POST')
+      .listen((req) => new CProject(req).delete());
+}
+
+

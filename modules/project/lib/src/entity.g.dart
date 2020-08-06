@@ -88,3 +88,28 @@ Map<String, dynamic> _$TaskMediaToMap(TaskMedia obj, [asJson = false]) =>
       $TaskMedia.date_created:
           asJson ? obj.date_created?.toIso8601String() : obj.date_created
     };
+
+abstract class $Project {
+  static const String project_id = 'project_id';
+  static const String title = 'title';
+  static const String from = 'from';
+  static const String to = 'to';
+}
+
+void _$ProjectFromMap(Project obj, Map data) => obj
+  ..project_id = data[$Project.project_id]
+  ..title = data[$Project.title]
+  ..from = data[$Project.from] is String
+      ? DateTime.tryParse(data[$Project.from])
+      : data[$Project.from]
+  ..to = data[$Project.to] is String
+      ? DateTime.tryParse(data[$Project.to])
+      : data[$Project.to];
+
+Map<String, dynamic> _$ProjectToMap(Project obj, [asJson = false]) =>
+    <String, dynamic>{
+      $Project.project_id: obj.project_id,
+      $Project.title: obj.title,
+      $Project.from: asJson ? obj.from?.toIso8601String() : obj.from,
+      $Project.to: asJson ? obj.to?.toIso8601String() : obj.to
+    };
