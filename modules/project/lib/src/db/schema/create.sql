@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "task"
     "modified_by"   integer,
     "progress"      integer,
     "deadline"      timestamptz NOT NULL DEFAULT NOW(),
-    "project_id"    int REFERENCES "project" (project_id) ON DELETE CASCADE
+    "project_id"    int         NOT NULL REFERENCES "project" (project_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "task_comment"
