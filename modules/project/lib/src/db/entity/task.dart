@@ -15,6 +15,7 @@ class Task {
   int modified_by;
   int progress;
   DateTime deadline;
+  int project_id;
 
   Task();
 

@@ -20,6 +20,7 @@ abstract class $Task {
   static const String modified_by = 'modified_by';
   static const String progress = 'progress';
   static const String deadline = 'deadline';
+  static const String project_id = 'project_id';
 }
 
 void _$TaskFromMap(Task obj, Map data) => obj
@@ -41,7 +42,8 @@ void _$TaskFromMap(Task obj, Map data) => obj
   ..progress = data[$Task.progress]
   ..deadline = data[$Task.deadline] is String
       ? DateTime.tryParse(data[$Task.deadline])
-      : data[$Task.deadline];
+      : data[$Task.deadline]
+  ..project_id = data[$Task.project_id];
 
 Map<String, dynamic> _$TaskToMap(Task obj, [asJson = false]) =>
     <String, dynamic>{
@@ -59,7 +61,8 @@ Map<String, dynamic> _$TaskToMap(Task obj, [asJson = false]) =>
       $Task.assigned_to: obj.assigned_to,
       $Task.modified_by: obj.modified_by,
       $Task.progress: obj.progress,
-      $Task.deadline: asJson ? obj.deadline?.toIso8601String() : obj.deadline
+      $Task.deadline: asJson ? obj.deadline?.toIso8601String() : obj.deadline,
+      $Task.project_id: obj.project_id
     };
 
 abstract class $TaskMedia {
