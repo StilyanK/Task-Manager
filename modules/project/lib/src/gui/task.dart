@@ -39,9 +39,20 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.priority)
       ..setRequired(true);
 
+    final bar = new ProgressComponent(ap)..setName(entity.$Task.progress);
+
     final status = new SelectTaskStatus()
       ..setName(entity.$Task.status)
-      ..setRequired(true);
+      ..setRequired(true)
+      ..onValueChanged.listen((e) {
+        if (e.getValue() == TaskStatus.Done) {
+          bar
+            ..setValue(100)
+            ..disable();
+        } else {
+          bar.enable();
+        }
+      });
 
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
@@ -73,8 +84,6 @@ class TaskGui extends base.ItemBuilder {
       ..setName('files');
 
     final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
-
-    final bar = new ProgressComponent(ap)..setName(entity.$Task.progress);
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
