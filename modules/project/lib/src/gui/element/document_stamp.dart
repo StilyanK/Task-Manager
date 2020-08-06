@@ -8,21 +8,24 @@ class DocumentStamp extends cl_form.Text<Map, SpanElement> {
   void setValue(Map value) {
     String methodText;
     if (method == 0) {
-      methodText = 'Създаден:';
+      methodText = 'Създаден: ';
     } else if (method == 1) {
-      methodText = 'Модифициран:';
+      methodText = 'Обновен: ';
     }
 
     dom.innerHtml = '';
     if (value != null) {
       final by = value['by'];
-      final date = value['date'];
+      dynamic date = value['date'];
+      if (date is String && value.isNotEmpty)
+        date = DateTime.parse(date);
+      if (date is DateTime)
+        date = local.Date(date.toLocal()).getWithTime();
 
       final cont = new cl.CLElement(new DivElement())
-        ..append(new SpanElement()..text = '$methodText')
+        ..append(new SpanElement()..text = methodText)
         ..append(new SpanElement()..text = date)
-        ..append(new SpanElement()..text = ', От:')
-        ..append(new SpanElement()..text = by);
+        ..append(new SpanElement()..text = ' ($by)');
       dom.append(cont.dom);
     }
   }

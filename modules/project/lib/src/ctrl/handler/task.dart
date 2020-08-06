@@ -15,8 +15,7 @@ class ITask extends base.Item<App, Task, int> {
     if (modifiedBy != null) {
       ret['doc_stamp_modified'] = {
         'by': modifiedBy.getRepresentation(),
-        'date':
-            DateFormat('dd/MM/yyyy HH:mm').format(task.date_modified.toLocal())
+        'date': task.date_modified.toString()
       };
     }
     ret['doc_stamp_created'] = {
