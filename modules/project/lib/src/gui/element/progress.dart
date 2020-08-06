@@ -44,6 +44,7 @@ class ProgressComponent extends cl_form.DataElement<int, SpanElement> {
 
   void setValue(int value) {
     bar.setPercents(value);
+    manageProgressStyle(value);
     super.setValue(value);
   }
 
@@ -53,5 +54,16 @@ class ProgressComponent extends cl_form.DataElement<int, SpanElement> {
 
   void enable() {
     group.enable();
+  }
+
+  void manageProgressStyle(int percentage) {
+    bar
+      ..removeClass('progress-20')
+      ..removeClass('progress-40')
+      ..removeClass('progress-60')
+      ..removeClass('progress-80')
+      ..removeClass('progress-100')
+      ..addClass('progress-$percentage')
+      ..setPercents(percentage);
   }
 }
