@@ -8,6 +8,7 @@ class ITask extends base.Item<App, Task, int> {
 
   Future<Map> doGet(int id) async {
     final task = await manager.app.task.find(id);
+    final taskMedia = await manager.app.taskMedia.findByAllByTaskId(id);
     final ret = task.toJson();
     final modifiedBy = await manager.app.user.find(task.modified_by);
     final createdBy = await manager.app.user.find(task.created_by);
@@ -23,6 +24,12 @@ class ITask extends base.Item<App, Task, int> {
       'date': task.date_created.toString()
     };
 
+    ret['files'] = [];
+    for (final el in taskMedia) {
+      ret['files']
+          .add({'source': el.source, 'task_media_id': el.task_media_id});
+    }
+
     return ret;
   }
 
@@ -35,6 +42,29 @@ class ITask extends base.Item<App, Task, int> {
         ..date_modified = DateTime.now();
       manager.addDirty(task);
     }
+    final gridData = data['files'];
+    final insert = gridData['insert'];
+    final update = gridData['update'];
+    final delete = gridData['delete'];
+
+    if (insert != null) {
+      for (final r in insert) {
+        await manager.persist();
+        await manager.app.taskMedia.prepare(null, r)
+          ..task_id = task.task_id;
+      }
+    }
+    if (update != null) {
+      for (final u in update) {
+        await manager.app.taskMedia.update(u);
+      }
+    }
+    if (delete != null) {
+      for (final r in delete) {
+        await manager.app.taskMedia.deleteById(r['task_media_id']);
+      }
+    }
+
     await manager.commit();
     return task.task_id;
   }

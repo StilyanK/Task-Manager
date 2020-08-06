@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "task"
     "title"         text        NOT NULL,
     "description"   text,
     "date_created"  timestamptz NOT NULL DEFAULT NOW(),
-    "date_modified" timestamptz ,
+    "date_modified" timestamptz,
     "created_by"    integer     NOT NULL,
     "assigned_to"   integer     NOT NULL,
     "modified_by"   integer,

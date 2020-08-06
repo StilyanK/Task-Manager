@@ -29,7 +29,7 @@ class FileContainer
     if (isImage(source)) {
       final img = new DivElement()
         ..innerHtml = '<a href="$p/$source" target="_blank">'
-            '<img src="${getImageSrc(p, source, 150, 150)}"></a>';
+            '<img src="${getImageSrc(p, source, 250, 250)}"></a>';
       container.append(img);
       //} else if (isPdf(source)) {
       //TODO
