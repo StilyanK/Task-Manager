@@ -14,7 +14,7 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true){
+  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true) {
     newTaskBtn = new cl_action.Button()
       ..addClass('attention')
       ..setStyle({'margin-left': 'auto'})
@@ -80,5 +80,8 @@ class TaskList extends base.Listing {
 
   void onEdit(dynamic id) => ap.run('task/item/$id');
 
-  void customRow(dynamic row, dynamic obj) {}
+  void customRow(dynamic row, dynamic obj) {
+    obj[entity.$Task.description] =
+        removeHtmlTags(obj[entity.$Task.description]);
+  }
 }

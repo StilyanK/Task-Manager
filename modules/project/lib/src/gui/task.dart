@@ -12,7 +12,6 @@ class TaskGui extends base.ItemBuilder {
     ..height = 800
     ..type = 'bound';
 
-
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
@@ -52,15 +51,18 @@ class TaskGui extends base.ItemBuilder {
       ..load()
       ..setName(entity.$Task.assigned_to)
       ..setRequired(true);
+//
+//    final description = new cl_form.TextArea()
+//      ..setName(entity.$Task.description);
 
-    final description = new cl_form.TextArea()
+    final description = new cl_form.Editor(ap,
+        options: cl_form.Editor.lightOptions(), showFooter: false)
       ..setName(entity.$Task.description);
 
     final docStampCreated = new DocumentStamp(0)..setName('doc_stamp_created');
 
     final docStampModified = new DocumentStamp(1)
       ..setName('doc_stamp_modified');
-
 
     final fileuploader = new cl_action.FileUploader(ap)
       ..setTitle('Attach')
