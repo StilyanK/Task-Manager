@@ -1,3 +1,11 @@
+CREATE TABLE IF NOT EXISTS "project"
+(
+    "project_id" SERIAL NOT NULL PRIMARY KEY,
+    "title"      text,
+    "from"       timestamptz,
+    "to"         timestamptz
+);
+
 CREATE TABLE IF NOT EXISTS "task"
 (
     "task_id"       SERIAL      NOT NULL PRIMARY KEY,
@@ -34,10 +42,3 @@ CREATE TABLE IF NOT EXISTS "task_media"
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS "project"
-(
-    "project_id" SERIAL NOT NULL PRIMARY KEY,
-    "title"      text,
-    "from"       timestamptz,
-    "to"         timestamptz
-);
