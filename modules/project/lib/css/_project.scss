@@ -1,1 +1,29 @@
-$card-background: #FFFFFF;
+.file-cont {
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin: $prem + rem;
+  .content {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    text-align: center;
+  }
+  .action {
+    margin-top: $prem + rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: $rem + rem;
+    .title {
+      flex: 1 1 auto;
+      text-align: center;
+      padding: 0 3 + rem;
+      word-break: break-all;
+    }
+    .ui-button {
+      position:absolute;
+      right: 0;
+    }
+  }
+}

@@ -12,7 +12,10 @@ import 'package:cl/gui.dart' as cl_gui;
 import 'package:cl_base/client.dart' as base;
 import 'package:communicator/client.dart';
 import 'package:icon/icon.dart' as icon;
+import 'package:auth/client.dart' as auth;
 import 'package:local/client.dart' as local;
+import 'package:cl/utils.dart' as cl_util;
+
 
 import 'entity.dart' as entity;
 import 'path.dart';
@@ -49,4 +52,9 @@ abstract class Icon {
   static const String PatientRecord = cl.Icon.format_list_bulleted;
 
   static const String DocComments = icon.Icon.writing;
+}
+
+String removeHtmlTags(String htmlString) {
+  final formattedString = htmlString.replaceAll(new RegExp(r'<[^>]*>'), '');
+  return formattedString;
 }

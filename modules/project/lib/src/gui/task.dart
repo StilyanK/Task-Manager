@@ -9,8 +9,7 @@ class TaskGui extends base.ItemBuilder {
     ..icon = Icon.Tasks
     ..title = 'Задача'
     ..width = 1100
-    ..height = 800
-    ..type = 'bound';
+    ..height = 800;
 
   TaskGui(app, {id}) : super(app, id);
 
@@ -51,8 +50,12 @@ class TaskGui extends base.ItemBuilder {
       ..load()
       ..setName(entity.$Task.assigned_to)
       ..setRequired(true);
+//
+//    final description = new cl_form.TextArea()
+//      ..setName(entity.$Task.description);
 
-    final description = new cl_form.TextArea()
+    final description = new cl_form.Editor(ap,
+        options: cl_form.Editor.lightOptions(), showFooter: false)
       ..setName(entity.$Task.description);
 
     final docStampCreated = new DocumentStamp(0)..setName('doc_stamp_created');

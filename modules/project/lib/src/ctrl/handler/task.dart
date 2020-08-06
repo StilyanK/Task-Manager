@@ -15,8 +15,7 @@ class ITask extends base.Item<App, Task, int> {
     if (modifiedBy != null) {
       ret['doc_stamp_modified'] = {
         'by': modifiedBy.getRepresentation(),
-        'date':
-            DateFormat('dd/MM/yyyy HH:mm').format(task.date_modified.toLocal())
+        'date': task.date_modified.toString()
       };
     }
     ret['doc_stamp_created'] = {
@@ -43,26 +42,11 @@ class ITask extends base.Item<App, Task, int> {
       manager.addDirty(task);
     }
     final gridData = data['files'];
-    final insert = gridData['insert'];
-    final update = gridData['update'];
-    final delete = gridData['delete'];
+    if (gridData != null) {
+      await manager.persist();
 
-    if (insert != null) {
-      for (final r in insert) {
-        await manager.persist();
-        await manager.app.taskMedia.prepare(null, r)
-          ..task_id = task.task_id;
-      }
-    }
-    if (update != null) {
-      for (final u in update) {
-        await manager.app.taskMedia.update(u);
-      }
-    }
-    if (delete != null) {
-      for (final r in delete) {
-        await manager.app.taskMedia.deleteById(r['task_media_id']);
-      }
+      await manager.app.taskMedia.crud(gridData.cast<String, List>(),
+          entity.$TaskMedia.task_id, task.task_id);
     }
 
     await manager.commit();
