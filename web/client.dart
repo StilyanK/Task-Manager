@@ -13,6 +13,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:project/client.dart' as project;
 
+import 'intl/messages_all.dart';
+
 Future<void> main() async {
   final settings = cl_app.AppSettings()
     ..desktopIcons = true
@@ -74,6 +76,7 @@ void initMain(Application ap) {
 Future initLocale(Application ap) async {
   final locale = ap.client.locale ?? Intl.getCurrentLocale();
   if (locale != 'en_US') {
+    await initializeMessages(locale.split('_').first);
     Intl.defaultLocale = locale;
     await initializeDateFormatting(locale, null);
   }
