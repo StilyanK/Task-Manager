@@ -18,7 +18,7 @@ class TaskList extends base.Listing {
     newTaskBtn = new cl_action.Button()
       ..addClass('attention')
       ..setStyle({'margin-left': 'auto'})
-      ..setTitle('Добавяне на задача')
+      ..setTitle('Добави задача')
       ..setIcon(cl.Icon.add)
       ..addAction((_) => new TaskGui(ap));
 
