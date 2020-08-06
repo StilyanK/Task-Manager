@@ -27,7 +27,6 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
-    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
@@ -44,11 +43,16 @@ class ITask extends base.Item<App, Task, int> {
     final data = await getData();
     final taskId = data['id'];
     final userId = data['user_id'];
+    final cardDate = DateTime.parse(data['date']);
     manager = await new Database().init(new App());
     if (taskId == null) return response(null);
     final task = await manager.app.task.find(taskId);
     if (task != null) {
-      if (task.assigned_to == userId) {
+      final dateCreated = new DateTime(task.date_created.year,
+          task.date_created.month, task.date_created.day);
+      final dateCreatedCheck = cardDate.isAfter(dateCreated) ||
+          cardDate.isAtSameMomentAs(dateCreated);
+      if (task.assigned_to == userId && dateCreatedCheck) {
         final dto = new TaskCardDTOSetter(task).setDto();
         return response(dto);
       } else {

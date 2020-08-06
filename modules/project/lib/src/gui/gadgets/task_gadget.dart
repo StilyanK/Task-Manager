@@ -36,6 +36,7 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
         {
           'id': id,
           'user_id': ap.client.userId,
+          'date': date.getValue(),
         },
         this);
     if (res != null) updateCard(new TaskDTO.fromMap(res));
