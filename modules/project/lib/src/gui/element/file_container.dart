@@ -4,22 +4,23 @@ class FileContainer
     extends cl_gui.FileContainerBase<cl_gui.FileAttach<FileContainer>> {
   cl.CLElement<AnchorElement> link;
   DivElement container;
+  SpanElement titleContainer;
   cl_action.Button del;
 
   FileContainer(parent) : super(parent) {
-    final cont = new DivElement()..className = 'file-cont';
+    addClass('file-cont');
 
-    container = new DivElement();
-    cont.append(container);
+    container = new DivElement()..className = 'content';
+    dom.append(container);
 
-    final contBottom = new DivElement();
+    final contBottom = new DivElement()
+      ..className = 'action'
+      ..append(titleContainer = new SpanElement()..className = 'title');
     del = new cl_action.Button()
       ..setIcon(cl.Icon.delete)
       ..addAction((e) => onDelete());
     contBottom.append(del.dom);
-    cont.append(contBottom);
-
-    append(cont);
+    dom.append(contBottom);
   }
 
   void setData(dynamic path, Map data) {
@@ -31,6 +32,7 @@ class FileContainer
         ..innerHtml = '<a href="$p/$source" target="_blank">'
             '<img src="${getImageSrc(p, source, 250, 250)}"></a>';
       container.append(img);
+      titleContainer.text = source;
       //} else if (isPdf(source)) {
       //TODO
     } else {

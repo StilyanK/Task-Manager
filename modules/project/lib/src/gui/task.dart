@@ -85,9 +85,6 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Описание', [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
-//      ..addRow('Модифициран от:', [modifiedBy]).addClass('col3')
-//      ..addRow('Модифициран на', [dateModified]).addClass('col3');
-
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
   }
