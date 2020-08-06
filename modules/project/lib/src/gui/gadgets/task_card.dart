@@ -147,7 +147,7 @@ String getShortText(String text) {
   if (text == null) return shortText;
   const int maxLen = 30;
   if (text.length > maxLen) {
-    shortText = text.substring(0, maxLen);
+    shortText = '${text.substring(0, maxLen)}...';
   } else {
     shortText = text;
   }
