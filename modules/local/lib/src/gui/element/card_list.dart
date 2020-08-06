@@ -94,6 +94,7 @@ abstract class CardListGadget<T, C extends Card>
 
   void update() {
     innerContainer.removeChilds();
+    cards = [];
     int k = 0;
     for (int i = contr.result.length; i > 0; i--) {
       final card = getCard(contr.result[i - 1])..createDom();
