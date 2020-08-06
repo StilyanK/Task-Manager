@@ -9,8 +9,7 @@ class TaskGui extends base.ItemBuilder {
     ..icon = Icon.Tasks
     ..title = 'Задача'
     ..width = 1100
-    ..height = 800
-    ..type = 'bound';
+    ..height = 800;
 
   TaskGui(app, {id}) : super(app, id);
 
