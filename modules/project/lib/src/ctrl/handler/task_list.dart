@@ -42,7 +42,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
               cardDate.isAtSameMomentAs(dateCreated);
           final dateDeadlineCheck = cardDate.isBefore(dateDeadline) ||
               cardDate.isAtSameMomentAs(dateDeadline);
-          if (dateCreatedCheck && dateDeadlineCheck) {
+          if (dateCreatedCheck) {
             final dto = new TaskCardDTOSetter(o).setDto();
             resData.add(dto);
           }
