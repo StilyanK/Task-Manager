@@ -18,11 +18,11 @@ CREATE TABLE IF NOT EXISTS "task"
 
 CREATE TABLE IF NOT EXISTS "task_comment"
 (
-    "task_comment" SERIAL      NOT NULL PRIMARY KEY,
-    "task_id"      integer     NOT NULL,
-    "user_id"      integer     NOT NULL,
-    "comment"      text        NOT NULL,
-    "date_created" timestamptz NOT NULL DEFAULT NOW()
+    "task_comment_id" SERIAL      NOT NULL PRIMARY KEY,
+    "task_id"         integer     NOT NULL,
+    "user_id"         integer     NOT NULL,
+    "comment"         text        NOT NULL,
+    "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS "task_media"
