@@ -17,11 +17,15 @@ class ProjectList extends base.Listing {
   ProjectList(ap, [bool autoload = true])
       : super(ap, autoload: autoload ?? true) {
     newProject = new cl_action.Button()
-      ..addClass('attention')
+      ..addClass('important')
       ..setStyle({'margin-left': 'auto'})
       ..setTitle('Добави проект')
       ..setIcon(cl.Icon.add)
       ..addAction((_) => new Project(ap));
+
+    registerServerListener(RoutesProject.eventCreate, debounceGet);
+    registerServerListener(RoutesProject.eventUpdate, debounceInRangeGet);
+    registerServerListener(RoutesProject.eventDelete, debounceInRangeGet);
 
     listButtonsContainer = new cl.Container()..append(newProject);
 
@@ -34,14 +38,10 @@ class ProjectList extends base.Listing {
         new cl_form.GridColumn(entity.$Project.to)..title = 'До'
       ];
 
-
-
-
   void onEdit(dynamic id) => ap.run('project/item/$id');
 
   void customRow(dynamic row, dynamic obj) {}
 }
-
 
 class ProjectListChoose extends ProjectList {
   String mode = base.Listing.MODE_CHOOSE;

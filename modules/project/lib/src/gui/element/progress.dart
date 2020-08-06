@@ -1,12 +1,11 @@
 part of project.gui;
 
 class ProgressComponent extends cl_form.DataElement<int, SpanElement> {
-  cl_app.Application<auth.Client> ap;
   cl_chart.BarSmall bar;
   cl_action.ButtonOption group;
   final List options = [0, 20, 40, 60, 80, 100];
 
-  ProgressComponent(this.ap) : super() {
+  ProgressComponent() : super() {
     dom = new SpanElement();
     addClass('ui-progress');
     bar = new cl_chart.BarSmall(100)..setPercents(0);

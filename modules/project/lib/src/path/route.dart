@@ -18,15 +18,9 @@ class RoutesTask {
   static UrlPattern get collectionPair =>
       new UrlPattern(r'/task/collection/pair');
 
-  static const String eventCreate = '${Group.Document}:${Scope.Doctor}:create';
-  static const String eventUpdate = '${Group.Document}:${Scope.Doctor}:update';
-  static const String eventDelete = '${Group.Document}:${Scope.Doctor}:delete';
-}
-
-class RoutesGadget {
-  static UrlPattern get cardInfo => UrlPattern('task/card/info');
-
-  static UrlPattern get updateCard => UrlPattern('task/card/update');
+  static const String eventCreate = '${Group.Project}:${Scope.Task}:create';
+  static const String eventUpdate = '${Group.Project}:${Scope.Task}:update';
+  static const String eventDelete = '${Group.Project}:${Scope.Task}:delete';
 }
 
 class RoutesProject {
@@ -43,4 +37,14 @@ class RoutesProject {
 
   static UrlPattern get collectionSuggest =>
       UrlPattern('project/collection/suggest');
+
+  static const String eventCreate = '${Group.Project}:${Scope.Project}:create';
+  static const String eventUpdate = '${Group.Project}:${Scope.Project}:update';
+  static const String eventDelete = '${Group.Project}:${Scope.Project}:delete';
+}
+
+class RoutesGadget {
+  static UrlPattern get cardInfo => UrlPattern('task/card/info');
+
+  static UrlPattern get updateCard => UrlPattern('task/card/update');
 }

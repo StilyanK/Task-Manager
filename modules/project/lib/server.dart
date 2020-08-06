@@ -13,35 +13,8 @@ export 'src/ctrl.dart';
 export 'src/path.dart';
 
 void registerPermissions() {
-  base.permissionRegisterStandardPack(Group.Document, Scope.Doctor);
-  base.permissionRegister(
-      Group.Document, Scope.Doctor, [base.$RunRights.read], true);
-  base.permissionRegisterStandardPack(Group.Document, Scope.Patient);
-  base.permissionRegister(
-      Group.Document, Scope.Patient, [base.$RunRights.read], true);
-  base.permissionRegisterStandardPack(Group.Document, Scope.PatientRecord);
-  base.permissionRegister(
-      Group.Document, Scope.PatientRecord, [base.$RunRights.read], true);
-
-  ///Extra rights needed for doctors and etc
-  base.permissionRegister(
-      Group.Document,
-      Scope.PatientRecord,
-      [
-        Right.document_check,
-        Right.file_comment,
-        Right.commission_check,
-        Right.make_decision,
-        Right.see_all
-      ],
-      false);
-
-  base.permissionRegisterStandardPack(Group.Document, Scope.Commission);
-  base.permissionRegister(
-      Group.Document, Scope.Commission, [base.$RunRights.read], true);
-  base.permissionRegisterStandardPack(Group.Document, Scope.Disease);
-  base.permissionRegister(
-      Group.Document, Scope.Disease, [base.$RunRights.read], true);
+  base.permissionRegisterStandardPack(Group.Project, Scope.Project);
+  base.permissionRegisterStandardPack(Group.Project, Scope.Task);
 }
 
 Future<void> init() async {
@@ -57,6 +30,12 @@ Future<void> init() async {
   notifierTask.onDelete
       .listen((o) => base.sendEvent(RoutesTask.eventDelete, o.entity.task_id));
 
+  notifierProject.onCreate.listen(
+      (o) => base.sendEvent(RoutesProject.eventCreate, o.entity.project_id));
+  notifierProject.onUpdate.listen(
+      (o) => base.sendEvent(RoutesProject.eventUpdate, o.entity.project_id));
+  notifierProject.onDelete.listen(
+      (o) => base.sendEvent(RoutesProject.eventDelete, o.entity.project_id));
 
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
@@ -70,15 +49,15 @@ Future<void> init() async {
       if (event.isInserted) {
         subject = 'Имате нова задача!';
         text =
-        '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
+            '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-        '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
+            '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-        '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
+            '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
       }
 
       if (user != null && user.mail != null) {
@@ -99,5 +78,4 @@ Future<void> init() async {
       }
     });
   });
-
 }

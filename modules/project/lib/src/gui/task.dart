@@ -39,7 +39,7 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.priority)
       ..setRequired(true);
 
-    final bar = new ProgressComponent(ap)..setName(entity.$Task.progress);
+    final bar = new ProgressComponent()..setName(entity.$Task.progress);
 
     final status = new SelectTaskStatus()
       ..setName(entity.$Task.status)
