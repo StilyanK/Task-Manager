@@ -46,6 +46,10 @@ void routesProject(Router router) {
   router
       .serve(RoutesProject.collectionDelete, method: 'POST')
       .listen((req) => new CProject(req).delete());
+
+  router
+      .serve(RoutesProject.collectionSuggest, method: 'POST')
+      .listen((req) => new IProject(req).suggest());
 }
 
 

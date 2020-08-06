@@ -74,6 +74,8 @@ class TaskGui extends base.ItemBuilder {
         (p) => new FileContainer(p))
       ..setName('files');
 
+    final inputProject = new InputProject(ap);
+
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
@@ -82,6 +84,7 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
       ..addRow('Описание', [description]).addClass('col6')
+      ..addRow('Проект', [inputProject]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);

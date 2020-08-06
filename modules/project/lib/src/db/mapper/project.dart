@@ -17,6 +17,15 @@ class ProjectMapper extends Mapper<Project, ProjectCollection, App> {
 //        ..andWhere('${entity.$Task.assigned_to} = @p2')
 //        ..setParameter('p1', TaskStatus.Done)
 //        ..setParameter('p2', user));
+
+  Future<ProjectCollection> findBySuggestion(String title) {
+    final q = selectBuilder('project.*')
+      ..where('title ILIKE @p1')
+      ..setParameter('p1', '%$title%');
+
+    return loadC(q);
+  }
+
 }
 
 class Project extends entity.Project with Entity<App> {}

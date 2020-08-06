@@ -29,25 +29,29 @@ class ProjectList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
-//    new cl_form.GridColumn(entity.$Task.date_created)
-//      ..title = 'Дата на създаване'
-//      ..sortable = true
-//      ..filter =
-//      (new cl_form.InputDateRange()..setName(entity.$Task.date_created))
-//      ..type = (grid, row, cell, object) =>
-//      new local.DateTimeCell(grid, row, cell, object),
-//    new cl_form.GridColumn(entity.$Task.assigned_to)
-//      ..title = 'Поел'
-//      ..filter = (new MultiSelectUser(ap, [null, 'All'])
-//        ..setName(entity.$Task.assigned_to)
-//        ..load())
-//      ..sortable = true,
-//    new cl_form.GridColumn(entity.$Task.title)
-//      ..title = 'Заглавие'
-//      ..filter = (new cl_form.Input()..setName(entity.$Task.title)),
+        new cl_form.GridColumn(entity.$Project.title)..title = 'Име на проект',
+        new cl_form.GridColumn(entity.$Project.from)..title = 'От',
+        new cl_form.GridColumn(entity.$Project.to)..title = 'До'
       ];
+
+
+
 
   void onEdit(dynamic id) => ap.run('project/item/$id');
 
   void customRow(dynamic row, dynamic obj) {}
+}
+
+
+class ProjectListChoose extends ProjectList {
+  String mode = base.Listing.MODE_CHOOSE;
+
+  void Function(Map) callback;
+
+  ProjectListChoose(this.callback, ap) : super(ap);
+
+  void onClick(TableRowElement row) {
+    callback(gridList.grid.rowToMap(row));
+    wapi.close();
+  }
 }

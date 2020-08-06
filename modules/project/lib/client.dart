@@ -1,9 +1,10 @@
 import 'package:cl/app.dart' as cl_app;
+
 import 'src/gui.dart';
+
 export 'src/gui.dart';
 export 'src/path.dart';
 export 'src/permission.dart';
-
 
 abstract class MenuItem {
   static final cl_app.MenuElement CreatTask = cl_app.MenuElement()
@@ -17,16 +18,21 @@ abstract class MenuItem {
   static final cl_app.MenuElement Settings = cl_app.MenuElement()
     ..title = 'Настройки'
     ..icon = Icon.Settings;
-  static final cl_app.MenuElement createProject = cl_app.MenuElement()
+  static final cl_app.MenuElement CreateProject = cl_app.MenuElement()
     ..title = 'Създай проект'
     ..icon = Icon.Settings
-    ..action = (ap) => ap.run('create-project/0');
+    ..action = (ap) => ap.run('project/item/0');
+  static final cl_app.MenuElement ProjectList = cl_app.MenuElement()
+    ..title = 'Списък проекти'
+    ..icon = Icon.Tasks
+    ..action = (ap) => ap.run('project/list');
 }
 
 void init(cl_app.Application ap) {
   ap
     ..addRoute(cl_app.Route('task/item/:int', (ap, p) => TaskGui(ap, id: p[0])))
     ..addRoute(cl_app.Route('task/list', (ap, p) => TaskList(ap)))
-    ..addRoute(cl_app.Route('create-project/:int', (ap, p) => Project(ap)));
-
+    ..addRoute(
+        cl_app.Route('project/item/:int', (ap, p) => Project(ap, id: p[0])))
+    ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
 }
