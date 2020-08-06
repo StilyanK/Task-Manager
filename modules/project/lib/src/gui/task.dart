@@ -47,9 +47,6 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.deadline)
       ..setRequired(true)
       ..addValidationOnValue((v) {
-        final now = new DateTime.now();
-        if (v.isAfter(now) || v.isAtSameMomentAs(now)) return true;
-        return false;
       });
 
     final assignedTo = new SelectUser(ap)
@@ -78,6 +75,9 @@ class TaskGui extends base.ItemBuilder {
       ..setName('files');
 
     final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
+
+    final bar = new cl_chart.BarSmall(100)
+      ..setPercents(0);
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
