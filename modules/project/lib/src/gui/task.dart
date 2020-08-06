@@ -45,12 +45,7 @@ class TaskGui extends base.ItemBuilder {
 
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
-      ..setRequired(true)
-      ..addValidationOnValue((v) {
-        final now = new DateTime.now();
-        if (v.isAfter(now) || v.isAtSameMomentAs(now)) return true;
-        return false;
-      });
+      ..setRequired(true);
 
     final assignedTo = new SelectUser(ap)
       ..load()
@@ -79,6 +74,9 @@ class TaskGui extends base.ItemBuilder {
 
     final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
 
+    final bar = new cl_chart.BarSmall(100)
+      ..setPercents(0);
+
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
@@ -87,6 +85,7 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Краен срок', [deadline]).addClass('col2')
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
+      ..addRow('Описание', [bar]).addClass('col6')
       ..addRow('Описание', [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
