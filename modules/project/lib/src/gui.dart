@@ -30,7 +30,6 @@ part 'gui/element/select_task_priority.dart';
 part 'gui/element/select_task_status.dart';
 part 'gui/element/select_user.dart';
 part 'gui/element/task_status_cell.dart';
-part 'gui/element/description.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/task.dart';
