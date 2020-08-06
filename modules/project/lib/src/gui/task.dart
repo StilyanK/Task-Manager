@@ -44,7 +44,12 @@ class TaskGui extends base.ItemBuilder {
 
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
-      ..setRequired(true);
+      ..setRequired(true)
+      ..addValidationOnValue((v) {
+        final now = new DateTime.now();
+        if (v.isAfter(now) || v.isAtSameMomentAs(now)) return true;
+        return false;
+      });
 
     final assignedTo = new SelectUser(ap)
       ..load()
