@@ -48,6 +48,7 @@ Future<void> init() async {
   registerPermissions();
   base.routes.add(routesTask);
   base.routes.add(routesGadget);
+  base.routes.add(routesProject);
 
   notifierTask.onCreate
       .listen((o) => base.sendEvent(RoutesTask.eventCreate, o.entity.task_id));

@@ -15,5 +15,7 @@ import 'shared.dart';
 import 'svc.dart';
 
 part 'ctrl/handler/task.dart';
+part 'ctrl/handler/project.dart';
+part 'ctrl/handler/project_list.dart';
 part 'ctrl/handler/task_list.dart';
 part 'ctrl/route.dart';

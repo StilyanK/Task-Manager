@@ -30,7 +30,9 @@ part 'gui/element/task_status_cell.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/task.dart';
+part 'gui/project.dart';
 part 'gui/task_list.dart';
+part 'gui/project_list.dart';
 
 abstract class Icon {
   static const String Tasks = cl.Icon.message;

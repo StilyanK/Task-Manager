@@ -10,7 +10,10 @@ import 'package:path/path.dart';
 import 'entity.dart' as entity;
 import 'shared.dart';
 
+part 'db/mapper/project.dart';
+
 part 'db/mapper/task.dart';
+
 part 'db/mapper/task_media.dart';
 
 mixin AppMixin {
@@ -24,6 +27,10 @@ mixin AppMixin {
   TaskMediaMapper get taskMedia => TaskMediaMapper(m.convert(App()))
     ..entity = (() => TaskMedia())
     ..collection = () => TaskMediaCollection();
+
+  ProjectMapper get project => ProjectMapper(m.convert(App()))
+    ..entity = (() => Project())
+    ..collection = () => ProjectCollection();
 }
 
 class App extends Application with AppMixin, base.AppMixin, auth.AppMixin {}
