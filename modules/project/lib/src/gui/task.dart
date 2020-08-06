@@ -74,8 +74,7 @@ class TaskGui extends base.ItemBuilder {
 
     final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
 
-    final bar = new cl_chart.BarSmall(100)
-      ..setPercents(0);
+    final bar = new ProgressComponent(ap)..setName(entity.$Task.progress);
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
@@ -83,9 +82,9 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Проект', [inputProject]).addClass('col2')
       ..addRow('Да се поеме от', [assignedTo]).addClass('col2')
       ..addRow('Краен срок', [deadline]).addClass('col2')
-      ..addRow('Приоритет', [priority]).addClass('col3')
-      ..addRow('Статус', [status]).addClass('col3')
-      ..addRow('Описание', [bar]).addClass('col6')
+      ..addRow('Приоритет', [priority]).addClass('col2')
+      ..addRow('Статус', [status]).addClass('col2')
+      ..addRow('Прогрес', [bar]).addClass('col2')
       ..addRow('Описание', [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
