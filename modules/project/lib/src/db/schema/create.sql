@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS "task"
     "assigned_to"   integer     NOT NULL,
     "modified_by"   integer,
     "progress"      integer,
-    "deadline"      timestamptz NOT NULL DEFAULT NOW()
+    "deadline"      timestamptz NOT NULL DEFAULT NOW(),
+    "project_id"    int
 );
 
 CREATE TABLE IF NOT EXISTS "task_comment"

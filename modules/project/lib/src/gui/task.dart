@@ -15,6 +15,8 @@ class TaskGui extends base.ItemBuilder {
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
+    form.getElement(entity.$Task.title).focus();
+
   }
 
   Future setData() async {
@@ -55,9 +57,6 @@ class TaskGui extends base.ItemBuilder {
       ..load()
       ..setName(entity.$Task.assigned_to)
       ..setRequired(true);
-//
-//    final description = new cl_form.TextArea()
-//      ..setName(entity.$Task.description);
 
     final description = new cl_form.Editor(ap,
         options: cl_form.Editor.lightOptions(), showFooter: false)
@@ -79,17 +78,17 @@ class TaskGui extends base.ItemBuilder {
         (p) => new FileContainer(p))
       ..setName('files');
 
-    final inputProject = new InputProject(ap);
+    final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
-      ..addRow('Да се поеме от', [assignedTo]).addClass('col3')
-      ..addRow('Краен срок', [deadline]).addClass('col3')
+      ..addRow('Проект', [inputProject]).addClass('col2')
+      ..addRow('Да се поеме от', [assignedTo]).addClass('col2')
+      ..addRow('Краен срок', [deadline]).addClass('col2')
       ..addRow('Приоритет', [priority]).addClass('col3')
       ..addRow('Статус', [status]).addClass('col3')
       ..addRow('Описание', [description]).addClass('col6')
-      ..addRow('Проект', [inputProject]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
