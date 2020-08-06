@@ -21,13 +21,13 @@ abstract class MenuItem {
   static final cl_app.MenuElement createProject = cl_app.MenuElement()
     ..title = 'Създай проект'
     ..icon = Icon.Settings
-    ..action = (ap) => ap.run('create-project/list');
+    ..action = (ap) => ap.run('create-project/:int');
 }
 
 void init(cl_app.Application ap) {
   ap
     ..addRoute(cl_app.Route('task/item/:int', (ap, p) => TaskGui(ap, id: p[0])))
     ..addRoute(cl_app.Route('task/list', (ap, p) => TaskList(ap)))
-    ..addRoute(cl_app.Route('create-project/:int', (ap, p) => CreateProject(ap)));
+    ..addRoute(cl_app.Route('create-project/:int', (ap, p) => TaskList(ap)));
 
 }

@@ -12,7 +12,6 @@ import 'package:communicator/client.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:project/client.dart' as project;
-import 'package:local/client.dart' as local;
 
 Future<void> main() async {
   final settings = cl_app.AppSettings()
@@ -57,7 +56,9 @@ void initMain(Application ap) {
     ..setMenu([
       project.MenuItem.CreatTask..desktop = true,
       project.MenuItem.TaskList..desktop = true,
-      project.MenuItem.Settings..desktop = true..addChild(createProject),
+      project.MenuItem.Settings
+        ..desktop = true
+        ..addChild(project.MenuItem.createProject),
     ])
     ..done();
 
