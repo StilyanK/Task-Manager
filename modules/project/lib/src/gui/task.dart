@@ -64,7 +64,9 @@ class TaskGui extends base.ItemBuilder {
       ..setRequired(true);
 
     final description = new cl_form.Editor(ap,
-        options: cl_form.Editor.lightOptions(), showFooter: false)
+        options: cl_form.Editor.lightOptions()
+          ..add(cl_form.EditorOptions().fullscreen),
+        showFooter: false)
       ..setName(entity.$Task.description);
 
     final docStampCreated = new DocumentStamp(0)..setName('doc_stamp_created');
@@ -99,24 +101,5 @@ class TaskGui extends base.ItemBuilder {
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
-  }
-
-  void setActions() {
-    super.setActions();
-    menu
-      ..remove('clear')
-      ..remove('del')
-      ..add(new cl_action.Button()
-        ..setName('del')
-        ..setState(false)
-        ..setTitle('Изтрий')
-        ..setIcon(cl.Icon.delete)
-        ..setStyle({'margin-left': 'auto'})
-        ..addClass('warning')
-        ..addAction((e) => del()));
-  }
-
-  void setMenuState(bool way) {
-    super.setMenuState(way);
   }
 }

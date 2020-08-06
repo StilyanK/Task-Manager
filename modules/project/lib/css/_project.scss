@@ -93,32 +93,32 @@
   }
 }
 
-.progress-20 {
-  & > div {
-    background-color: #b0c4f3;
-  }
-}
+.ui-progress {
 
-.progress-40 {
-  & > div {
-    background-color: #7b99e2;
+  .progress {
+    display: flex;
+    & > div {
+      background: $page-background;
+      & > div {
+        background-color: $color6;
+      }
+    }
   }
-}
-
-.progress-60 {
-  & > div {
-    background-color: #537ce3;
+  .progress-0 {
+    span {
+      color: $base-color;
+    }
   }
-}
 
-.progress-80 {
-  & > div {
-    background-color: #2d5fde;
+  .progress-20 {
+    span {
+      color: $base-color;
+    }
   }
-}
 
-.progress-100 {
-  & > div {
-    background-color: #0445e7;
+  .progress-40 {
+    span {
+      color: $base-color;
+    }
   }
 }

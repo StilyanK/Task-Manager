@@ -39,22 +39,4 @@ class Project extends base.ItemBuilder {
     layout.contInner.activeTab(mainTab);
   }
 
-  void setActions() {
-    super.setActions();
-    menu
-      ..remove('clear')
-      ..remove('del')
-      ..add(new cl_action.Button()
-        ..setName('del')
-        ..setState(false)
-        ..setTitle('Изтрий')
-        ..setIcon(cl.Icon.delete)
-        ..setStyle({'margin-left': 'auto'})
-        ..addClass('warning')
-        ..addAction((e) => del()));
-  }
-
-  void setMenuState(bool way) {
-    super.setMenuState(way);
-  }
 }
