@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS "task"
     "modified_by"   integer,
     "progress"      integer,
     "deadline"      timestamptz NOT NULL DEFAULT NOW(),
-    "project_id"    int
+    "project_id"    int REFERENCES "project" (project_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "task_comment"
 (
     "task_comment_id" SERIAL      NOT NULL PRIMARY KEY,
-    "task_id"         integer     NOT NULL,
+    "task_id"         integer     NOT NULL REFERENCES "task" (task_id) ON DELETE CASCADE,
     "user_id"         integer     NOT NULL,
     "comment"         text        NOT NULL,
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS "task_comment"
 CREATE TABLE IF NOT EXISTS "task_media"
 (
     "task_media_id"   SERIAL      NOT NULL PRIMARY KEY,
-    "task_id"         integer,
-    "task_comment_id" integer,
+    "task_id"         integer REFERENCES "task" (task_id) ON DELETE CASCADE,
+    "task_comment_id" integer REFERENCES "task_comment" (task_comment_id) ON DELETE CASCADE,
     "source"          text,
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );
