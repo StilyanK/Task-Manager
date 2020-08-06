@@ -50,9 +50,6 @@ class TaskGui extends base.ItemBuilder {
       ..load()
       ..setName(entity.$Task.assigned_to)
       ..setRequired(true);
-//
-//    final description = new cl_form.TextArea()
-//      ..setName(entity.$Task.description);
 
     final description = new cl_form.Editor(ap,
         options: cl_form.Editor.lightOptions(), showFooter: false)
