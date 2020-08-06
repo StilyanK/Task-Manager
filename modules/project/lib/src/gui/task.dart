@@ -16,7 +16,6 @@ class TaskGui extends base.ItemBuilder {
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
     form.getElement(entity.$Task.title).focus();
-
   }
 
   Future setData() async {
@@ -63,7 +62,7 @@ class TaskGui extends base.ItemBuilder {
       ..setName('doc_stamp_modified');
 
     final fileuploader = new cl_action.FileUploader(ap)
-      ..setTitle('Attach')
+      ..setTitle('Прикачи')
       ..setIcon(cl.Icon.attach_file);
 
     final fu = new cl_gui.FileAttach<FileContainer>(

@@ -7,10 +7,6 @@ export 'src/path.dart';
 export 'src/permission.dart';
 
 abstract class MenuItem {
-  static final cl_app.MenuElement CreatTask = cl_app.MenuElement()
-    ..title = 'Добави задача'
-    ..icon = Icon.DocComments
-    ..action = (ap) => ap.run('task/item/0');
   static final cl_app.MenuElement TaskList = cl_app.MenuElement()
     ..title = 'Задачи'
     ..icon = Icon.Tasks
@@ -18,13 +14,9 @@ abstract class MenuItem {
   static final cl_app.MenuElement Settings = cl_app.MenuElement()
     ..title = 'Настройки'
     ..icon = Icon.Settings;
-  static final cl_app.MenuElement CreateProject = cl_app.MenuElement()
-    ..title = 'Създай проект'
-    ..icon = Icon.Settings
-    ..action = (ap) => ap.run('project/item/0');
   static final cl_app.MenuElement ProjectList = cl_app.MenuElement()
-    ..title = 'Списък проекти'
-    ..icon = Icon.Tasks
+    ..title = 'Проекти'
+    ..icon = Icon.DocComments
     ..action = (ap) => ap.run('project/list');
 }
 

@@ -49,17 +49,13 @@ Future<void> main() async {
 void initMain(Application ap) {
   ap
     ..setMenu([
-      auth.MenuItem.UserMain,
-      auth.MenuItem.Users,
-      auth.MenuItem.Groups,
+      project.MenuItem.ProjectList..desktop = true,
+      project.MenuItem.TaskList..desktop = true,
     ])
     ..setMenu([
-      project.MenuItem.CreatTask..desktop = true,
-      project.MenuItem.TaskList..desktop = true,
       project.MenuItem.Settings
-        ..desktop = true
-        ..addChild(project.MenuItem.CreateProject)
-        ..addChild(project.MenuItem.ProjectList),
+        ..addChild(auth.MenuItem.Users)
+        ..addChild(auth.MenuItem.Groups)
     ])
     ..done();
 

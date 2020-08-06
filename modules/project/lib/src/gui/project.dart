@@ -14,7 +14,9 @@ class Project extends base.ItemBuilder {
 
   Project(app, {id}) : super(app, id);
 
-  Future<void> setDefaults() async {}
+  Future<void> setDefaults() async {
+    form.getElement(entity.$Project.title).focus();
+  }
 
   Future setData() async {
     if (data_response != null) {
