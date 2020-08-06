@@ -9,8 +9,7 @@ class Project extends base.ItemBuilder {
     ..icon = Icon.User
     ..title = 'Проект'
     ..width = 1100
-    ..height = 800
-    ..type = 'bound';
+    ..height = 800;
 
   Project(app, {id}) : super(app, id);
 
