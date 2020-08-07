@@ -15,6 +15,7 @@ abstract class $Task {
   static const String description = 'description';
   static const String date_created = 'date_created';
   static const String date_modified = 'date_modified';
+  static const String date_done = 'date_done';
   static const String created_by = 'created_by';
   static const String assigned_to = 'assigned_to';
   static const String modified_by = 'modified_by';
@@ -36,6 +37,9 @@ void _$TaskFromMap(Task obj, Map data) => obj
   ..date_modified = data[$Task.date_modified] is String
       ? DateTime.tryParse(data[$Task.date_modified])
       : data[$Task.date_modified]
+  ..date_done = data[$Task.date_done] is String
+      ? DateTime.tryParse(data[$Task.date_done])
+      : data[$Task.date_done]
   ..created_by = data[$Task.created_by]
   ..assigned_to = data[$Task.assigned_to]
   ..modified_by = data[$Task.modified_by]
@@ -57,6 +61,8 @@ Map<String, dynamic> _$TaskToMap(Task obj, [asJson = false]) =>
           asJson ? obj.date_created?.toIso8601String() : obj.date_created,
       $Task.date_modified:
           asJson ? obj.date_modified?.toIso8601String() : obj.date_modified,
+      $Task.date_done:
+          asJson ? obj.date_done?.toIso8601String() : obj.date_done,
       $Task.created_by: obj.created_by,
       $Task.assigned_to: obj.assigned_to,
       $Task.modified_by: obj.modified_by,
