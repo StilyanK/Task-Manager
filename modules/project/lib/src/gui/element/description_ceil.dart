@@ -12,9 +12,13 @@ class DescriptionCeil extends cl_form.RowDataCell<String> {
     } else {
       cell.append(new SpanElement()..text = object);
     }
-    new cl_app.BubbleVisualizer(new cl.CLElement(cell), () async {
-      final c = new DivElement()..text = object;
-      return c;
-    });
+
+    if (object != null && object.isNotEmpty) {
+      new cl_app.BubbleVisualizer(new cl.CLElement(cell), () async {
+        final c = new DivElement()
+          ..text = object;
+        return c;
+      });
+    }
   }
 }
