@@ -59,10 +59,7 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.deadline)
       ..setRequired(true);
 
-    final dateDone = new cl_form.InputDate()
-      ..setName(entity.$Task.date_done)
-      ..disable();
-
+    final dateDone = new cl_form.InputDate()..setName(entity.$Task.date_done);
     final assignedTo = new SelectUser(ap)
       ..load()
       ..setName(entity.$Task.assigned_to)
