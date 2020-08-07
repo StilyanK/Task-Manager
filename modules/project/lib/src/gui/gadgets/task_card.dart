@@ -30,7 +30,7 @@ class CardTask extends local.Card<TaskDTO> {
     setHover(nameCont, rCard.title);
     setHover(description, removeHtmlTags(rCard.description));
 
-    final endDate = local.Date(rCard.deadLine).getWithTime().toString();
+    final endDate = local.Date(rCard.deadLine).get().toString();
     final dateCreated = new cl.CLElement(new SpanElement())
       ..setClass('date-format')
       ..setText(endDate);
@@ -61,10 +61,6 @@ class CardTask extends local.Card<TaskDTO> {
     });
 
     setHover(dateContent, 'Дата за завършване');
-
-    final cl_action.ButtonOption group = new cl_action.ButtonOption()
-      ..setIcon(cl.Icon.print)
-      ..addAction<Event>((e) => e.stopPropagation());
 
     actionCont.append(statusSelect);
 

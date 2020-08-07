@@ -34,8 +34,14 @@ class ProjectList extends base.Listing {
 
   List<cl_form.GridColumn> initHeader() => [
         new cl_form.GridColumn(entity.$Project.title)..title = 'Име на проект',
-        new cl_form.GridColumn(entity.$Project.from)..title = 'От',
-        new cl_form.GridColumn(entity.$Project.to)..title = 'До'
+        new cl_form.GridColumn(entity.$Project.from)
+          ..title = 'От'
+          ..type = (grid, row, cell, object) =>
+              new local.DateTimeCell(grid, row, cell, object),
+        new cl_form.GridColumn(entity.$Project.to)
+          ..title = 'До'
+          ..type = (grid, row, cell, object) =>
+              new local.DateTimeCell(grid, row, cell, object),
       ];
 
   void onEdit(dynamic id) => ap.run('project/item/$id');
