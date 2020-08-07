@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "task"
     "created_by"    integer     NOT NULL,
     "assigned_to"   integer     NOT NULL,
     "modified_by"   integer,
-    "progress"      integer,
+    "progress"      integer     NOT NULL DEFAULT 0,
     "deadline"      timestamptz NOT NULL DEFAULT NOW(),
     "project_id"    int         NOT NULL REFERENCES "project" (project_id) ON DELETE CASCADE
 );

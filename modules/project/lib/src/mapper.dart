@@ -11,28 +11,28 @@ import 'entity.dart' as entity;
 import 'shared.dart';
 
 part 'db/mapper/project.dart';
-
 part 'db/mapper/task.dart';
-
 part 'db/mapper/task_media.dart';
 
 mixin AppMixin {
   Manager m;
 
-  TaskMapper get task => TaskMapper(m.convert(App()))
+  TaskMapper get task => TaskMapper(m.convert(new App()))
     ..notifier = notifierTask
-    ..entity = (() => Task())
-    ..collection = () => TaskCollection();
+    ..entity = (() => new Task())
+    ..collection = () => new TaskCollection();
 
-  TaskMediaMapper get taskMedia => TaskMediaMapper(m.convert(App()))
-    ..entity = (() => TaskMedia())
-    ..collection = () => TaskMediaCollection();
+  TaskMediaMapper get taskMedia => new TaskMediaMapper(m.convert(new App()))
+    ..entity = (() => new TaskMedia())
+    ..collection = () => new TaskMediaCollection();
 
-  ProjectMapper get project => ProjectMapper(m.convert(App()))
-    ..entity = (() => Project())
-    ..collection = () => ProjectCollection();
+  ProjectMapper get project => new ProjectMapper(m.convert(new App()))
+    ..notifier = notifierProject
+    ..entity = (() => new Project())
+    ..collection = () => new ProjectCollection();
 }
 
 class App extends Application with AppMixin, base.AppMixin, auth.AppMixin {}
 
 EntityNotifier<Task> notifierTask = new EntityNotifier<Task>();
+EntityNotifier<Project> notifierProject = new EntityNotifier<Project>();

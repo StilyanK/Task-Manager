@@ -1,8 +1,8 @@
 part of project.ctrl;
 
 class CProject extends base.Collection<App, Project, int> {
-  final String group = Group.Task;
-  final String scope = Scope.Task;
+  final String group = Group.Project;
+  final String scope = Scope.Project;
 
   CProject(req) : super(req, new App());
 

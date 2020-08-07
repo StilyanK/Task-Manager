@@ -56,10 +56,9 @@ class IUser extends base.Item<App, User, int> {
   Future settingsSave() => run(null, null, null, () async {
         manager = await Database().init(App());
         final sd = SettingsDTO.fromMap(await getData());
-        final user = await manager.app.user
-            .find(UserSessionDTO.fromMap(req.session['client']).user_id)
-          ..settings = sd.settings;
-        await manager.app.user.update(user);
+        final userSession = UserSessionDTO.fromMap(req.session['client']);
+        userSession.settings.addAll(sd.settings);
+        await new UserService(manager).updateUserSession(userSession);
         return response(true);
       });
 
@@ -69,8 +68,7 @@ class IUser extends base.Item<App, User, int> {
         final pd = PasswordDTO.fromMap(await getData());
         manager = await Database().init(App());
         final e = await manager.app.user.find(pd.id);
-        if (UserSessionDTO.fromMap(req.session['client']).user_id ==
-                pd.id ||
+        if (UserSessionDTO.fromMap(req.session['client']).user_id == pd.id ||
             base.permissionCheck(req.session, group, scope, 'update')) {
           e.password = e.getPassword(pd.password);
           await manager.app.user.update(e);

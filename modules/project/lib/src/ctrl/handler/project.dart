@@ -1,8 +1,8 @@
 part of project.ctrl;
 
 class IProject extends base.Item<App, Project, int> {
-  final String group = Group.Document;
-  final String scope = Scope.Commission;
+  final String group = Group.Project;
+  final String scope = Scope.Project;
 
   IProject(req) : super(req, new App());
 

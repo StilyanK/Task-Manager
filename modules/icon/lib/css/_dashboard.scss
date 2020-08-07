@@ -1,5 +1,5 @@
 .ui-menu-control {
-  background: #FFFFFF url(/images/logo_full.svg) no-repeat 40% center;
+  background: $page-background url(/images/logo_full.svg) no-repeat 40% center;
   background-size: 50%;
 }
 
@@ -9,15 +9,15 @@
 }
 
 .ui-top {
-  border-bottom: 1px solid #F1F1F1;
+  border-bottom: 1px solid $page-background;
 }
 
 .ui-win-tab {
   border: 1px solid transparent;
 
   &.active {
-    border-left: 1px solid #F1F1F1;
-    border-right: 1px solid #F1F1F1;
+    border-left: 1px solid $page-background;
+    border-right: 1px solid $page-background;
   }
 }
 
@@ -245,101 +245,85 @@
     cursor: pointer;
   }
 
+  .inner {
+    border-radius: 2px;
+    border-width: 0;
+  }
 }
 
 .journal-card {
   display: flex;
   flex-direction: column;
   height: auto !important;
-}
 
-.journal-card-head {
-  display: flex;
-  justify-content: space-between;
+  .journal-card-head {
+    display: flex;
+    flex-direction: column;
 
-  & > span {
-    padding-right: 3px;
+    h1 {
+      word-break: break-word;
+    }
+
+    margin-bottom: $prem + rem;
   }
 
-  h1 {
-    word-break: break-word;
-  }
-}
+  .task-card-status {
+    display: flex;
+    justify-content: space-between;
 
+    & > span {
+      display: inline-flex;
+      border-radius: 3px;
+      margin-left: 2px;
 
-.journal-card-head .task-status .inner {
-  border-radius: 2px;
-  border-width: 0;
-}
-.journal-card-body .task-status .inner {
-  border-radius: 2px;
-  border-width: 0;
-}
+      .icon {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
 
-.task-card-status {
-  display: flex;
-  justify-content: space-between;
-
-  & > span {
-    display: inline-flex;
-    border-radius: 3px;
-    margin-left: 2px;
-
-    .icon {
-      width: 2rem;
-      height: 2rem;
+    .icon use {
+      fill: #FFFFFF;
     }
   }
 
-  .icon use {
-    fill: #FFFFFF;
-  }
-}
 
-
-.journal-card-body {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0 0 0;
-
-  & > span {
-    color: #A8A8A8;
-  }
-}
-
-.journal-card-actions {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0 0 0;
-  font-weight: bold;
-
-  & > span {
-    padding: 10px 0 0 0;
-  }
-
-  & > div {
+  .journal-card-body {
     display: flex;
-    height: 2.5rem;
+    justify-content: space-between;
+    padding: 5px 0 0 0;
+
+    & > span {
+      color: #A8A8A8;
+    }
   }
 
-  .icon {
-    padding: 0;
-    width: 2.5rem;
-    height: 2.5rem;
+  .journal-card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0 0 0;
+    font-weight: bold;
+
+    & > div {
+      display: flex;
+      height: 2.5rem;
+    }
+
+    .icon {
+      padding: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
   }
 
-}
+  .time {
+    display: flex;
+    justify-content: flex-end;
 
-.time {
-  display: flex;
-  justify-content: flex-end;
-
-  .date-format {
-    padding: 10px 0 0 0;
+    .date-format {
+      padding: 10px 0 0 0;
+    }
   }
-}
 
-
-.progress {
-  display: flex;
 }

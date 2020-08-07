@@ -9,8 +9,7 @@ class Project extends base.ItemBuilder {
     ..icon = Icon.User
     ..title = 'Проект'
     ..width = 1100
-    ..height = 800
-    ..type = 'bound';
+    ..height = 800;
 
   Project(app, {id}) : super(app, id);
 
@@ -40,22 +39,4 @@ class Project extends base.ItemBuilder {
     layout.contInner.activeTab(mainTab);
   }
 
-  void setActions() {
-    super.setActions();
-    menu
-      ..remove('clear')
-      ..remove('del')
-      ..add(new cl_action.Button()
-        ..setName('del')
-        ..setState(false)
-        ..setTitle('Изтрий')
-        ..setIcon(cl.Icon.delete)
-        ..setStyle({'margin-left': 'auto'})
-        ..addClass('warning')
-        ..addAction((e) => del()));
-  }
-
-  void setMenuState(bool way) {
-    super.setMenuState(way);
-  }
 }

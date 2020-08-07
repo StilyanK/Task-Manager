@@ -1,36 +1,24 @@
 part of project.gui;
 
 class ProgressComponent extends cl_form.DataElement<int, SpanElement> {
-  cl_app.Application<auth.Client> ap;
   cl_chart.BarSmall bar;
+  cl_action.ButtonOption group;
+  final List options = [0, 20, 40, 60, 80, 100];
 
-  ProgressComponent(this.ap) : super() {
+  ProgressComponent() : super() {
     dom = new SpanElement();
+    addClass('ui-progress');
     bar = new cl_chart.BarSmall(100)..setPercents(0);
 
-    final cl_action.ButtonOption group = new cl_action.ButtonOption()
+    group = new cl_action.ButtonOption()
       ..setIcon(cl.Icon.print)
       ..addAction<Event>((e) => e.stopPropagation());
 
-    final btn1 = new cl_action.Button()
-      ..setTitle('20%')
-      ..addAction((e) => bar.setPercents(20));
-    final btn2 = new cl_action.Button()
-      ..setTitle('40%')
-      ..addAction((e) => bar.setPercents(40));
-    final btn3 = new cl_action.Button()
-      ..setTitle('60%')
-      ..addAction((e) => bar.setPercents(60));
-
-    final btn4 = new cl_action.Button()
-      ..setTitle('80%')
-      ..addAction((e) => bar.setPercents(80));
-
-    final btn5 = new cl_action.Button()
-      ..setTitle('100%')
-      ..addAction((e) => bar.setPercents(100));
-
-    group..addSub(btn1)..addSub(btn2)..addSub(btn3)..addSub(btn4)..addSub(btn5);
+    options.forEach((option) {
+      group.addSub(new cl_action.Button()
+        ..setTitle('$option%')
+        ..addAction((e) => setValue(option)));
+    });
     group.buttonOption.addClass('light');
 
     final actionCont = new cl.CLElement(new DivElement())
@@ -42,7 +30,24 @@ class ProgressComponent extends cl_form.DataElement<int, SpanElement> {
   }
 
   void setValue(int value) {
+    value ??= 0;
     bar.setPercents(value);
+    manageProgressStyle(value);
     super.setValue(value);
+  }
+
+  void disable() {
+    group.disable();
+  }
+
+  void enable() {
+    group.enable();
+  }
+
+  void manageProgressStyle(int percentage) {
+    options.forEach((option) => bar.removeClass('progress-$option'));
+    bar
+      ..addClass('progress-$percentage')
+      ..setPercents(percentage);
   }
 }

@@ -1,7 +1,7 @@
 part of project.ctrl;
 
 class TaskCollection extends base.Collection<App, Task, int> {
-  final String group = Group.Task;
+  final String group = Group.Project;
   final String scope = Scope.Task;
 
   TaskCollection(req) : super(req, new App());

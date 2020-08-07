@@ -39,9 +39,20 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.priority)
       ..setRequired(true);
 
+    final bar = new ProgressComponent()..setName(entity.$Task.progress);
+
     final status = new SelectTaskStatus()
       ..setName(entity.$Task.status)
-      ..setRequired(true);
+      ..setRequired(true)
+      ..onValueChanged.listen((e) {
+        if (e.getValue() == TaskStatus.Done) {
+          bar
+            ..setValue(100)
+            ..disable();
+        } else {
+          bar.enable();
+        }
+      });
 
     final deadline = new cl_form.InputDateTime()
       ..setName(entity.$Task.deadline)
@@ -53,7 +64,9 @@ class TaskGui extends base.ItemBuilder {
       ..setRequired(true);
 
     final description = new cl_form.Editor(ap,
-        options: cl_form.Editor.lightOptions(), showFooter: false)
+        options: cl_form.Editor.lightOptions()
+          ..add(cl_form.EditorOptions().fullscreen),
+        showFooter: false)
       ..setName(entity.$Task.description);
 
     final docStampCreated = new DocumentStamp(0)..setName('doc_stamp_created');
@@ -74,8 +87,6 @@ class TaskGui extends base.ItemBuilder {
 
     final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
 
-    final bar = new ProgressComponent(ap)..setName(entity.$Task.progress);
-
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow('Заглавие', [title]).addClass('col6')
@@ -90,24 +101,5 @@ class TaskGui extends base.ItemBuilder {
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
-  }
-
-  void setActions() {
-    super.setActions();
-    menu
-      ..remove('clear')
-      ..remove('del')
-      ..add(new cl_action.Button()
-        ..setName('del')
-        ..setState(false)
-        ..setTitle('Изтрий')
-        ..setIcon(cl.Icon.delete)
-        ..setStyle({'margin-left': 'auto'})
-        ..addClass('warning')
-        ..addAction((e) => del()));
-  }
-
-  void setMenuState(bool way) {
-    super.setMenuState(way);
   }
 }
