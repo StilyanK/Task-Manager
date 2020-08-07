@@ -68,7 +68,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final status = TaskStatus.getTaskTitleByID(data['status']);
     data['priority'] = priority;
     data['created_by'] = createdBy.name;
-    data['status'] = status;
+    data['status'] = data['status'];
     data['modified_by'] = modifiedBy?.name;
     data['assigned_to'] = assignedTo.name;
     return data;

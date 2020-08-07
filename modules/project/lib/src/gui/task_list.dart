@@ -58,7 +58,9 @@ class TaskList extends base.Listing {
         new cl_form.GridColumn(entity.$Task.status)
           ..title = 'Статус'
           ..filter = (new SelectMultiTaskStatus([null, 'All'])
-            ..setName(entity.$Task.status)),
+            ..setName(entity.$Task.status))
+          ..type = (grid, row, cell, object) =>
+              new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.created_by)
           ..title = 'Зададена от'
           ..filter = (new MultiSelectUser(ap, [null, 'All'])
