@@ -27,7 +27,9 @@ class Project extends base.ItemBuilder {
     final cl_gui.FormElement projectForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
-    final title = new cl_form.Input()..setName(entity.$Project.title);
+    final title = new cl_form.Input()
+      ..setName(entity.$Project.title)
+      ..setRequired(true);
     final from = new cl_form.InputDate()..setName(entity.$Project.from);
     final to = new cl_form.InputDate()..setName(entity.$Project.to);
     projectForm
@@ -38,5 +40,4 @@ class Project extends base.ItemBuilder {
     final cl_gui.TabElement mainTab = createTab(null, projectForm);
     layout.contInner.activeTab(mainTab);
   }
-
 }
