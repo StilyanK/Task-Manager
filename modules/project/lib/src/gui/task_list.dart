@@ -46,8 +46,7 @@ class TaskList extends base.Listing {
           ..filter = (new MultiSelectUser(ap, [null, 'All'])
             ..setName(entity.$Task.assigned_to)
             ..load())
-          ..sortable = true
-          ..filter = (new cl_form.Input()..setName(entity.$Task.title)),
+          ..sortable = true,
         new cl_form.GridColumn(entity.$Task.title)
           ..title = 'Заглавие'
           ..filter = (new cl_form.Input()..setName(entity.$Task.title)),
