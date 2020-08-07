@@ -45,13 +45,14 @@ part 'gui/task_list.dart';
 part 'gui/project_list.dart';
 
 abstract class Icon {
-  static const String Task = cl.Icon.add;
+  static const String Task = cl.Icon.message;
   static const String Tasks = cl.Icon.message;
   static const String UserMain = icon.Icon.fingerprint;
   static const String User = cl.Icon.person;
   static const String Settings = cl.Icon.settings;
   static const String UserGroup = icon.Icon.group;
   static const String Project = Icon.DocComments;
+  static const String ProjectList = Icon.DocComments;
 
   static const String Commission = icon.Icon.briefcase_doctor;
   static const String Disease = icon.Icon.bacteria;
