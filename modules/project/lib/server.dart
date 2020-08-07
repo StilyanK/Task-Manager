@@ -47,17 +47,20 @@ Future<void> init() async {
       String subject;
       String text;
       if (event.isInserted) {
-        subject = 'Имате нова задача!';
-        text =
-        '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
+        subject = 'Задача ${task.title} e създадена';
+        text = '<div><b>${task.title}</b></div>'
+            '<div>${task.description}</div>'
+            '<div>Зададена от: ${createdBy.name}</div>';
+      } else if (event.isUpdated) {
+        subject = 'Задача ${task.title} e променена';
+        text = '<div><b>${task.title}</b></div>'
+            '<div>${task.description}</div>'
+            '<div>Променена от: ${modifiedBy?.name}</div>';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
-        text =
-        '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
-      } else if (event.isDeleted) {
-        subject = 'Задача ${task.title} e изтрита';
-        text =
-        '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
+        text = '<div><b>${task.title}</b></div>'
+            '<div>${task.description}</div>'
+            '<div>Изтрита от: ${modifiedBy?.name}</div>';
       }
 
       if (user != null && user.mail != null) {
@@ -70,7 +73,7 @@ Future<void> init() async {
           ..from('no-reply@medicframe.com')
           ..to(user.mail)
           ..setSubject(subject)
-          ..setText(text);
+          ..setHtml(text);
         await m.send();
         state['success'] = 'true';
       } else {
