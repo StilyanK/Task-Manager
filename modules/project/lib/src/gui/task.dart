@@ -85,7 +85,9 @@ class TaskGui extends base.ItemBuilder {
         (p) => new FileContainer(p))
       ..setName('files');
 
-    final inputProject = new InputProject(ap)..setName(entity.$Task.project_id);
+    final inputProject = new InputProject(ap)
+      ..setName(entity.$Task.project_id)
+      ..setRequired(true);
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
