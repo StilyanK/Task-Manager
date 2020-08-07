@@ -19,7 +19,7 @@ Future<void> main() async {
   final settings = cl_app.AppSettings()
     ..desktopIcons = true
     ..menuStyle = 2
-    ..menuHideOnAction = true
+    ..menuDefaultOpen = false
     ..fullWindowMode = true
     ..baseurl = '/';
   final ap = Application(settings);
