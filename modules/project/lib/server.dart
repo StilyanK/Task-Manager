@@ -46,16 +46,21 @@ Future<void> init() async {
       final Map state = {};
       String subject;
       String text;
+      final link =
+          '<a href="https://manager.medicframe.com/task/item/${task.task_id}">'
+          'https://manager.medicframe.com/task/item/${task.task_id}</a>';
       if (event.isInserted) {
         subject = 'Задача ${task.title} e създадена';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
-            '<div>Зададена от: ${createdBy.name}</div>';
+            '<div>Зададена от: ${createdBy.name}</div>'
+            '<div>$link</div>';
       } else if (event.isUpdated) {
         subject = 'Задача ${task.title} e променена';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
-            '<div>Променена от: ${modifiedBy?.name}</div>';
+            '<div>Променена от: ${modifiedBy?.name}</div>'
+            '<div>$link</div>';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text = '<div><b>${task.title}</b></div>'
