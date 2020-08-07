@@ -40,6 +40,8 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.priority)
       ..setRequired(true);
 
+    final dateDone = new cl_form.InputDate()..setName(entity.$Task.date_done);
+
     final bar = new ProgressComponent()..setName(entity.$Task.progress);
 
     final status = new SelectTaskStatus()
@@ -50,6 +52,7 @@ class TaskGui extends base.ItemBuilder {
           bar
             ..setValue(100)
             ..disable();
+          if (listenForChange) dateDone.setValue(new DateTime.now());
         } else {
           bar.enable();
         }
@@ -59,7 +62,6 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.deadline)
       ..setRequired(true);
 
-    final dateDone = new cl_form.InputDate()..setName(entity.$Task.date_done);
     final assignedTo = new SelectUser(ap)
       ..load()
       ..setName(entity.$Task.assigned_to)
