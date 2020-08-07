@@ -14,7 +14,10 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = true]) : super(ap, autoload: autoload ?? true) {
+  TaskList(ap, [bool autoload = true])
+      : super(ap,
+            autoload: autoload ?? true,
+            order: new cl_form.GridOrder(entity.$Task.task_id, 'DESC')) {
     newTaskBtn = new cl_action.Button()
       ..addClass('attention')
       ..setStyle({'margin-left': 'auto'})
