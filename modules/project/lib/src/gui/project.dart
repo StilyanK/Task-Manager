@@ -6,7 +6,7 @@ class Project extends base.ItemBuilder {
   UrlPattern contr_del = RoutesProject.itemDelete;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
-    ..icon = Icon.Task
+    ..icon = Icon.Project
     ..title = 'Проект'
     ..width = 1100
     ..height = 800;
