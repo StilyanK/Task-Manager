@@ -13,6 +13,6 @@ class DateAndRemainingDays extends cl_form.RowDataCell<List> {
     final days = deadLineDate.difference(dateCreated).inDays;
     cell
       ..style.whiteSpace = 'nowrap'
-      ..text = object == null ? '' : '${deadLine.get()} ($days)';
+      ..text = object == null ? '' : '${deadLine.getWithTime()} ($days)';
   }
 }
