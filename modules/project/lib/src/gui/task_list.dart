@@ -19,7 +19,7 @@ class TaskList extends base.Listing {
             autoload: autoload ?? true,
             order: new cl_form.GridOrder(entity.$Task.task_id, 'DESC')) {
     newTaskBtn = new cl_action.Button()
-      ..addClass('attention')
+      ..addClass('important')
       ..setStyle({'margin-left': 'auto'})
       ..setTitle('Добави задача')
       ..setIcon(cl.Icon.add)

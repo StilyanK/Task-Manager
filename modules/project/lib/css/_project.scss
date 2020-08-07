@@ -1,12 +1,14 @@
 .ui-file-container {
   display: flex;
   align-items: center;
+  flex-wrap: inherit;
+  justify-content: space-around;
 }
 .file-cont {
   max-width: 250px;
   display: flex;
   flex-direction: column;
-  margin: $prem + rem;
+  margin: $rem + rem;
   .content {
     width: 250px;
     height: 250px;
