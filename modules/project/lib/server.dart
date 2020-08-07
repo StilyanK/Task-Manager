@@ -49,15 +49,15 @@ Future<void> init() async {
       if (event.isInserted) {
         subject = 'Имате нова задача!';
         text =
-            '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
+        '${task.title}\n${task.description}\nЗададена от: ${createdBy.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-            '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
+        '${task.title}\n${task.description}\nПроменена от: ${modifiedBy?.name}';
       } else if (event.isDeleted) {
         subject = 'Задача ${task.title} e изтрита';
         text =
-            '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
+        '${task.title}\n${task.description}\nИзтрита от: ${modifiedBy?.name}';
       }
 
       if (user != null && user.mail != null) {
