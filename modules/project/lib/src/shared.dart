@@ -21,6 +21,26 @@ abstract class TaskStatus {
 
   static String getTaskTitleByID(int key) =>
       taskStatus.firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
+
+  static String getStatusColor(int status) {
+    String statusClass = '';
+    if (status == ToDo) {
+      statusClass = 'to-do';
+    } else if (status == Done) {
+      statusClass = 'done';
+    } else if (status == Test) {
+      statusClass = 'test';
+    } else if (status == InProgress) {
+      statusClass = 'in-progress';
+    } else if (status == ForDiscussion) {
+      statusClass = 'for-discussion';
+    } else if (status == Canceled) {
+      statusClass = 'canceled';
+    } else if (status == Postponed) {
+      statusClass = 'postponed';
+    }
+    return statusClass;
+  }
 }
 
 abstract class TaskPriority {
