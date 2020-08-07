@@ -15,6 +15,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
           entity.$Task.modified_by,
           entity.$Task.priority,
           entity.$Task.task_id,
+          entity.$Task.project_id,
         ]
         ..llike = [entity.$Task.title]
         ..like = [entity.$Task.description]
@@ -68,7 +69,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final createdBy = await manager.app.user.find(data['created_by']);
     final modifiedBy = await manager.app.user.find(data['modified_by']);
     final assignedTo = await manager.app.user.find(data['assigned_to']);
-
+    final project = await manager.app.project.find(o.project_id);
     data['created_by'] = createdBy.name;
     data['status'] = [data['status'], data['progress']];
     data['modified_by'] = modifiedBy?.name;
@@ -77,6 +78,9 @@ class TaskCollection extends base.Collection<App, Task, int> {
       o.date_created.toIso8601String(),
       o.deadline.toIso8601String()
     ];
+    if(project != null) {
+      data['project'] = project.title ?? '';
+    }
     return data;
   }
 }

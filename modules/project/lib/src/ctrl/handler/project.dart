@@ -34,4 +34,11 @@ class IProject extends base.Item<App, Project, int> {
     }
     return response(col.pair());
   });
+
+
+  Future<void> pair() => run(group, scope, 'read', () async {
+    manager = await new Database().init(new App());
+    final project = await manager.app.project.findAll();
+    return response(project.pair());
+  });
 }

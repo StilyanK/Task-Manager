@@ -50,6 +50,10 @@ void routesProject(Router router) {
   router
       .serve(RoutesProject.collectionSuggest, method: 'POST')
       .listen((req) => new IProject(req).suggest());
+
+  router
+      .serve(RoutesProject.collectionPair, method: 'POST')
+      .listen((req) => new IProject(req).pair());
 }
 
 

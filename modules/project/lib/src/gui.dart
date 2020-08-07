@@ -36,6 +36,7 @@ part 'gui/element/status_cell.dart';
 part 'gui/element/priority_cell.dart';
 part 'gui/element/progress.dart';
 part 'gui/element/deadline_days.dart';
+part 'gui/element/project_select.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/task.dart';
@@ -44,6 +45,7 @@ part 'gui/task_list.dart';
 part 'gui/project_list.dart';
 
 abstract class Icon {
+  static const String Task = cl.Icon.add;
   static const String Tasks = cl.Icon.message;
   static const String UserMain = icon.Icon.fingerprint;
   static const String User = cl.Icon.person;

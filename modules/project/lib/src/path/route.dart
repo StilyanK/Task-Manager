@@ -38,6 +38,9 @@ class RoutesProject {
   static UrlPattern get collectionSuggest =>
       UrlPattern('project/collection/suggest');
 
+  static UrlPattern get collectionPair =>
+      new UrlPattern(r'/project/collection/pair');
+
   static const String eventCreate = '${Group.Project}:${Scope.Project}:create';
   static const String eventUpdate = '${Group.Project}:${Scope.Project}:update';
   static const String eventDelete = '${Group.Project}:${Scope.Project}:delete';

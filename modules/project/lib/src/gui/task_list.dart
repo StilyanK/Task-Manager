@@ -35,6 +35,11 @@ class TaskList extends base.Listing {
         new cl_form.GridColumn('number')
           ..title = '#'
           ..filter = (new cl_form.Input()..setName(entity.$Task.task_id)),
+        new cl_form.GridColumn('project')
+          ..title = 'Проект'
+          ..filter = (new ProjectSelect(ap, [null, 'Всички'])
+            ..setName(entity.$Task.project_id)
+            ..load()),
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = 'Срок'
           ..filter =
