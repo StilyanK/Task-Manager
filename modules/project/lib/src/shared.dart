@@ -52,7 +52,7 @@ abstract class TaskPriority {
     const {'v': 'Urgent', 'k': Urgent},
   ];
 
-  static String getTaskPriorityByID(int key) =>
+  static String getTaskPriorityTitleByID(int key) =>
       taskPriority
           .firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 
