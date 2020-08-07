@@ -43,7 +43,6 @@ Future<void> init() async {
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);
       final modifiedBy = await manager.app.user.find(task.modified_by);
-      final Map state = {};
       String subject;
       String text;
       final link =
@@ -75,14 +74,11 @@ Future<void> init() async {
             password: '!2@3#AP2JkLQ',
             ignoreBadCertificate: true,
             ssl: false))
-          ..from('no-reply@medicframe.com')
+          ..from('no-reply@medicframe.com', 'Medicframe Manager')
           ..to(user.mail)
           ..setSubject(subject)
           ..setHtml(text);
         await m.send();
-        state['success'] = 'true';
-      } else {
-        state['error'] = 'true';
       }
     });
   });
