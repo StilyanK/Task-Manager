@@ -66,7 +66,7 @@ class ITask extends base.Item<App, Task, int> {
           task.date_created.month, task.date_created.day);
       final dateCreatedCheck = cardDate.isAfter(dateCreated) ||
           cardDate.isAtSameMomentAs(dateCreated);
-      if (task.assigned_to == userId && dateCreatedCheck) {
+      if (task.assigned_to == userId && dateCreatedCheck && !task.is_deleted) {
         final dto = new TaskCardDTOSetter(task).setDto();
         return response(dto);
       } else {
