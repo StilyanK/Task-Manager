@@ -32,9 +32,13 @@ class TaskList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
-        new cl_form.GridColumn('number')..title = '#',
+        new cl_form.GridColumn('number')
+          ..title = '#'
+          ..filter = (new cl_form.Input()..setName(entity.$Task.task_id)),
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = 'Срок'
+          ..filter =
+              (new cl_form.InputDateRange()..setName(entity.$Task.deadline))
           ..type = (grid, row, cell, object) =>
               new DateAndRemainingDays(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
@@ -98,5 +102,3 @@ class TaskList extends base.Listing {
     obj['number'] = obj[entity.$Task.task_id];
   }
 }
-
-
