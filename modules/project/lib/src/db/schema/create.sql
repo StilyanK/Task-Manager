@@ -23,8 +23,14 @@ CREATE TABLE IF NOT EXISTS "task"
     "progress"      integer     NOT NULL DEFAULT 0,
     "deadline"      timestamptz NOT NULL DEFAULT NOW(),
     "project_id"    int         NOT NULL REFERENCES "project" (project_id) ON DELETE CASCADE,
-    "is_deleted"    bool        NOT NULL DEFAULT FALSE
+    "is_deleted"    bool        NOT NULL DEFAULT FALSE,
+    "tsv"           tsvector
 );
+CREATE INDEX "patient_tsv_idx" ON task USING gin ("tsv");
+CREATE INDEX "task_assigned_to_idx" ON "task" ("assigned_to");
+CREATE INDEX "task_created_by_idx" ON "task" ("created_by");
+CREATE INDEX "task_modified_by_idx" ON "task" ("modified_by");
+CREATE INDEX "task_project_id_idx" ON "task" ("project_id");
 
 CREATE TABLE IF NOT EXISTS "task_comment"
 (
@@ -43,4 +49,5 @@ CREATE TABLE IF NOT EXISTS "task_media"
     "source"          text,
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );
+CREATE INDEX "task_media_task_id_idx" ON "task_media" ("task_id");
 

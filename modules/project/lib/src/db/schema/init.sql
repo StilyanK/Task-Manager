@@ -7,3 +7,22 @@ ALTER TABLE task
 
 ALTER TABLE task_media
     ADD CONSTRAINT task_id_fkey FOREIGN KEY (task_id) REFERENCES "task" (task_id) ON DELETE CASCADE;
+
+CREATE FUNCTION task_tsv_vector()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+
+BEGIN
+    NEW.tsv := to_tsvector(coalesce(new.title, ''))
+        || to_tsvector(coalesce(new.description, ''));
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER task_tsv_vector
+    BEFORE INSERT OR UPDATE
+    ON task
+    FOR EACH ROW
+EXECUTE PROCEDURE task_tsv_vector();

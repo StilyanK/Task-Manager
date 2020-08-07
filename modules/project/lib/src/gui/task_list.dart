@@ -55,14 +55,11 @@ class TaskList extends base.Listing {
             ..setName(entity.$Task.assigned_to)
             ..load())
           ..sortable = true,
-        new cl_form.GridColumn(entity.$Task.title)
-          ..title = 'Заглавие'
-          ..filter = (new cl_form.Input()..setName(entity.$Task.title)),
-        new cl_form.GridColumn(entity.$Task.description)
-          ..title = 'Описание'
-          ..filter = (new cl_form.Input()..setName(entity.$Task.description))
+        new cl_form.GridColumn('task')
+          ..title = 'Съдържание'
+          ..filter = (new cl_form.Input()..setName('tsv'))
           ..type = (grid, row, cell, object) =>
-              new DescriptionCeil(ap, grid, row, cell, object),
+              new DescriptionCeil(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = 'Приоритет'
           ..filter = (new SelectMultiPriority([null, 'All'])

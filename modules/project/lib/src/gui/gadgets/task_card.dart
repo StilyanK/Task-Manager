@@ -40,7 +40,6 @@ class CardTask extends local.Card<TaskDTO> {
     final dateIconWait = new cl.CLElement(
         new SpanElement()..append(new cl.Icon(icon.Icon.timer).dom));
 
-
     Future<void> persistData(Map data) async {
       await ap.serverCall<Map>(RoutesTask.itemSave.reverse([]), {
         'id': rCard.id,
@@ -81,23 +80,8 @@ class CardTask extends local.Card<TaskDTO> {
       new TaskGui(ap, id: id);
     });
   }
-
 }
 
 void setHover(cl.CLElement el, String text) {
   new cl_app.BubbleVisualizer(el, () => new DivElement()..text = '$text');
 }
-
-String getShortText(String text) {
-  String shortText = '';
-  if (text == null) return shortText;
-  const int maxLen = 50;
-  if (text.length > maxLen) {
-    shortText = '${text.substring(0, maxLen)}...';
-  } else {
-    shortText = text;
-  }
-  return shortText;
-}
-
-

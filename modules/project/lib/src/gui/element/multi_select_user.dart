@@ -1,9 +1,8 @@
 part of project.gui;
 
-
 class MultiSelectUser extends cl_form.SelectMulti {
-
-  MultiSelectUser(cl_app.Application ap,[first]) : super() {
+  MultiSelectUser(cl_app.Application ap, [first]) : super() {
+    addClass('xl');
     execute = () async {
       final params = {};
       final data = await ap.serverCall(

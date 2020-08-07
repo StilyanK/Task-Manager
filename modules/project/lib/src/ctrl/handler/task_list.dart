@@ -17,8 +17,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
           entity.$Task.task_id,
           entity.$Task.project_id,
         ]
-        ..llike = [entity.$Task.title]
-        ..like = [entity.$Task.description]
+        ..tsvector = ['tsv']
         ..date = [
           entity.$Task.date_done,
           entity.$Task.date_created,
@@ -79,6 +78,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     data['status'] = [data['status'], data['progress']];
     data['modified_by'] = modifiedBy?.name;
     data['assigned_to'] = assignedTo.name;
+    data['task'] = [o.title, o.description];
     data['deadline'] = [
       o.date_created.toIso8601String(),
       o.deadline.toIso8601String()
