@@ -51,6 +51,7 @@ abstract class Icon {
   static const String User = cl.Icon.person;
   static const String Settings = cl.Icon.settings;
   static const String UserGroup = icon.Icon.group;
+  static const String Project = Icon.DocComments;
 
   static const String Commission = icon.Icon.briefcase_doctor;
   static const String Disease = icon.Icon.bacteria;

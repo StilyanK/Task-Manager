@@ -10,7 +10,7 @@ class ProjectList extends base.Listing {
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..title = 'Списък проекти'
-    ..icon = Icon.User
+    ..icon = Icon.Project
     ..width = 900
     ..height = 600;
 
