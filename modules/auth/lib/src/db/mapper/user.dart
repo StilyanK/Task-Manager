@@ -15,6 +15,9 @@ class UserMapper extends Mapper<User, UserCollection, App> {
   Future<UserCollection> findAllByGroupId(int groupId) =>
       findWhere<UserCollection>([Equals(entity.$User.user_group_id, groupId)]);
 
+  Future<UserCollection> findAll() =>
+      loadC(selectBuilder()..addOrderBy('user_id', 'ASC'));
+
   Future<User> findByUsername(String username) =>
       findWhere<User>([Equals(entity.$User.username, username)]);
 
@@ -26,13 +29,16 @@ class UserMapper extends Mapper<User, UserCollection, App> {
     //'uin': 'settings->>\'uin\''
     final b = selectBuilder();
     if (uin != null)
-      b..where('${entity.$User.settings}->>\'uin\' = @uin')
-       ..setParameter('uin', uin);
+      b
+        ..where('${entity.$User.settings}->>\'uin\' = @uin')
+        ..setParameter('uin', uin);
     final cb = collectionBuilder(b)
       ..filterRule = (FilterRule()
         ..eq = [entity.$User.user_group_id, entity.$User.active]
         ..like = [entity.$User.username, entity.$User.name, entity.$User.mail]
-        ..map = {'group': entity.$User.user_group_id, });
+        ..map = {
+          'group': entity.$User.user_group_id,
+        });
     return cb;
   }
 
