@@ -8,6 +8,8 @@ class ITask extends base.Item<App, Task, int> {
 
   Future<Map> doGet(int id) async {
     final task = await manager.app.task.find(id);
+    if (task == null || task.is_deleted)
+      throw new base.ResourceNotFoundException();
     final taskMedia = await manager.app.taskMedia.findByAllByTaskId(id);
     final ret = task.toJson();
     final modifiedBy = await manager.app.user.find(task.modified_by);
@@ -61,12 +63,12 @@ class ITask extends base.Item<App, Task, int> {
     manager = await new Database().init(new App());
     if (taskId == null) return response(null);
     final task = await manager.app.task.find(taskId);
-    if (task != null) {
+    if (task != null && !task.is_deleted) {
       final dateCreated = new DateTime(task.date_created.year,
           task.date_created.month, task.date_created.day);
       final dateCreatedCheck = cardDate.isAfter(dateCreated) ||
           cardDate.isAtSameMomentAs(dateCreated);
-      if (task.assigned_to == userId && dateCreatedCheck && !task.is_deleted) {
+      if (task.assigned_to == userId && dateCreatedCheck) {
         final dto = new TaskCardDTOSetter(task).setDto();
         return response(dto);
       } else {
