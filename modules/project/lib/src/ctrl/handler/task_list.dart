@@ -14,11 +14,15 @@ class TaskCollection extends base.Collection<App, Task, int> {
           entity.$Task.assigned_to,
           entity.$Task.modified_by,
           entity.$Task.priority,
-          entity.$Task.status
+          entity.$Task.task_id,
         ]
         ..llike = [entity.$Task.title]
         ..like = [entity.$Task.description]
-        ..date = [entity.$Task.date_created, entity.$Task.date_modified])
+        ..date = [
+          entity.$Task.date_created,
+          entity.$Task.date_modified,
+          entity.$Task.deadline
+        ])
       ..filter = filter
       ..order(order['field'], order['way'])
       ..page = paginator['page']
