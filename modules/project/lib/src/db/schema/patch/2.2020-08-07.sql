@@ -1,0 +1,1 @@
+ALTER TABLE task ADD COLUMN is_deleted bool NOT NULL DEFAULT FALSE;

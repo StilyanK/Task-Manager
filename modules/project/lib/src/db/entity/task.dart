@@ -17,6 +17,7 @@ class Task {
   int progress;
   DateTime deadline;
   int project_id;
+  bool is_deleted;
 
   Task();
 

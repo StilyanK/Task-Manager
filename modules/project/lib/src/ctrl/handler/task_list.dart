@@ -29,6 +29,10 @@ class TaskCollection extends base.Collection<App, Task, int> {
       ..order(order['field'], order['way'])
       ..page = paginator['page']
       ..limit = paginator['limit'];
+
+    cb.query
+      ..andWhere('${entity.$Task.is_deleted} = @p1')
+      ..setParameter('p1', false);
     return cb.process(true);
   }
 
@@ -79,7 +83,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
       o.date_created.toIso8601String(),
       o.deadline.toIso8601String()
     ];
-    if(project != null) {
+    if (project != null) {
       data['project'] = project.title ?? '';
     }
     return data;
