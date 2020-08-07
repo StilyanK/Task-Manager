@@ -32,12 +32,11 @@ class TaskList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
-    new cl_form.GridColumn('remaining_days')
-      ..title = 'Оставащи дни',
+        new cl_form.GridColumn('number')..title = '#',
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = 'Срок'
           ..type = (grid, row, cell, object) =>
-              new local.DateTimeCell(grid, row, cell, object),
+              new DateAndRemainingDays(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
           ..title = 'Приел'
           ..filter = (new MultiSelectUser(ap, [null, 'All'])
@@ -52,11 +51,7 @@ class TaskList extends base.Listing {
           ..title = 'Описание'
           ..filter = (new cl_form.Input()..setName(entity.$Task.description))
           ..type = (grid, row, cell, object) =>
-          new DescriptionCeil(ap, grid, row, cell, object),
-
-
-
-
+              new DescriptionCeil(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = 'Приоритет'
           ..filter = (new SelectMultiPriority([null, 'All'])
@@ -100,5 +95,8 @@ class TaskList extends base.Listing {
   void customRow(dynamic row, dynamic obj) {
     obj[entity.$Task.description] =
         removeHtmlTags(obj[entity.$Task.description]);
+    obj['number'] = obj[entity.$Task.task_id];
   }
 }
+
+

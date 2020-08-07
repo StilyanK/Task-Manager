@@ -35,6 +35,7 @@ part 'gui/element/description_ceil.dart';
 part 'gui/element/status_cell.dart';
 part 'gui/element/priority_cell.dart';
 part 'gui/element/progress.dart';
+part 'gui/element/deadline_days.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/task.dart';

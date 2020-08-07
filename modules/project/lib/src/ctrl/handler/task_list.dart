@@ -65,14 +65,14 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final modifiedBy = await manager.app.user.find(data['modified_by']);
     final assignedTo = await manager.app.user.find(data['assigned_to']);
 
-    final remainingDays = o.deadline.difference(o.date_created).inDays;
-
-
     data['created_by'] = createdBy.name;
     data['status'] = [data['status'], data['progress']];
     data['modified_by'] = modifiedBy?.name;
     data['assigned_to'] = assignedTo.name;
-    data['remaining_days'] = remainingDays;
+    data['deadline'] = [
+      o.date_created.toIso8601String(),
+      o.deadline.toIso8601String()
+    ];
     return data;
   }
 }
