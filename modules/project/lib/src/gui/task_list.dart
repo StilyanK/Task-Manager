@@ -32,8 +32,8 @@ class TaskList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
-//    new cl_form.GridColumn(entity.$Task.task_id)
-//      ..title = '#',
+    new cl_form.GridColumn('remaining_days')
+      ..title = 'Оставащи дни',
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = 'Срок'
           ..type = (grid, row, cell, object) =>
