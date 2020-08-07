@@ -31,6 +31,7 @@ part 'gui/element/select_task_priority.dart';
 part 'gui/element/select_task_status.dart';
 part 'gui/element/select_user.dart';
 part 'gui/element/task_status_cell.dart';
+part 'gui/element/description_ceil.dart';
 part 'gui/element/status_cell.dart';
 part 'gui/element/priority_cell.dart';
 part 'gui/element/progress.dart';

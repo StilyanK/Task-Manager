@@ -50,7 +50,13 @@ class TaskList extends base.Listing {
           ..filter = (new cl_form.Input()..setName(entity.$Task.title)),
         new cl_form.GridColumn(entity.$Task.description)
           ..title = 'Описание'
-          ..filter = (new cl_form.Input()..setName(entity.$Task.description)),
+          ..filter = (new cl_form.Input()..setName(entity.$Task.description))
+          ..type = (grid, row, cell, object) =>
+          new DescriptionCeil(ap, grid, row, cell, object),
+
+
+
+
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = 'Приоритет'
           ..filter = (new SelectMultiPriority([null, 'All'])
