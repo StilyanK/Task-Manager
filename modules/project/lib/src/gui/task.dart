@@ -54,7 +54,7 @@ class TaskGui extends base.ItemBuilder {
         }
       });
 
-    final deadline = new cl_form.InputDateTime()
+    final deadline = new cl_form.InputDate()
       ..setName(entity.$Task.deadline)
       ..setRequired(true);
 
