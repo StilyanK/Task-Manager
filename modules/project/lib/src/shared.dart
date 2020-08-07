@@ -22,24 +22,20 @@ abstract class TaskStatus {
   static String getTaskTitleByID(int key) =>
       taskStatus.firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
 
-  static String getStatusColor(int status) {
-    String statusClass = '';
-    if (status == ToDo) {
-      statusClass = 'to-do';
-    } else if (status == Done) {
-      statusClass = 'done';
-    } else if (status == Test) {
-      statusClass = 'test';
-    } else if (status == InProgress) {
-      statusClass = 'in-progress';
-    } else if (status == ForDiscussion) {
-      statusClass = 'for-discussion';
-    } else if (status == Canceled) {
-      statusClass = 'canceled';
-    } else if (status == Postponed) {
-      statusClass = 'postponed';
-    }
-    return statusClass;
+  static int getStatusColor(int status) {
+    if (status == ToDo)
+      return 3;
+    else if (status == Done)
+      return 4;
+    else if (status == Test)
+      return 2;
+    else if (status == InProgress)
+      return 5;
+    else if (status == ForDiscussion)
+      return 6;
+    else if (status == Canceled)
+      return 8;
+    else if (status == Postponed) return 7;
   }
 }
 
@@ -56,6 +52,14 @@ abstract class TaskPriority {
     const {'v': 'Urgent', 'k': Urgent},
   ];
 
-  static String getTaskPriorityByID(int key) => taskPriority
-      .firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
+  static String getTaskPriorityByID(int key) =>
+      taskPriority
+          .firstWhere((o) => o['k'] == key, orElse: () => {'v': ''})['v'];
+
+  static int getPriorityColor(int priority) {
+    if (priority == Low) return 4;
+    if (priority == Medium) return 2;
+    if (priority == High) return 6;
+    if (priority == Urgent) return 3;
+  }
 }
