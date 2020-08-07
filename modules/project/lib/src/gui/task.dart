@@ -15,6 +15,7 @@ class TaskGui extends base.ItemBuilder {
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
+    form.getElement(entity.$Task.assigned_to).setValue(ap.client.userId);
     form.getElement(entity.$Task.title).focus();
   }
 
