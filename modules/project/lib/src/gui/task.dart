@@ -59,6 +59,10 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.deadline)
       ..setRequired(true);
 
+    final dateDone = new cl_form.InputDate()
+      ..setName(entity.$Task.date_done)
+      ..disable();
+
     final assignedTo = new SelectUser(ap)
       ..load()
       ..setName(entity.$Task.assigned_to)
@@ -98,7 +102,8 @@ class TaskGui extends base.ItemBuilder {
       ..addRow('Краен срок', [deadline]).addClass('col2')
       ..addRow('Приоритет', [priority]).addClass('col2')
       ..addRow('Статус', [status]).addClass('col2')
-      ..addRow('Прогрес', [bar]).addClass('col2')
+      ..addRow('Прогрес', [bar]).addClass('col1')
+      ..addRow('Дата на завършване', [dateDone]).addClass('col1')
       ..addRow('Описание', [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 

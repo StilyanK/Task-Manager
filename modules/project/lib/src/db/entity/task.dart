@@ -10,6 +10,7 @@ class Task {
   String description;
   DateTime date_created;
   DateTime date_modified;
+  DateTime date_done;
   int created_by;
   int assigned_to;
   int modified_by;

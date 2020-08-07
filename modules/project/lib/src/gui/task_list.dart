@@ -95,7 +95,14 @@ class TaskList extends base.Listing {
           ..title = 'Обновил'
           ..filter = (new MultiSelectUser(ap, [null, 'All'])
             ..setName(entity.$Task.modified_by)
-            ..load())
+            ..load()),
+        new cl_form.GridColumn(entity.$Task.date_done)
+          ..title = 'Изпълнен'
+          ..sortable = true
+          ..filter =
+              (new cl_form.InputDateRange()..setName(entity.$Task.date_done))
+          ..type = (grid, row, cell, object) =>
+              new local.DateTimeCell(grid, row, cell, object),
       ];
 
   void onEdit(dynamic id) => ap.run('task/item/$id');

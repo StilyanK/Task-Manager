@@ -20,9 +20,10 @@ class TaskCollection extends base.Collection<App, Task, int> {
         ..llike = [entity.$Task.title]
         ..like = [entity.$Task.description]
         ..date = [
+          entity.$Task.date_done,
           entity.$Task.date_created,
           entity.$Task.date_modified,
-          entity.$Task.deadline
+          entity.$Task.deadline,
         ])
       ..filter = filter
       ..order(order['field'], order['way'])

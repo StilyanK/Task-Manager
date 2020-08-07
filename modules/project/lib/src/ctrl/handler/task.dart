@@ -33,6 +33,10 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
+    if (data['status'] == TaskStatus.Done) {
+      final date = new DateTime.now();
+      data['date_done'] = date;
+    }
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
