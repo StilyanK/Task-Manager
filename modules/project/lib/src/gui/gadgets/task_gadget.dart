@@ -1,7 +1,7 @@
 part of project.gui;
 
 class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
-  TaskGadget(ap) : super(ap, 'Задачи', 'task/list', cl.Icon.schedule);
+  TaskGadget(ap) : super(ap, intl.Tasks(), 'task/list', cl.Icon.schedule);
 
   cl_app.GadgetController<List<TaskDTO>> getController() {
     final init = (el) async {

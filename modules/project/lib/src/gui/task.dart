@@ -7,7 +7,7 @@ class TaskGui extends base.ItemBuilder {
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..icon = Icon.Task
-    ..title = 'Задача'
+    ..title = intl.Task_title
     ..width = 1100
     ..height = 800;
 
@@ -79,7 +79,7 @@ class TaskGui extends base.ItemBuilder {
       ..setName('doc_stamp_modified');
 
     final fileuploader = new cl_action.FileUploader(ap)
-      ..setTitle('Прикачи')
+      ..setTitle(intl.Attach_file())
       ..setIcon(cl.Icon.attach_file);
 
     final fu = new cl_gui.FileAttach<FileContainer>(
@@ -95,15 +95,15 @@ class TaskGui extends base.ItemBuilder {
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
-      ..addRow('Заглавие', [title]).addClass('col6')
-      ..addRow('Проект', [inputProject]).addClass('col2')
-      ..addRow('Да се поеме от', [assignedTo]).addClass('col2')
-      ..addRow('Краен срок', [deadline]).addClass('col2')
-      ..addRow('Приоритет', [priority]).addClass('col2')
-      ..addRow('Статус', [status]).addClass('col2')
-      ..addRow('Прогрес', [bar]).addClass('col1')
-      ..addRow('Дата на завършване', [dateDone]).addClass('col1')
-      ..addRow('Описание', [description]).addClass('col6')
+      ..addRow(intl.Title(), [title]).addClass('col6')
+      ..addRow(intl.Project(), [inputProject]).addClass('col2')
+      ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')
+      ..addRow(intl.Deadline(), [deadline]).addClass('col2')
+      ..addRow(intl.Priority(), [priority]).addClass('col2')
+      ..addRow(intl.Status(), [status]).addClass('col2')
+      ..addRow(intl.Progress(), [bar]).addClass('col1')
+      ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
+      ..addRow(intl.Description(), [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);

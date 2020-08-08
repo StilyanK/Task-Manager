@@ -9,7 +9,7 @@ class ProjectList extends base.Listing {
   cl_action.Button newProject;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
-    ..title = 'Списък проекти'
+    ..title = intl.Projects()
     ..icon = Icon.ProjectList
     ..width = 900
     ..height = 600;
@@ -19,7 +19,7 @@ class ProjectList extends base.Listing {
     newProject = new cl_action.Button()
       ..addClass('important')
       ..setStyle({'margin-left': 'auto'})
-      ..setTitle('Добави проект')
+      ..setTitle(intl.Add())
       ..setIcon(cl.Icon.add)
       ..addAction((_) => new Project(ap));
 
@@ -33,13 +33,13 @@ class ProjectList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
-        new cl_form.GridColumn(entity.$Project.title)..title = 'Име на проект',
+        new cl_form.GridColumn(entity.$Project.title)..title = intl.Project(),
         new cl_form.GridColumn(entity.$Project.from)
-          ..title = 'От'
+          ..title = intl.Date_start()
           ..type = (grid, row, cell, object) =>
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Project.to)
-          ..title = 'До'
+          ..title = intl.Date_end()
           ..type = (grid, row, cell, object) =>
               new local.DateTimeCell(grid, row, cell, object),
       ];

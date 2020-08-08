@@ -12,57 +12,35 @@ import 'package:cl/gui.dart' as cl_gui;
 import 'package:cl_base/client.dart' as base;
 import 'package:communicator/client.dart';
 import 'package:icon/icon.dart' as icon;
-import 'package:auth/client.dart' as auth;
 import 'package:local/client.dart' as local;
-import 'package:cl/utils.dart' as cl_util;
 
+import '../intl/client.dart' as intl;
 import 'entity.dart' as entity;
 import 'path.dart';
 import 'shared.dart';
 
-part 'gui/element/document_stamp.dart';
-
-part 'gui/element/file_container.dart';
-
-part 'gui/element/multi_select_priority.dart';
-
-part 'gui/element/input_project.dart';
-
-part 'gui/element/multi_select_status.dart';
-
-part 'gui/element/multi_select_user.dart';
-
-part 'gui/element/select_task_priority.dart';
-
-part 'gui/element/select_task_status.dart';
-
-part 'gui/element/select_user.dart';
-
-part 'gui/element/task_status_cell.dart';
-
-part 'gui/element/description_ceil.dart';
-
-part 'gui/element/status_cell.dart';
-
-part 'gui/element/priority_cell.dart';
-
-part 'gui/element/progress.dart';
-
 part 'gui/element/deadline_days.dart';
-
+part 'gui/element/description_ceil.dart';
+part 'gui/element/document_stamp.dart';
+part 'gui/element/file_container.dart';
+part 'gui/element/input_project.dart';
+part 'gui/element/multi_select_priority.dart';
+part 'gui/element/multi_select_status.dart';
+part 'gui/element/multi_select_user.dart';
+part 'gui/element/priority_cell.dart';
+part 'gui/element/progress.dart';
 part 'gui/element/project_select.dart';
-
+part 'gui/element/select_task_priority.dart';
+part 'gui/element/select_task_status.dart';
+part 'gui/element/select_user.dart';
+part 'gui/element/status_cell.dart';
+part 'gui/element/task_status_cell.dart';
 part 'gui/gadgets/task_card.dart';
-
 part 'gui/gadgets/task_gadget.dart';
-
-part 'gui/task.dart';
-
 part 'gui/project.dart';
-
-part 'gui/task_list.dart';
-
 part 'gui/project_list.dart';
+part 'gui/task.dart';
+part 'gui/task_list.dart';
 
 abstract class Icon {
   static const String Task = cl.Icon.message;

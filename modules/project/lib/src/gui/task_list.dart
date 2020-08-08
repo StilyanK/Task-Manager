@@ -9,7 +9,7 @@ class TaskList extends base.Listing {
   cl_action.Button newTaskBtn;
 
   cl_app.WinMeta meta = new cl_app.WinMeta()
-    ..title = 'Списък със задачи'
+    ..title = intl.Tasks()
     ..icon = Icon.Tasks
     ..width = 900
     ..height = 600;
@@ -21,7 +21,7 @@ class TaskList extends base.Listing {
     newTaskBtn = new cl_action.Button()
       ..addClass('important')
       ..setStyle({'margin-left': 'auto'})
-      ..setTitle('Добави задача')
+      ..setTitle(intl.Add())
       ..setIcon(cl.Icon.add)
       ..addAction((_) => new TaskGui(ap));
 
@@ -39,65 +39,65 @@ class TaskList extends base.Listing {
           ..title = '#'
           ..filter = (new cl_form.Input()..setName(entity.$Task.task_id)),
         new cl_form.GridColumn('project')
-          ..title = 'Проект'
-          ..filter = (new ProjectSelect(ap, [null, 'Всички'])
+          ..title = intl.Project()
+          ..filter = (new ProjectSelect(ap, [null, intl.All()])
             ..setName(entity.$Task.project_id)
             ..load()),
         new cl_form.GridColumn(entity.$Task.deadline)
-          ..title = 'Срок'
+          ..title = intl.Deadline()
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.deadline))
           ..type = (grid, row, cell, object) =>
               new DateAndRemainingDays(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
-          ..title = 'Приел'
-          ..filter = (new MultiSelectUser(ap, [null, 'All'])
+          ..title = intl.Assigned_to()
+          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
             ..setName(entity.$Task.assigned_to)
             ..load())
           ..sortable = true,
         new cl_form.GridColumn('task')
-          ..title = 'Съдържание'
+          ..title = intl.Content()
           ..filter = (new cl_form.Input()..setName('tsv'))
           ..type = (grid, row, cell, object) =>
               new DescriptionCeil(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.priority)
-          ..title = 'Приоритет'
-          ..filter = (new SelectMultiPriority([null, 'All'])
+          ..title = intl.Priority()
+          ..filter = (new SelectMultiPriority([null, intl.All()])
             ..setName(entity.$Task.priority))
           ..type = (grid, row, cell, object) =>
               new PriorityCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.status)
-          ..title = 'Статус'
-          ..filter = (new SelectMultiTaskStatus([null, 'All'])
+          ..title = intl.Status()
+          ..filter = (new SelectMultiTaskStatus([null, intl.All()])
             ..setName(entity.$Task.status))
           ..type = (grid, row, cell, object) =>
               new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.date_created)
-          ..title = 'Създаден'
+          ..title = intl.Created()
           ..sortable = true
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.date_created))
           ..type = (grid, row, cell, object) =>
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.created_by)
-          ..title = 'Създал'
-          ..filter = (new MultiSelectUser(ap, [null, 'All'])
+          ..title = intl.Created_by()
+          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
             ..setName(entity.$Task.created_by)
             ..load()),
         new cl_form.GridColumn(entity.$Task.date_modified)
-          ..title = 'Обновен'
+          ..title = intl.Modified()
           ..filter = (new cl_form.InputDateRange()
             ..setName(entity.$Task.date_modified))
           ..sortable = true
           ..type = (grid, row, cell, object) =>
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.modified_by)
-          ..title = 'Обновил'
-          ..filter = (new MultiSelectUser(ap, [null, 'All'])
+          ..title = intl.Modified_by()
+          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
             ..setName(entity.$Task.modified_by)
             ..load()),
         new cl_form.GridColumn(entity.$Task.date_done)
-          ..title = 'Изпълнен'
+          ..title = intl.Done()
           ..sortable = true
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.date_done))
