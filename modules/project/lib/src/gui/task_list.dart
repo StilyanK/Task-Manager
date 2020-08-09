@@ -32,6 +32,13 @@ class TaskList extends base.Listing {
     registerServerListener(RoutesTask.eventCreate, debounceGet);
     registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
     registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
+//    final cache = super.ap.storageFetch(runtimeType.toString());
+//    if (cache != null)
+//      form.setValue(cache);
+//    form.onValueChanged.listen((event) {
+//      super.ap.storagePut(runtimeType.toString(), form.getValue());
+//    });
+//    getData();
   }
 
   List<cl_form.GridColumn> initHeader() => [
