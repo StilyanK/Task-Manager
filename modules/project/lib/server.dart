@@ -40,6 +40,9 @@ Future<void> init() async {
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;
+      if (task.modified_by == task.assigned_to ||
+          (task.modified_by == null && task.created_by == task.assigned_to))
+        return;
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);
       final modifiedBy = await manager.app.user.find(task.modified_by);
