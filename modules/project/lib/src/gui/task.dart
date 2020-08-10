@@ -39,7 +39,7 @@ class TaskGui extends base.ItemBuilder {
       ..setRequired(true);
 
     final hoursDone = new cl_form.Input(new cl_form.InputTypeInt())
-     ..setName('hours');
+     ..setName(entity.$Task.hours_done);
 
     final priority = new SelectTaskPriority()
       ..setName(entity.$Task.priority)
@@ -118,9 +118,9 @@ class TaskGui extends base.ItemBuilder {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu])
-      ..addSection(intl.Sub_tasks())
-      ..addRow(null, [addSubTaskBtn]);
+      ..addRow(fileuploader, [fu]);
+//      ..addSection(intl.Sub_tasks())
+//      ..addRow(null, [addSubTaskBtn]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
