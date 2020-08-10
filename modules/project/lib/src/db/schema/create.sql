@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS "task"
     "deadline"      timestamptz NOT NULL DEFAULT NOW(),
     "project_id"    int         NOT NULL REFERENCES "project" (project_id) ON DELETE CASCADE,
     "is_deleted"    bool        NOT NULL DEFAULT FALSE,
-    "tsv"           tsvector
+    "tsv"           tsvector,
+    "hours_done"    int
 );
 CREATE INDEX "patient_tsv_idx" ON task USING gin ("tsv");
 CREATE INDEX "task_assigned_to_idx" ON "task" ("assigned_to");

@@ -18,6 +18,7 @@ class Task {
   DateTime deadline;
   int project_id;
   bool is_deleted;
+  int hours_done;
 
   Task();
 

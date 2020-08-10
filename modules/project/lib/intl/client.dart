@@ -24,3 +24,6 @@ String Assigned_to() => Intl.message('Assigned_to', name: 'Assigned_to');
 String Deadline() => Intl.message('Deadline', name: 'Deadline');
 String Progress() => Intl.message('Progress', name: 'Progress');
 String Date_done() => Intl.message('Date Done', name: 'Date_done');
+String Add_sub_task() => Intl.message('Add sub task', name: 'Add_sub_task');
+String Sub_tasks() => Intl.message('Sub tasks', name: 'Sub_tasks');
+String Hours_done() => Intl.message('Hours done', name: 'Hours_done');
