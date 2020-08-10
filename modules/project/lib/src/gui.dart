@@ -3,10 +3,12 @@ library project.gui;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:auth/client.dart' as auth;
 import 'package:cl/action.dart' as cl_action;
 import 'package:cl/app.dart' as cl_app;
 import 'package:cl/base.dart' as cl;
 import 'package:cl/chart.dart' as cl_chart;
+import 'package:cl/chat.dart' as chat;
 import 'package:cl/forms.dart' as cl_form;
 import 'package:cl/gui.dart' as cl_gui;
 import 'package:cl_base/client.dart' as base;

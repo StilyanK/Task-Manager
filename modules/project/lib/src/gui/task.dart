@@ -1,6 +1,6 @@
 part of project.gui;
 
-class TaskGui extends base.ItemBuilder {
+class TaskGui extends base.ItemBuilder<auth.Client> {
   UrlPattern contr_get = RoutesTask.itemGet;
   UrlPattern contr_save = RoutesTask.itemSave;
   UrlPattern contr_del = RoutesTask.itemDelete;
@@ -29,12 +29,16 @@ class TaskGui extends base.ItemBuilder {
     final cl_gui.FormElement taskForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
-    new cl_action.Button()
-    ..setTitle(intl.Comment())
-    ..addAction((e) {
-      ap.client.ch.showChat();
-      ap.client.ch.controller.showRoom(new chat.Room(room_id: 1, members: []));
-    });
+    final comments = new cl_action.Button()
+      ..setTitle(intl.Comment())
+      ..addClass('attention')
+      ..addAction((e) {
+        ap.client.ch.showChat();
+        if (ap.client.ch.focused) {
+          ap.client.ch.controller
+              .showRoom(new chat.Room(room_id: 1, members: []));
+        }
+      });
 
     final createdById = cl_form.Data()..setName(entity.$Task.created_by);
     form.add(createdById);
@@ -101,7 +105,8 @@ class TaskGui extends base.ItemBuilder {
       ..setRequired(true);
 
     taskForm
-      ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
+      ..addRow(null, [docStampCreated, docStampModified, comments])
+          .addClass('col6')
       ..addRow(intl.Title(), [title]).addClass('col6')
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
       ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')

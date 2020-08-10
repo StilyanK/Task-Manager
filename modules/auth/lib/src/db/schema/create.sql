@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS "chat_room"
 (
     "chat_room_id" serial PRIMARY KEY,
     "name"         text,
-    "context"      text
+    "context"      text UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS "chat_message"
