@@ -11,6 +11,8 @@ class TaskGui extends base.ItemBuilder {
     ..width = 1100
     ..height = 800;
 
+  cl_action.Button addSubTaskBtn;
+
   TaskGui(app, {id}) : super(app, id);
 
   Future<void> setDefaults() async {
@@ -35,6 +37,9 @@ class TaskGui extends base.ItemBuilder {
     final title = new cl_form.Input()
       ..setName(entity.$Task.title)
       ..setRequired(true);
+
+    final hoursDone = new cl_form.Input(new cl_form.InputTypeInt())
+     ..setName('hours');
 
     final priority = new SelectTaskPriority()
       ..setName(entity.$Task.priority)
@@ -93,18 +98,29 @@ class TaskGui extends base.ItemBuilder {
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
 
+    addSubTaskBtn = new cl_action.Button()
+      ..setIcon(cl.Icon.add)
+      ..setTitle(intl.Add_sub_task())
+      ..addAction((_) {
+
+      });
+
+
     taskForm
       ..addRow(null, [docStampCreated, docStampModified]).addClass('col6')
       ..addRow(intl.Title(), [title]).addClass('col6')
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
       ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')
-      ..addRow(intl.Deadline(), [deadline]).addClass('col2')
+      ..addRow(intl.Deadline(), [deadline]).addClass('col1')
+      ..addRow(intl.Hours_done(), [hoursDone]).addClass('col1')
       ..addRow(intl.Priority(), [priority]).addClass('col2')
       ..addRow(intl.Status(), [status]).addClass('col2')
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu]);
+      ..addRow(fileuploader, [fu])
+      ..addSection(intl.Sub_tasks())
+      ..addRow(null, [addSubTaskBtn]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
