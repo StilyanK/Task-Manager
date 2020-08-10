@@ -56,11 +56,27 @@ CREATE TABLE IF NOT EXISTS "user_event"
     "date_modified" timestamptz  NOT NULL DEFAULT NOW()
 );
 
+CREATE FUNCTION user_event_lastmodified_column()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    NEW.date_modified = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER user_event_lastmodified
+    BEFORE UPDATE
+    ON user_event
+    FOR EACH ROW
+EXECUTE PROCEDURE
+    user_event_lastmodified_column();
+
 CREATE TABLE IF NOT EXISTS "chat_room"
 (
     "chat_room_id" serial PRIMARY KEY,
     "name"         text,
-    "context"      text
+    "context"      text UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS "chat_message"
@@ -91,23 +107,8 @@ CREATE TABLE IF NOT EXISTS "chat_membership"
     "user_id"              integer     NOT NULL REFERENCES "user" ("user_id") ON DELETE RESTRICT,
     "timestamp_join"       timestamptz NOT NULL DEFAULT NOW(),
     "timestamp_leave"      timestamptz,
-    "chat_message_seen_id" integer
+    "chat_message_seen_id" integer,
+    UNIQUE (chat_room_id, user_id)
 );
 CREATE INDEX ON "chat_membership" ("chat_room_id");
 CREATE INDEX ON "chat_membership" ("user_id");
-
-CREATE FUNCTION user_event_lastmodified_column()
-    RETURNS TRIGGER AS
-$$
-BEGIN
-    NEW.date_modified = NOW();
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER user_event_lastmodified
-    BEFORE UPDATE
-    ON user_event
-    FOR EACH ROW
-EXECUTE PROCEDURE
-    user_event_lastmodified_column();
