@@ -56,6 +56,7 @@ abstract class Icon {
 class Client extends cl_app.Client {
   UserSessionDTO sessionDto;
   List<FormSettingsPair> formSettings = [];
+  chat.Chat ch;
   String settingsSaveRoute = RoutesU.settings.reverse([]);
 
   Client(Map data) : super(data.cast<String, dynamic>()) {
@@ -67,7 +68,7 @@ class Client extends cl_app.Client {
     addApp(cl_app.ClientApp()
       ..init = (ap) {
         final cc = chat.ChatController();
-        final chat.Chat ch = chat.Chat(ap, ap.fieldRight,
+        ch = chat.Chat(ap, ap.fieldRight,
             chat.RoomListContext(ap, cc), chat.RoomContext(ap, cc), cc);
 
         cc
@@ -114,7 +115,7 @@ class Client extends cl_app.Client {
             return true;
           };
 
-        ap.onServerCall.filter(EVENT_CHATMESSAGECREATED).listen((r) {
+        ap.onServerCall.filter(RoutesChat.messageCreated).listen((r) {
           final cm = ChatMessageChangeEventDTO.fromMap(r);
           if (cm.room_context != null) return;
           if (!ch.focused && cm.user_id != ap.client.userId)
@@ -126,12 +127,12 @@ class Client extends cl_app.Client {
             ..room_id = cm.room_id
             ..unseen = cm.unseen);
         });
-        ap.onServerCall.filter(EVENT_CHATROOMCREATED).listen((r) {
+        ap.onServerCall.filter(RoutesChat.roomCreated).listen((r) {
           final cm = ChatMessageChangeEventDTO.fromMap(r);
           if (cm.room_context != null) return;
           cc.notifierRoom.add(chat.Room()..room_id = cm.room_id);
         });
-        ap.onServerCall.filter(EVENT_CHATMESSAGEUPDATED).listen((res) async {
+        ap.onServerCall.filter(RoutesChat.messageUpdated).listen((res) async {
           // TODO
         });
         ap.addons.append(ch.chatDom());

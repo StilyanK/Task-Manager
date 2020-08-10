@@ -1,11 +1,6 @@
 // ignore_for_file: type_annotate_public_apis, always_declare_return_types
 part of auth.path;
 
-const String EVENT_CHATROOMCREATED = 'chat:room:created';
-const String EVENT_CHATROOMUPDATED = 'chat:room:updated';
-const String EVENT_CHATMESSAGECREATED = 'chat:message:created';
-const String EVENT_CHATMESSAGEUPDATED = 'chat:message:updated';
-
 class RoutesU {
   static get isLogged => UrlPattern(r'(.*)');
   static get login => UrlPattern(r'/login');
@@ -72,4 +67,8 @@ class RoutesChat {
       UrlPattern(r'/user/chat/room/messages_new');
   static get messagePersist => UrlPattern(r'/user/chat/message/persist');
   static get messageSeen => UrlPattern(r'/user/chat/message/seen');
+  static String roomCreated = 'chat:room:create';
+  static String roomUpdated = 'chat:room:update';
+  static String messageCreated = 'chat:message:create';
+  static String messageUpdated = 'chat:message:update';
 }

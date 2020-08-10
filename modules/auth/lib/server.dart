@@ -13,6 +13,7 @@ export 'src/server.dart';
 export 'src/svc/generate/generate.dart';
 export 'src/svc/permission.dart';
 export 'src/svc/user.dart';
+export 'src/svc/chat.dart';
 
 void init() {
   base.routes.add(routesUser);
@@ -42,13 +43,13 @@ void init() {
       for (final cm in col) {
         final wsClient = wsClients.firstWhere(
             (client) =>
-                UserSessionDTO.fromMap(client.req.session['client'])
-                    .user_id ==
+                UserSessionDTO.fromMap(client.req.session['client']).user_id ==
                 cm.user_id,
             orElse: () => null);
         if (wsClient != null) {
-          final contr =
-              cont.diff == null ? EVENT_CHATROOMCREATED : EVENT_CHATROOMUPDATED;
+          final contr = cont.diff == null
+              ? RoutesChat.roomCreated
+              : RoutesChat.roomUpdated;
           wsClient.send(
               contr,
               ChatRoomChangeEventDTO()
@@ -72,8 +73,8 @@ void init() {
         if (wsClient != null) {
           final user = await manager.app.user.find(cont.entity.user_id);
           final contr = cont.diff == null
-              ? EVENT_CHATMESSAGECREATED
-              : EVENT_CHATMESSAGEUPDATED;
+              ? RoutesChat.messageCreated
+              : RoutesChat.messageUpdated;
           final mess = cont.entity.content.length > 50
               ? '${cont.entity.content.substring(0, 50)}...'
               : cont.entity.content;
@@ -149,8 +150,7 @@ void onNotification(base.SMessage mes) {
         final clients = wsClients.where((client) =>
             user.user_id ==
             (client.req.session['client'] != null
-                ? UserSessionDTO.fromMap(client.req.session['client'])
-                    .user_id
+                ? UserSessionDTO.fromMap(client.req.session['client']).user_id
                 : null));
         if (clients.isNotEmpty) {
           clients.forEach((client) {

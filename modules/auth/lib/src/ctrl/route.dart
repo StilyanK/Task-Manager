@@ -119,20 +119,20 @@ void routesNotifications(Router router) {
 void routesChat(Router router) {
   router
       .serve(RoutesChat.createRoom, method: 'POST')
-      .listen((req) => Chat(req).createRoom());
+      .listen((req) => CChat(req).createRoom());
   router
       .serve(RoutesChat.loadRooms, method: 'POST')
-      .listen((req) => Chat(req).loadRooms());
+      .listen((req) => CChat(req).loadRooms());
   router
       .serve(RoutesChat.loadRoomMessages, method: 'POST')
-      .listen((req) => Chat(req).loadMessages());
+      .listen((req) => CChat(req).loadMessages());
   router
       .serve(RoutesChat.loadRoomMessagesNew, method: 'POST')
-      .listen((req) => Chat(req).loadMessagesNew());
+      .listen((req) => CChat(req).loadMessagesNew());
   router
       .serve(RoutesChat.messagePersist, method: 'POST')
-      .listen((req) => Chat(req).messagePersist());
+      .listen((req) => CChat(req).messagePersist());
   router
       .serve(RoutesChat.messageSeen, method: 'POST')
-      .listen((req) => Chat(req).messageSeen());
+      .listen((req) => CChat(req).messageSeen());
 }

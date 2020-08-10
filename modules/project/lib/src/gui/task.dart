@@ -29,6 +29,13 @@ class TaskGui extends base.ItemBuilder {
     final cl_gui.FormElement taskForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
+    new cl_action.Button()
+    ..setTitle(intl.Comment())
+    ..addAction((e) {
+      ap.client.ch.showChat();
+      ap.client.ch.controller.showRoom(new chat.Room(room_id: 1, members: []));
+    });
+
     final createdById = cl_form.Data()..setName(entity.$Task.created_by);
     form.add(createdById);
 
