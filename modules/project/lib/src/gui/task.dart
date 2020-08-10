@@ -112,15 +112,15 @@ class TaskGui extends base.ItemBuilder {
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
       ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')
       ..addRow(intl.Deadline(), [deadline]).addClass('col1')
-      ..addRow(intl.Hours_done(), [hoursDone]).addClass('col1')
+      ..addRow(intl.Hour_done(), [hoursDone]).addClass('col1')
       ..addRow(intl.Priority(), [priority]).addClass('col2')
       ..addRow(intl.Status(), [status]).addClass('col2')
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu]);
-//      ..addSection(intl.Sub_tasks())
-//      ..addRow(null, [addSubTaskBtn]);
+      ..addRow(fileuploader, [fu])
+      ..addSection(intl.Sub_tasks())
+      ..addRow(null, [addSubTaskBtn]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
