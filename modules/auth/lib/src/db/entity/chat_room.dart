@@ -8,6 +8,8 @@ class ChatRoom {
 
   String context;
 
+  ChatMembershipCollection members;
+
   ChatRoom();
 
   void init(Map data) => _$ChatRoomFromMap(this, data);
@@ -15,6 +17,8 @@ class ChatRoom {
   Map<String, dynamic> toMap() => _$ChatRoomToMap(this);
 
   Map<String, dynamic> toJson() => _$ChatRoomToMap(this, true);
+
+  Future<int> loadUnseen(int chat_message_seen_id) async => null;
 }
 
 class ChatRoomCollection<E extends ChatRoom> extends Collection<E> {}
