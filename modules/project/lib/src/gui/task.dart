@@ -134,6 +134,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         (p) => new FileContainer(p))
       ..setName('files');
 
+    final grid = new cl_form.GridData();
+
     final inputProject = new InputProject(ap)
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
@@ -142,7 +144,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName('sub_task_done')
       ..setValue('3/5');
 
-    final grid = new cl_form.GridData();
     grid
       ..setName('sub_task_grid')
       ..initGridHeader([
@@ -160,7 +161,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           ..title = intl.Progress(),
       ])
       ..addHookRow((row, obj) {
-        grid.show();
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
         obj[entity.$Task.priority] = new SelectTaskPriority()
@@ -188,10 +188,10 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu]);
-//      ..addSection(intl.Sub_tasks())
-//      ..addRow(null, [addSubTaskBtn, subTaskDone])
-//      ..addRow(null, [grid]);
+      ..addRow(fileuploader, [fu])
+      ..addSection(intl.Sub_tasks())
+      ..addRow(null, [addSubTaskBtn, subTaskDone])
+      ..addRow(null, [grid]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
