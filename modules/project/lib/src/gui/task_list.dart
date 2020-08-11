@@ -14,9 +14,9 @@ class TaskList extends base.Listing {
     ..width = 900
     ..height = 600;
 
-  TaskList(ap, [bool autoload = true])
+  TaskList(ap, [bool autoload = false])
       : super(ap,
-            autoload: autoload ?? true,
+            autoload: autoload ?? false,
             order: new cl_form.GridOrder(entity.$Task.task_id, 'DESC')) {
     newTaskBtn = new cl_action.Button()
       ..addClass('important')
@@ -32,13 +32,12 @@ class TaskList extends base.Listing {
     registerServerListener(RoutesTask.eventCreate, debounceGet);
     registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
     registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
-//    final cache = super.ap.storageFetch(runtimeType.toString());
-//    if (cache != null)
-//      form.setValue(cache);
-//    form.onValueChanged.listen((event) {
-//      super.ap.storagePut(runtimeType.toString(), form.getValue());
-//    });
-//    getData();
+    final cache = super.ap.storageFetch(runtimeType.toString());
+    if (cache != null) form.setValue(cache);
+    form.onValueChanged.listen((event) {
+      super.ap.storagePut(runtimeType.toString(), form.getValue());
+    });
+    getData();
   }
 
   List<cl_form.GridColumn> initHeader() => [
