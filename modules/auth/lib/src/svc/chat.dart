@@ -164,9 +164,11 @@ class Chat {
 
   Future<bool> messageSeen(ChatMessageDTO ms, int userId) async {
     final m =
-        await manager.app.chat_membership.findByRoomAndUser(ms.room_id, userId)
-          ..chat_message_seen_id = ms.id;
-    await manager.app.chat_membership.update(m);
+        await manager.app.chat_membership.findByRoomAndUser(ms.room_id, userId);
+    if (m != null)
+      await manager.app.chat_membership.update(m..chat_message_seen_id = ms.id);
+    else
+      return false;
     return true;
   }
 }
