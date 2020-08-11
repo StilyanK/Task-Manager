@@ -12,6 +12,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..height = 800;
 
   cl_action.Button addSubTaskBtn;
+  cl_action.Button comments;
 
   TaskGui(app, {id}) : super(app, id);
 
@@ -24,6 +25,18 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   Future setData() async {
     if (data_response != null) {
       form.setValue(data_response);
+      if (data_response['chat_room'] != null) {
+        final room = new auth.ChatRoomDTO.fromMap(data_response['chat_room']);
+        comments
+          ..setTitle('${intl.Comments()} ${room.unseen}/${room.messages}')
+          ..removeActionsAll()
+          ..addAction((e) async {
+            ap.client.ch.renderChat();
+            if (ap.client.ch.focused)
+              ap.client.ch.renderRoom(new chat.Room.fromMap(room.toJson())
+                ..title = '${intl.Task()} #${getId()}');
+          });
+      }
     }
   }
 
@@ -31,14 +44,22 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     final cl_gui.FormElement taskForm = new cl_gui.FormElement(form)
       ..addClass('top');
 
-    final comments = new cl_action.Button()
-      ..setTitle(intl.Comment())
-      ..addClass('attention')
-      ..addAction((e) {
-        ap.client.ch.showChat();
+    comments = new cl_action.Button()
+      ..setTitle('${intl.Comments()} 0/0')
+      ..setIcon(cl.Icon.message)
+      ..addAction((e) async {
+        ap.client.ch.renderChat();
         if (ap.client.ch.focused) {
-          ap.client.ch.controller
-              .showRoom(new chat.Room(room_id: 1, members: []));
+          final room = new chat.Room(
+              title: '${intl.Task()} #${getId()}',
+              context: 'task${getId()}',
+              members: [
+                new chat.Member()
+                  ..user_id = ap.client.userId
+                  ..picture = ap.client.picture
+                  ..name = ap.client.name
+              ]);
+          ap.client.ch.renderRoom(room);
         }
       });
 
@@ -135,6 +156,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           ..rowAdd({'dep_journal_number': null});
         ap.run('task/item/0');
       });
+
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified, comments])

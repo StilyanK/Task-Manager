@@ -5,9 +5,7 @@ import 'package:communicator/shared.dart';
 
 import 'permission.dart';
 
-part 'path/dto/chat_member.dart';
-part 'path/dto/chat_message.dart';
-part 'path/dto/chat_room.dart';
+part 'path/dto/chat.dart';
 part 'path/dto/password.dart';
 part 'path/dto/settings.dart';
 part 'path/dto/user_session.dart';

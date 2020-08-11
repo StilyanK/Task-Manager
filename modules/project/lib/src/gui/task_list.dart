@@ -79,6 +79,10 @@ class TaskList extends base.Listing {
             ..setName(entity.$Task.status))
           ..type = (grid, row, cell, object) =>
               new StatusCell(ap, grid, row, cell, object),
+        new cl_form.GridColumn('chat_room')
+          ..title = intl.Comments()
+          ..type = (grid, row, cell, object) =>
+              new CommentsCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.date_created)
           ..title = intl.Created()
           ..sortable = true

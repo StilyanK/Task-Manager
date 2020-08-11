@@ -16,6 +16,8 @@ class ChatMembership {
 
   UserCollection users;
 
+  ChatRoom room;
+
   ChatMembership();
 
   void init(Map data) => _$ChatMembershipFromMap(this, data);

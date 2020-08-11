@@ -147,7 +147,7 @@ void _$UserEventFromMap(UserEvent obj, Map data) => obj
   ..all_day = data[$UserEvent.all_day]
   ..recurring = data[$UserEvent.recurring] == null
       ? null
-      : RecurringDTO.fromMap(data[$UserEvent.recurring]);
+      : new RecurringDTO.fromMap(data[$UserEvent.recurring]);
 
 Map<String, dynamic> _$UserEventToMap(UserEvent obj, [asJson = false]) =>
     <String, dynamic>{

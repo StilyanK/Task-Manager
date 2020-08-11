@@ -25,6 +25,10 @@ class ITask extends base.Item<App, Task, int> {
       'date': task.date_created.toString()
     };
 
+    final chatRoom = await auth.Chat(manager.convert(new auth.App()))
+        .loadRoomByContext(
+            'task${task.task_id}', req.session['client']['user_id']);
+    ret['chat_room'] = chatRoom;
     ret['files'] = [];
     for (final el in taskMedia) {
       ret['files']

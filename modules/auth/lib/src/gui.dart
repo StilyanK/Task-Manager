@@ -68,10 +68,11 @@ class Client extends cl_app.Client {
     addApp(cl_app.ClientApp()
       ..init = (ap) {
         final cc = chat.ChatController();
-        ch = chat.Chat(ap, ap.fieldRight,
-            chat.RoomListContext(ap, cc), chat.RoomContext(ap, cc), cc);
-
+        ch = chat.Chat(ap, ap.fieldRight, chat.RoomListContext(ap, cc),
+            chat.RoomContext(ap, cc), cc);
         cc
+          ..loadUnread =
+              (() => ap.serverCall(RoutesChat.loadUnread.reverse([]), null))
           ..loadRooms = () async {
             final rooms =
                 await ap.serverCall(RoutesChat.loadRooms.reverse([]), null);
@@ -83,59 +84,66 @@ class Client extends cl_app.Client {
             final messages = await ap.serverCall(
                 RoutesChat.loadRoomMessages.reverse([]), room.toJson());
             return messages
-                .map<chat.Message>(
-                    (message) => chat.Message.fromMap(message))
+                .map<chat.Message>((message) => chat.Message.fromMap(message))
                 .toList();
           }
           ..loadRoomMessagesNew = (room) async {
             final messages = await ap.serverCall(
                 RoutesChat.loadRoomMessagesNew.reverse([]), room.toJson());
             return messages
-                .map<chat.Message>(
-                    (message) => chat.Message.fromMap(message))
+                .map<chat.Message>((message) => chat.Message.fromMap(message))
                 .toList();
           }
           ..persistMessage = ((message) => ap.serverCall(
               RoutesChat.messagePersist.reverse([]), message.toJson()))
-          ..markMessageAsSeen = ((message) async => ap.serverCall(
-              RoutesChat.messageSeen.reverse([]), message.toJson()))
-          ..createRoom = () async {
+          ..markMessageAsSeen = ((message) async {
+            final r = await ap.serverCall(
+                RoutesChat.messageSeen.reverse([]), message.toJson());
+            ch.init();
+            return r;
+          })
+          ..createRoom = ((room) async {
+            final res = await ap.serverCall(
+                RoutesChat.createRoom.reverse([]),
+                ChatRoomDTO()
+                  ..context = room.context
+                  ..title = room.title
+                  ..members = (room.members
+                      .map((e) => ChatMemberDTO()..user_id = e.user_id)
+                      .toList()));
+            return new chat.Room.fromMap(res);
+          })
+          ..addRoom = () async {
             UserListChoose((obj) async {
               if (ap.client.userId == obj['user_id']) return;
-              await ap.serverCall(
-                  RoutesChat.createRoom.reverse([]),
-                  ChatRoomCreateDTO()
-                    ..members = [
-                      ChatMemberDTO()..user_id = ap.client.userId,
-                      ChatMemberDTO()..user_id = obj['user_id']
-                    ]);
+              await ch.controller.createRoom(new chat.Room()
+                ..members = [
+                  new chat.Member()..user_id = ap.client.userId,
+                  new chat.Member()..user_id = obj['user_id']
+                ]);
             }, ap);
-            // return ap.serverCall(RoutesChat.createRoom.reverse([]),
-            // room.toJson());
-            return true;
           };
 
         ap.onServerCall.filter(RoutesChat.messageCreated).listen((r) {
-          final cm = ChatMessageChangeEventDTO.fromMap(r);
-          if (cm.room_context != null) return;
-          if (!ch.focused && cm.user_id != ap.client.userId)
+          final cm = ChatMessageDTO.fromMap(r);
+          if (!ch.focused && cm.member.user_id != ap.client.userId)
             ap.notify.add(cl_app.NotificationMessage()
               ..persist = false
-              ..text = '${cm.name} : ${cm.message}'
+              ..text = '${cm.member.name}: ${cm.content}'
               ..date = DateTime.now());
           cc.notifierMessage.add(chat.Room()
             ..room_id = cm.room_id
-            ..unseen = cm.unseen);
+            ..context = cm.context);
         });
         ap.onServerCall.filter(RoutesChat.roomCreated).listen((r) {
-          final cm = ChatMessageChangeEventDTO.fromMap(r);
-          if (cm.room_context != null) return;
+          final cm = ChatRoomDTO.fromMap(r);
           cc.notifierRoom.add(chat.Room()..room_id = cm.room_id);
         });
         ap.onServerCall.filter(RoutesChat.messageUpdated).listen((res) async {
           // TODO
         });
         ap.addons.append(ch.chatDom());
+        ch.init();
       });
     addApp(cl_app.ClientApp()
       ..init = (ap) => ap.addons.append(cl_action.Button()
