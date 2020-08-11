@@ -2,6 +2,7 @@ library auth.mapper;
 
 import 'dart:async';
 
+import 'package:auth/server.dart';
 import 'package:cl_base/server.dart' as base;
 import 'package:dbcrypt/dbcrypt.dart';
 import 'package:mapper/mapper.dart';

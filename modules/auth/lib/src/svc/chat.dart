@@ -87,7 +87,10 @@ class Chat {
   Future<int> loadUnread(int userId) async {
     final col = await manager.app.chat_membership.findAllByUser(userId);
     int unseen = 0;
-    for (final r in col) unseen += await r.loadUnseen();
+    for (final m in col) {
+      await m.loadRoom();
+      unseen += await m.room.loadUnseen(m.chat_message_seen_id);
+    }
     return unseen;
   }
 
@@ -109,8 +112,31 @@ class Chat {
   Future<List<ChatRoomDTO>> loadRooms(int userId) async {
     final memberships = await manager.app.chat_membership.findAllByUser(userId);
     final result = <ChatRoomDTO>[];
-    for (final mem in memberships) result.add(await loadRoom(membership: mem));
+    for (final mem in memberships)
+      result.add(await loadRoom(roomId: mem.chat_room_id, userId: mem.user_id));
     return result;
+  }
+
+  Future<ChatRoomDTO> loadRoom({int roomId, int userId}) async {
+    final room = await manager.app.chat_room.find(roomId);
+    await room.loadMembers();
+    final membership = room.members
+        .firstWhere((element) => element.user_id == userId, orElse: () => null);
+    return ChatRoomDTO()
+      ..room_id = room.chat_room_id
+      ..context = room.context
+      ..title = room.name
+      ..members = room.members
+          .map((u) => ChatMemberDTO()
+            ..user_id = u.user_id
+            ..name = u.user.name
+            ..picture = u.user.picture != null
+                ? 'media/image100x100/user/${u.user_id}/${u.user.picture}'
+                : null)
+          .toList()
+      ..lsm_id = membership?.chat_message_seen_id ?? 0
+      ..unseen = await room.loadUnseen(membership?.chat_message_seen_id)
+      ..messages = await room.loadQuantity();
   }
 
   Future<ChatRoomDTO> loadRoomByContext(String context, int userId) async {
@@ -119,44 +145,17 @@ class Chat {
     return loadRoom(roomId: room.chat_room_id, userId: userId);
   }
 
-  Future<ChatRoomDTO> loadRoom(
-      {ChatMembership membership, int roomId, int userId}) async {
-    membership ??=
-        await manager.app.chat_membership.findByRoomAndUser(roomId, userId);
-    if (membership == null) return null;
-    await membership.loadRoom();
-    await membership.loadUsers();
-    return ChatRoomDTO()
-      ..room_id = membership.chat_room_id
-      ..context = membership.room.context
-      ..title = membership.room.name
-      ..members = membership.users
-          .map((u) => ChatMemberDTO()
-            ..user_id = u.user_id
-            ..name = u.name
-            ..picture = u.picture != null
-                ? 'media/image100x100/user/${u.user_id}/${u.picture}'
-                : null)
-          .toList()
-      ..lsm_id = membership.chat_message_seen_id ?? 0
-      ..unseen = await membership.loadUnseen()
-      ..messages = await membership.loadQuantity();
-  }
-
   Future<bool> messagePersist(ChatMessageDTO m) async {
-    int roomId = m.room_id;
-    if (roomId == null) {
-      final room = await createRoom(
-          new ChatRoomDTO()
-            ..context = m.context
-            ..members = [m.member],
-          m.member.user_id);
-      roomId = room.room_id;
-    }
+    final room = await createRoom(
+        new ChatRoomDTO()
+          ..room_id = m.room_id
+          ..context = m.context
+          ..members = [m.member],
+        m.member.user_id);
     final message = manager.app.chat_message.createObject()
       ..content = m.content
       ..user_id = m.member.user_id
-      ..chat_room_id = roomId
+      ..chat_room_id = room.room_id
       ..timestamp = m.timestamp;
     await manager.app.chat_message.insert(message);
     return true;

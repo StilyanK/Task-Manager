@@ -8,7 +8,7 @@ class ChatMembershipMapper
 
   Future<ChatMembershipCollection> findAllByRoom(int room_id) =>
       loadC(selectBuilder()
-        ..where('chat_room_id = @room_id', 'timestamp_leave IS NULL')
+        ..where('chat_room_id = @room_id')
         ..setParameter('room_id', room_id));
 
   Future<ChatMembership> findByRoomAndUser(int room_id, int user_id) =>
@@ -34,23 +34,7 @@ class ChatMembership extends entity.ChatMembership with Entity<App> {
   Future<ChatRoom> loadRoom() async =>
       room = await manager.app.chat_room.find(chat_room_id);
 
-  Future<UserCollection> loadUsers() async {
-    final col = await manager.app.chat_membership.findAllByRoom(chat_room_id);
-    users = UserCollection();
-    for (final cm in col) users.add(await manager.app.user.find(cm.user_id));
-    return users;
-  }
-
-  Future<int> loadQuantity() async =>
-      manager.app.chat_message.loadCount(chat_room_id);
-
-  Future<int> loadUnseen() async {
-    final messages = (chat_message_seen_id == null)
-        ? await manager.app.chat_message.loadRecent(chat_room_id, 0)
-        : await manager.app.chat_message
-            .loadNew(chat_room_id, chat_message_seen_id);
-    return messages.length;
-  }
+  Future<User> loadUser() async => user = await manager.app.user.find(user_id);
 }
 
 class ChatMembershipCollection

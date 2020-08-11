@@ -14,7 +14,7 @@ class ChatMembership {
 
   int chat_message_seen_id;
 
-  UserCollection users;
+  User user;
 
   ChatRoom room;
 
@@ -25,6 +25,8 @@ class ChatMembership {
   Map<String, dynamic> toMap() => _$ChatMembershipToMap(this);
 
   Map<String, dynamic> toJson() => _$ChatMembershipToMap(this, true);
+
+  Future<User> loadUser() async => null;
 }
 
 class ChatMembershipCollection<E extends ChatMembership> extends Collection<E> {
