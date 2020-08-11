@@ -34,14 +34,14 @@ class ITask extends base.Item<App, Task, int> {
       ret['files']
           .add({'source': el.source, 'task_media_id': el.task_media_id});
     }
-    final childTasks =
-        await manager.app.task.findAllChildTasks(task.task_id);
+    final childTasks = await manager.app.task.findAllChildTasks(task.task_id);
     if (childTasks != null) {
       ret['sub_task_grid'] = [];
       for (final o in childTasks) {
         ret['sub_task_grid'].add({
           '${entity.$Task.task_id}': o.task_id,
           '${entity.$Task.progress}': o.progress,
+          '${entity.$Task.priority}': o.priority,
           '${entity.$Task.title}': o.title,
           '${entity.$Task.description}': o.description,
         });
@@ -51,7 +51,6 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
-    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
@@ -60,6 +59,15 @@ class ITask extends base.Item<App, Task, int> {
         ..date_modified = DateTime.now();
       manager.addDirty(task);
     }
+
+    final subTaskGrid = data['sub_task_grid'];
+    if (subTaskGrid['update'] != null) {
+      final List data = subTaskGrid['update'];
+      for (final o in data) {
+        await manager.app.task.prepare(o['task_id'], o);
+      }
+    }
+
     final gridData = data['files'];
     if (gridData != null) {
       await manager.persist();
