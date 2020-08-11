@@ -21,6 +21,7 @@ import 'entity.dart' as entity;
 import 'path.dart';
 import 'shared.dart';
 
+part 'gui/element/comments_cell.dart';
 part 'gui/element/deadline_days.dart';
 part 'gui/element/description_ceil.dart';
 part 'gui/element/document_stamp.dart';

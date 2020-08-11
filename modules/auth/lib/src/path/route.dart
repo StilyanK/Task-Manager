@@ -62,6 +62,7 @@ class CRouter {
 class RoutesChat {
   static get createRoom => UrlPattern(r'/user/chat/room/create');
   static get loadRooms => UrlPattern(r'/user/chat/room/list');
+  static get loadUnread => UrlPattern(r'/user/chat/unread');
   static get loadRoomMessages => UrlPattern(r'/user/chat/room/messages');
   static get loadRoomMessagesNew =>
       UrlPattern(r'/user/chat/room/messages_new');

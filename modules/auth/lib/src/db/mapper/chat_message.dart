@@ -6,6 +6,14 @@ class ChatMessageMapper
 
   ChatMessageMapper(m) : super(m);
 
+  Future<int> loadCount(int roomId) async {
+    final q = selectBuilder('count(*) AS qty')
+      ..where('chat_room_id = @r_id')
+      ..setParameter('r_id', roomId);
+    final res = await manager.execute(q);
+    return res[0]['qty'];
+  }
+
   Future<ChatMessageCollection> loadRecent(int roomId, [int limit = 50]) =>
       loadC(selectBuilder()
         ..where('chat_room_id = @r_id')

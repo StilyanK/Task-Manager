@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS "chat_room"
     "name"         text,
     "context"      text UNIQUE
 );
+CREATE INDEX ON "chat_room" ("context");
 
 CREATE TABLE IF NOT EXISTS "chat_message"
 (

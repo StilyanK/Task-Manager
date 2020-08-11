@@ -124,6 +124,9 @@ void routesChat(Router router) {
       .serve(RoutesChat.loadRooms, method: 'POST')
       .listen((req) => CChat(req).loadRooms());
   router
+      .serve(RoutesChat.loadUnread, method: 'POST')
+      .listen((req) => CChat(req).loadUnread());
+  router
       .serve(RoutesChat.loadRoomMessages, method: 'POST')
       .listen((req) => CChat(req).loadMessages());
   router

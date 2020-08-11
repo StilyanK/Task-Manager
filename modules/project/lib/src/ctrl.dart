@@ -6,6 +6,7 @@ import 'package:cl_base/server.dart' as base;
 import 'package:communicator/server.dart';
 import 'package:intl/intl.dart';
 import 'package:mapper/mapper.dart';
+import 'package:auth/server.dart' as auth;
 
 import 'entity.dart' as entity;
 import 'mapper.dart';

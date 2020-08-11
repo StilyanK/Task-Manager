@@ -10,10 +10,10 @@ export 'src/mapper.dart';
 export 'src/path.dart';
 export 'src/permission.dart';
 export 'src/server.dart';
+export 'src/svc/chat.dart';
 export 'src/svc/generate/generate.dart';
 export 'src/svc/permission.dart';
 export 'src/svc/user.dart';
-export 'src/svc/chat.dart';
 
 void init() {
   base.routes.add(routesUser);
@@ -31,9 +31,7 @@ void init() {
   base.permissionRegister = PermissionManager().register;
 
   base.notificator.onNotification.listen(onNotification);
-//  base.notificator.onRequest.listen((h) {
-//    print('${h.session} ${h.controller} ${h.execTime}');
-//  });
+
   entityRoom.onChange.listen((cont) {
     base.dbWrap<void, App>(App(), (manager) async {
       final col = await manager.app.chat_membership
@@ -52,9 +50,9 @@ void init() {
               : RoutesChat.roomUpdated;
           wsClient.send(
               contr,
-              ChatRoomChangeEventDTO()
+              ChatRoomDTO()
                 ..room_id = cont.entity.chat_room_id
-                ..room_context = room.context);
+                ..context = room.context);
         }
       }
     });
@@ -81,16 +79,13 @@ void init() {
 
           wsClient.send(
               contr,
-              ChatMessageChangeEventDTO()
+              ChatMessageDTO()
                 ..room_id = cont.entity.chat_room_id
-                ..room_context = room.context
-                ..unseen = cm.chat_message_seen_id == null
-                    ? 1
-                    : cont.entity.chat_message_id - cm.chat_message_seen_id
-                ..message = mess
-                ..user_id = user.user_id
-                ..name = user.name
-                ..profile = '...');
+                ..context = room.context
+                ..content = mess
+                ..member = (new ChatMemberDTO()
+                  ..name = user.name
+                  ..user_id = user.user_id));
         }
       }
     });
