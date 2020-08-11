@@ -9,6 +9,7 @@ class CommentsCell extends cl_form.RowDataCell<Map> {
   void render() {
     final but = new cl_action.Button()
       ..setTip(intl.Comments())
+      ..setTitle('0/0')
       ..setIcon(cl.Icon.message);
     final m = column.grid.getRowMap(row);
     final taskId = m['task_id'];

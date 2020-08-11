@@ -45,7 +45,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addClass('top');
 
     comments = new cl_action.Button()
-      ..setTitle(intl.Comments())
+      ..setTitle('${intl.Comments()} 0/0')
       ..setIcon(cl.Icon.message)
       ..addAction((e) async {
         ap.client.ch.renderChat();
