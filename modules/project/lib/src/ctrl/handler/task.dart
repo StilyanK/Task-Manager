@@ -61,10 +61,12 @@ class ITask extends base.Item<App, Task, int> {
     }
 
     final subTaskGrid = data['sub_task_grid'];
-    if (subTaskGrid['update'] != null) {
-      final List data = subTaskGrid['update'];
-      for (final o in data) {
-        await manager.app.task.prepare(o['task_id'], o);
+    if(subTaskGrid != null) {
+      if (subTaskGrid['update'] != null) {
+        final List data = subTaskGrid['update'];
+        for (final o in data) {
+          await manager.app.task.prepare(o['task_id'], o);
+        }
       }
     }
 

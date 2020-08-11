@@ -144,7 +144,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
 
     final subTaskDone = new cl_form.Text()
       ..setName('sub_task_done')
-      ..setValue('3/5');
+      ..setValue('0/0');
+
 
     gridSubTask
       ..setName('sub_task_grid')
@@ -176,7 +177,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setIcon(cl.Icon.add)
       ..setTitle(intl.Add_sub_task())
       ..addAction((_) {
-//        ap.run('task/item/0');
         new TaskGui(ap, parentId: getId(), isBound: true);
       });
 
@@ -201,6 +201,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
   }
+
 
   @override
   void setMenuState(bool way) {
