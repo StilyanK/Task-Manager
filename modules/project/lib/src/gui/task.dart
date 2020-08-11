@@ -8,18 +8,23 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..icon = Icon.Task
     ..title = intl.Task_title
-    ..width = 600
+    ..width = 1000
     ..height = 800;
+//  ..type = 'bound';
 
   cl_action.Button addSubTaskBtn;
   cl_action.Button comments;
+  int parentId;
 
-  TaskGui(app, {id}) : super(app, id);
+  TaskGui(app, {id, this.parentId}) : super(app, id);
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
     form.getElement(entity.$Task.assigned_to).setValue(ap.client.userId);
     form.getElement(entity.$Task.title).focus();
+    if (parentId != null) {
+      form.getElement(entity.$Task.parent_task).setValue(parentId);
+    }
   }
 
   Future setData() async {
@@ -66,8 +71,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       });
 
     final createdById = cl_form.Data()..setName(entity.$Task.created_by);
-    form.add(createdById);
+    final parentId = new cl_form.Data()..setName(entity.$Task.parent_task);
 
+    form..add(createdById)..add(parentId);
     final title = new cl_form.Input()
       ..setName(entity.$Task.title)
       ..setRequired(true);
@@ -132,33 +138,42 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
 
+    final subTaskDone = new cl_form.Text()
+      ..setName('sub_task_done')
+      ..setValue('3/5');
+
     final grid = new cl_form.GridData();
     grid
+      ..setName('sub_task_grid')
       ..initGridHeader([
-        new cl_form.GridColumn('hadis')..title = 'Заглавие',
-        new cl_form.GridColumn('insurance')..title = 'Описание',
-        new cl_form.GridColumn('patient_name')
+        new cl_form.GridColumn(entity.$Task.task_id)
+          ..visible = false
+          ..title = intl.Title(),
+        new cl_form.GridColumn(entity.$Task.title)..title = intl.Title(),
+        new cl_form.GridColumn(entity.$Task.description)
+          ..title = intl.Description(),
+        new cl_form.GridColumn(entity.$Task.priority)
           ..width = '3%'
-          ..title = 'Статус',
-        new cl_form.GridColumn('dep_journal_number')
+          ..title = intl.Priority(),
+        new cl_form.GridColumn(entity.$Task.progress)
           ..width = '10%'
-          ..title = 'Прогрес',
+          ..title = intl.Progress(),
       ])
       ..addHookRow((row, obj) {
         grid.show();
-        obj['dep_journal_number'] = new ProgressComponent();
+        obj[entity.$Task.progress] = new ProgressComponent()
+          ..setValue(obj[entity.$Task.progress]);
+        obj[entity.$Task.priority] = new SelectTaskPriority()
+          ..setValue(obj[entity.$Task.priority]);
       });
 
     addSubTaskBtn = new cl_action.Button()
       ..setIcon(cl.Icon.add)
       ..setTitle(intl.Add_sub_task())
       ..addAction((_) {
-        grid
-          ..show()
-          ..rowAdd({'dep_journal_number': null});
-        ap.run('task/item/0');
+//        ap.run('task/item/0');
+        new TaskGui(ap, parentId: getId());
       });
-
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified, comments])
@@ -175,7 +190,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Description(), [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 //      ..addSection(intl.Sub_tasks())
-//      ..addRow(null, [addSubTaskBtn])
+//      ..addRow(null, [addSubTaskBtn, subTaskDone])
 //      ..addRow(null, [grid]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);

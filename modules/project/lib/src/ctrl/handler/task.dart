@@ -34,11 +34,24 @@ class ITask extends base.Item<App, Task, int> {
       ret['files']
           .add({'source': el.source, 'task_media_id': el.task_media_id});
     }
-
+    final childTasks =
+        await manager.app.task.findAllChildTasks(task.task_id);
+    if (childTasks != null) {
+      ret['sub_task_grid'] = [];
+      for (final o in childTasks) {
+        ret['sub_task_grid'].add({
+          '${entity.$Task.task_id}': o.task_id,
+          '${entity.$Task.progress}': o.progress,
+          '${entity.$Task.title}': o.title,
+          '${entity.$Task.description}': o.description,
+        });
+      }
+    }
     return ret;
   }
 
   Future<int> doSave(int id, Map data) async {
+    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
