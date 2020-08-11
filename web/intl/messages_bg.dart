@@ -235,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Code" : MessageLookupByLibrary.simpleMessage("Код"),
     "Combine_products" : MessageLookupByLibrary.simpleMessage("Комбинирай с"),
     "Comment" : MessageLookupByLibrary.simpleMessage("Коментар"),
+    "Comments" : MessageLookupByLibrary.simpleMessage("Коментари"),
     "Companies" : MessageLookupByLibrary.simpleMessage("Фирми"),
     "Company" : MessageLookupByLibrary.simpleMessage("Фирма"),
     "Connect_with" : MessageLookupByLibrary.simpleMessage("Свържи с"),
