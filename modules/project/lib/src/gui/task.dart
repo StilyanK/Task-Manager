@@ -8,7 +8,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..icon = Icon.Task
     ..title = intl.Task_title
-    ..width = 1100
+    ..width = 600
     ..height = 800;
 
   cl_action.Button addSubTaskBtn;
@@ -132,10 +132,33 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
 
+    final grid = new cl_form.GridData();
+    grid
+      ..initGridHeader([
+        new cl_form.GridColumn('hadis')..title = 'Заглавие',
+        new cl_form.GridColumn('insurance')..title = 'Описание',
+        new cl_form.GridColumn('patient_name')
+          ..width = '3%'
+          ..title = 'Статус',
+        new cl_form.GridColumn('dep_journal_number')
+          ..width = '10%'
+          ..title = 'Прогрес',
+      ])
+      ..addHookRow((row, obj) {
+        grid.show();
+        obj['dep_journal_number'] = new ProgressComponent();
+      });
+
     addSubTaskBtn = new cl_action.Button()
       ..setIcon(cl.Icon.add)
       ..setTitle(intl.Add_sub_task())
-      ..addAction((_) {});
+      ..addAction((_) {
+        grid
+          ..show()
+          ..rowAdd({'dep_journal_number': null});
+        ap.run('task/item/0');
+      });
+
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified, comments])
@@ -152,9 +175,16 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Description(), [description]).addClass('col6')
       ..addRow(fileuploader, [fu]);
 //      ..addSection(intl.Sub_tasks())
-//      ..addRow(null, [addSubTaskBtn]);
+//      ..addRow(null, [addSubTaskBtn])
+//      ..addRow(null, [grid]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
+  }
+
+  @override
+  void setMenuState(bool way) {
+//    addSubTaskBtn.setState(!way);
+    super.setMenuState(way);
   }
 }
