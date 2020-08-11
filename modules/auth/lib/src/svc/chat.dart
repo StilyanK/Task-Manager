@@ -41,7 +41,9 @@ class Chat {
 
   bool _isOnline(int userId) =>
       base.getWSClients().firstWhere(
-          (client) => client.req.session['client']['user_id'] == userId,
+          (client) =>
+              client.req.session['client'] != null &&
+              client.req.session['client']['user_id'] == userId,
           orElse: () => null) !=
       null;
 
