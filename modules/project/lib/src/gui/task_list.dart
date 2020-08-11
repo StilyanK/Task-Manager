@@ -44,7 +44,8 @@ class TaskList extends base.Listing {
   List<cl_form.GridColumn> initHeader() => [
         new cl_form.GridColumn('number')
           ..title = '#'
-          ..filter = (new cl_form.Input()..setName(entity.$Task.task_id)),
+          ..filter = (new cl_form.Input(new cl_form.InputTypeInt())
+            ..setName(entity.$Task.task_id)),
         new cl_form.GridColumn('project')
           ..title = intl.Project()
           ..filter = (new ProjectSelect(ap, [null, intl.All()])
