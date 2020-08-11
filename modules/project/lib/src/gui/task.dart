@@ -10,18 +10,21 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..title = intl.Task_title
     ..width = 1000
     ..height = 800;
-//  ..type = 'bound';
+//    ..type = 'bound';
 
+  cl_form.GridData gridSubTask;
   cl_action.Button addSubTaskBtn;
   cl_action.Button comments;
   int parentId;
+  bool isBound = false;
 
-  TaskGui(app, {id, this.parentId}) : super(app, id);
+  TaskGui(app, {id, this.parentId, this.isBound}) : super(app, id);
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
     form.getElement(entity.$Task.assigned_to).setValue(ap.client.userId);
     form.getElement(entity.$Task.title).focus();
+    gridSubTask.hide();
     if (parentId != null) {
       form.getElement(entity.$Task.parent_task).setValue(parentId);
     }
@@ -134,8 +137,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         (p) => new FileContainer(p))
       ..setName('files');
 
-    final grid = new cl_form.GridData();
-
+    gridSubTask = new cl_form.GridData();
     final inputProject = new InputProject(ap)
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
@@ -144,7 +146,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName('sub_task_done')
       ..setValue('3/5');
 
-    grid
+    gridSubTask
       ..setName('sub_task_grid')
       ..initGridHeader([
         new cl_form.GridColumn(entity.$Task.task_id)
@@ -161,6 +163,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           ..title = intl.Progress(),
       ])
       ..addHookRow((row, obj) {
+        row.onClick.listen((event) {
+          new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
+        });
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
         obj[entity.$Task.priority] = new SelectTaskPriority()
@@ -172,7 +177,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setTitle(intl.Add_sub_task())
       ..addAction((_) {
 //        ap.run('task/item/0');
-        new TaskGui(ap, parentId: getId());
+        new TaskGui(ap, parentId: getId(), isBound: true);
       });
 
     taskForm
@@ -188,10 +193,10 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu])
-      ..addSection(intl.Sub_tasks())
-      ..addRow(null, [addSubTaskBtn, subTaskDone])
-      ..addRow(null, [grid]);
+//      ..addSection(intl.Sub_tasks())
+//      ..addRow(null, [addSubTaskBtn, subTaskDone])
+//      ..addRow(null, [gridSubTask])
+      ..addRow(fileuploader, [fu]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
