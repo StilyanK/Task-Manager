@@ -38,6 +38,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           });
       }
     }
+    comments.enable();
   }
 
   void setUI() {
@@ -47,6 +48,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     comments = new cl_action.Button()
       ..setTitle('${intl.Comments()} 0/0')
       ..setIcon(cl.Icon.message)
+      ..disable()
       ..addAction((e) async {
         ap.client.ch.renderChat();
         if (ap.client.ch.focused) {
