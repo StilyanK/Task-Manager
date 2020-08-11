@@ -17,10 +17,6 @@ dependencies:
   local:
     path: modules/local
 
-#dependency_overrides:
-#  cl:
-#    path: ../centryl_modules/cl
-
 dev_dependencies:
   build_runner: ^1.7.2
   build_web_compilers: ^2.7.1
