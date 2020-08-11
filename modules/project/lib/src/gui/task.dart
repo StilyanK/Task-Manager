@@ -8,7 +8,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   cl_app.WinMeta meta = new cl_app.WinMeta()
     ..icon = Icon.Task
     ..title = intl.Task_title
-    ..width = 1100
+    ..width = 600
     ..height = 800;
 
   cl_action.Button addSubTaskBtn;
@@ -50,7 +50,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setRequired(true);
 
     final hoursDone = new cl_form.Input(new cl_form.InputTypeInt())
-     ..setName(entity.$Task.hours_done);
+      ..setName(entity.$Task.hours_done);
 
     final priority = new SelectTaskPriority()
       ..setName(entity.$Task.priority)
@@ -109,13 +109,32 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName(entity.$Task.project_id)
       ..setRequired(true);
 
+    final grid = new cl_form.GridData();
+    grid
+      ..initGridHeader([
+        new cl_form.GridColumn('hadis')..title = 'Заглавие',
+        new cl_form.GridColumn('insurance')..title = 'Описание',
+        new cl_form.GridColumn('patient_name')
+          ..width = '3%'
+          ..title = 'Статус',
+        new cl_form.GridColumn('dep_journal_number')
+          ..width = '10%'
+          ..title = 'Прогрес',
+      ])
+      ..addHookRow((row, obj) {
+        grid.show();
+        obj['dep_journal_number'] = new ProgressComponent();
+      });
+
     addSubTaskBtn = new cl_action.Button()
       ..setIcon(cl.Icon.add)
       ..setTitle(intl.Add_sub_task())
       ..addAction((_) {
-
+        grid
+          ..show()
+          ..rowAdd({'dep_journal_number': null});
+        ap.run('task/item/0');
       });
-
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified, comments])
@@ -124,17 +143,24 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
       ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')
       ..addRow(intl.Deadline(), [deadline]).addClass('col1')
-      ..addRow(intl.Hour_done(), [hoursDone]).addClass('col1')
+      ..addRow(intl.Hours_done(), [hoursDone]).addClass('col1')
       ..addRow(intl.Priority(), [priority]).addClass('col2')
       ..addRow(intl.Status(), [status]).addClass('col2')
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(fileuploader, [fu])
-      ..addSection(intl.Sub_tasks())
-      ..addRow(null, [addSubTaskBtn]);
+      ..addRow(fileuploader, [fu]);
+//      ..addSection(intl.Sub_tasks())
+//      ..addRow(null, [addSubTaskBtn])
+//      ..addRow(null, [grid]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
+  }
+
+  @override
+  void setMenuState(bool way) {
+//    addSubTaskBtn.setState(!way);
+    super.setMenuState(way);
   }
 }
