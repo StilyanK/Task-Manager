@@ -69,20 +69,19 @@ Future<void> init() async {
 
       for (final user in <auth.User>[user, createdBy]) {
         if ((task.modified_by == null && task.created_by == user.user_id) ||
-            task.modified_by == user.user_id) continue;
-        if (user != null && user.mail != null) {
-          final m = base.Mail(SmtpServer('ns1.centryl.net',
-              port: 25,
-              username: 'medicframe',
-              password: '!2@3#AP2JkLQ',
-              ignoreBadCertificate: true,
-              ssl: false))
-            ..from('no-reply@medicframe.com', 'Medicframe Manager')
-            ..to(user.mail)
-            ..setSubject(subject)
-            ..setHtml(text);
-          await m.send();
-        }
+            task.modified_by == user.user_id ||
+            user.mail == null) continue;
+        final m = base.Mail(SmtpServer('ns1.centryl.net',
+            port: 25,
+            username: 'medicframe',
+            password: '!2@3#AP2JkLQ',
+            ignoreBadCertificate: true,
+            ssl: false))
+          ..from('no-reply@medicframe.com', 'Medicframe Manager')
+          ..to(user.mail)
+          ..setSubject(subject)
+          ..setHtml(text);
+        await m.send();
       }
     });
   });
