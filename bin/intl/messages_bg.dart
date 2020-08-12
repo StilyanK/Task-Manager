@@ -569,7 +569,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Status" : MessageLookupByLibrary.simpleMessage("Статус"),
     "Store" : MessageLookupByLibrary.simpleMessage("Магазин"),
     "Stores" : MessageLookupByLibrary.simpleMessage("Магазини"),
-    "Sub_tasks" : MessageLookupByLibrary.simpleMessage("Подтаска"),
+    "Sub_tasks" : MessageLookupByLibrary.simpleMessage("Подтаскове"),
     "Subattribute" : MessageLookupByLibrary.simpleMessage("Податрибути"),
     "Subject" : MessageLookupByLibrary.simpleMessage("Тема"),
     "Subtotal" : MessageLookupByLibrary.simpleMessage("Общо"),

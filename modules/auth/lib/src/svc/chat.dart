@@ -3,6 +3,7 @@ library auth.chat;
 import 'dart:async';
 
 import 'package:mapper/mapper.dart';
+import 'package:cl_base/server.dart' as base;
 
 import '../mapper.dart';
 import '../path.dart';
@@ -28,6 +29,7 @@ class Chat {
           ..member = (ChatMemberDTO()
             ..user_id = m.user.user_id
             ..name = m.user.name
+            ..status = _isOnline(m.user_id)
             ..picture = m.user.picture != null
                 ? 'media/image100x100/user/${m.user.user_id}/${m.user.picture}'
                 : null)
@@ -36,6 +38,14 @@ class Chat {
           ..timestamp = m.timestamp)
         .toList();
   }
+
+  bool _isOnline(int userId) =>
+      base.getWSClients().firstWhere(
+          (client) =>
+              client.req.session['client'] != null &&
+              client.req.session['client']['user_id'] == userId,
+          orElse: () => null) !=
+      null;
 
   Future<List<ChatMessageDTO>> loadMessagesNew(ChatRoomDTO room) async {
     if (room.room_id == null && room.context != null) {
@@ -54,6 +64,7 @@ class Chat {
           ..member = (ChatMemberDTO()
             ..user_id = m.user.user_id
             ..name = m.user.name
+            ..status = _isOnline(m.user_id)
             ..picture = m.user.picture != null
                 ? 'media/image100x100/user/${m.user.user_id}/${m.user.picture}'
                 : null)
@@ -130,6 +141,7 @@ class Chat {
           .map((u) => ChatMemberDTO()
             ..user_id = u.user_id
             ..name = u.user.name
+            ..status = _isOnline(u.user_id)
             ..picture = u.user.picture != null
                 ? 'media/image100x100/user/${u.user_id}/${u.user.picture}'
                 : null)

@@ -1,9 +1,8 @@
 part of project.gui;
 
 class SelectMultiTaskStatus extends cl_form.SelectMulti {
-  SelectMultiTaskStatus([first]) : super() {
+  SelectMultiTaskStatus() : super() {
     addClass('task-status');
-    if (first != null) addOption(first[0], first[1]);
     TaskStatus.taskStatus
         .forEach((option) => addOption(option['k'], option['v']));
   }

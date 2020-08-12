@@ -42,6 +42,7 @@ class ChatMemberDTO {
   int user_id;
   String name;
   String picture;
+  bool status;
 
   ChatMemberDTO();
 

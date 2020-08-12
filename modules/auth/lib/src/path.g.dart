@@ -75,18 +75,21 @@ abstract class $ChatMemberDTO {
   static const String user_id = 'user_id';
   static const String name = 'name';
   static const String picture = 'picture';
+  static const String status = 'status';
 }
 
 ChatMemberDTO _$ChatMemberDTOFromMap(Map data) => new ChatMemberDTO()
   ..user_id = data[$ChatMemberDTO.user_id]
   ..name = data[$ChatMemberDTO.name]
-  ..picture = data[$ChatMemberDTO.picture];
+  ..picture = data[$ChatMemberDTO.picture]
+  ..status = data[$ChatMemberDTO.status];
 
 Map<String, dynamic> _$ChatMemberDTOToMap(ChatMemberDTO obj) =>
     <String, dynamic>{
       $ChatMemberDTO.user_id: obj.user_id,
       $ChatMemberDTO.name: obj.name,
-      $ChatMemberDTO.picture: obj.picture
+      $ChatMemberDTO.picture: obj.picture,
+      $ChatMemberDTO.status: obj.status
     };
 
 abstract class $PasswordDTO {

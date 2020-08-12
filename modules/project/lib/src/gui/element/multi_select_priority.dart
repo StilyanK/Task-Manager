@@ -1,9 +1,8 @@
 part of project.gui;
 
 class SelectMultiPriority extends cl_form.SelectMulti {
-  SelectMultiPriority([first]) : super() {
+  SelectMultiPriority() : super() {
     addClass('task-status');
-    if (first != null) addOption(first[0], first[1]);
     TaskPriority.taskPriority
         .forEach((option) => addOption(option['k'], option['v']));
   }

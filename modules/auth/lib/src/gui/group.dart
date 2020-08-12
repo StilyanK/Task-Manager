@@ -11,23 +11,7 @@ class UserGroup extends ItemBuilder {
     ..title = intl.user_group_title
     ..icon = Icon.UserGroup;
 
-  UserGroup(ap, [id]) : super(ap, id) {
-    addHook(ItemBase.get_after, (_) {
-      if (getId() == 1) {
-        form
-            .getElement<PermissionsElement>($UserGroup.permissions)
-            .forms
-            .forEach((f) {
-          f.formInner.indexOfElements.forEach((el) {
-            el
-              ..setValue(true)
-              ..disable();
-          });
-        });
-      }
-      return true;
-    });
-  }
+  UserGroup(ap, [id]) : super(ap, id);
 
   Future<void> setDefaults() async {
     form.getElement($UserGroup.name).focus();

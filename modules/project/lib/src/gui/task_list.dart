@@ -17,7 +17,8 @@ class TaskList extends base.Listing {
   TaskList(ap, [bool autoload = true])
       : super(ap,
             autoload: autoload ?? true,
-            order: new cl_form.GridOrder(entity.$Task.task_id, 'DESC')) {
+            order: new cl_form.GridOrder(entity.$Task.task_id, 'DESC'),
+            useCache: true) {
     newTaskBtn = new cl_action.Button()
       ..addClass('important')
       ..setStyle({'margin-left': 'auto'})
@@ -32,13 +33,6 @@ class TaskList extends base.Listing {
     registerServerListener(RoutesTask.eventCreate, debounceGet);
     registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
     registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
-//    final cache = super.ap.storageFetch(runtimeType.toString());
-//    if (cache != null)
-//      form.setValue(cache);
-//    form.onValueChanged.listen((event) {
-//      super.ap.storagePut(runtimeType.toString(), form.getValue());
-//    });
-//    getData();
   }
 
   List<cl_form.GridColumn> initHeader() => [
@@ -59,7 +53,7 @@ class TaskList extends base.Listing {
               new DateAndRemainingDays(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.assigned_to)
           ..title = intl.Assigned_to()
-          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
+          ..filter = (new MultiSelectUser(ap)
             ..setName(entity.$Task.assigned_to)
             ..load())
           ..sortable = true,
@@ -70,8 +64,7 @@ class TaskList extends base.Listing {
               new DescriptionCeil(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = intl.Priority()
-          ..filter = (new SelectMultiPriority([null, intl.All()])
-            ..setName(entity.$Task.priority))
+          ..filter = (new SelectMultiPriority()..setName(entity.$Task.priority))
           ..type = (grid, row, cell, object) =>
               new PriorityCell(ap, grid, row, cell, object),
         new cl_form.GridColumn('chat_room')
@@ -87,7 +80,7 @@ class TaskList extends base.Listing {
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.created_by)
           ..title = intl.Created_by()
-          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
+          ..filter = (new MultiSelectUser(ap)
             ..setName(entity.$Task.created_by)
             ..load()),
         new cl_form.GridColumn(entity.$Task.date_modified)
@@ -99,13 +92,12 @@ class TaskList extends base.Listing {
               new local.DateTimeCell(grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.modified_by)
           ..title = intl.Modified_by()
-          ..filter = (new MultiSelectUser(ap, [null, intl.All()])
+          ..filter = (new MultiSelectUser(ap)
             ..setName(entity.$Task.modified_by)
             ..load()),
         new cl_form.GridColumn(entity.$Task.status)
           ..title = intl.Status()
-          ..filter = (new SelectMultiTaskStatus([null, intl.All()])
-            ..setName(entity.$Task.status))
+          ..filter = (new SelectMultiTaskStatus()..setName(entity.$Task.status))
           ..type = (grid, row, cell, object) =>
               new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.date_done)
@@ -124,9 +116,8 @@ class TaskList extends base.Listing {
         removeHtmlTags(obj[entity.$Task.description]);
     if (obj[entity.$Task.parent_task] != null) {
       obj['number'] = '${obj[entity.$Task.task_id]} (п)';
-     } else {
+    } else {
       obj['number'] = obj[entity.$Task.task_id];
     }
-
   }
 }
