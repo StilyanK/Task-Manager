@@ -76,9 +76,6 @@ class ITask extends base.Item<App, Task, int> {
       final updateList = subTaskGrid['update'];
       if (updateList != null && updateList.isNotEmpty) {
         for (final o in updateList) {
-          if (o['progress'] == 100) {
-            o['status'] = TaskStatus.Done;
-          }
           await manager.app.task.prepare(o['task_id'], o);
         }
       }

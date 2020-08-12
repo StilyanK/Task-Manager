@@ -203,16 +203,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
         obj[entity.$Task.status] = new SelectTaskStatus()
-          ..setValue(obj[entity.$Task.status])
-          ..onValueChanged.listen((event) {
-            if (event.getValue() == TaskStatus.Done) {
-              obj[entity.$Task.progress].setValue(100);
-            } else {
-              obj[entity.$Task.progress].setValue(0);
-              bar.setValue(0);
-              status.setValue(TaskStatus.InProgress);
-            }
-          });
+          ..setValue(obj[entity.$Task.status]);
       });
 
     addSubTaskBtn = new cl_action.Button()
