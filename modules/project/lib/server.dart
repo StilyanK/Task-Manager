@@ -51,29 +51,29 @@ Future<void> init() async {
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;
+      final project = await manager.app.project.find(task.project_id);
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);
       final modifiedBy = await manager.app.user.find(task.modified_by);
-      final project = await manager.app.project.find(task.project_id);
       final managedBy = await manager.app.user.find(project.manager_id);
       String subject, text;
       final link =
           '<a href="https://manager.medicframe.com/task/item/${task.task_id}">'
           'https://manager.medicframe.com/task/item/${task.task_id}</a>';
       if (event.isInserted) {
-        subject = 'Задача "${task.title}" e създадена';
+        subject = 'Задача "${task.title}" e създадена (${project.title})';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Зададена от: ${createdBy.name}</div>'
             '<div>$link</div>';
       } else if (event.isUpdated) {
-        subject = 'Задача "${task.title}" e променена';
+        subject = 'Задача "${task.title}" e променена (${project.title})';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Променена от: ${modifiedBy?.name}</div>'
             '<div>$link</div>';
       } else if (event.isDeleted) {
-        subject = 'Задача "${task.title}" e изтрита';
+        subject = 'Задача "${task.title}" e изтрита (${project.title})';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Изтрита от: ${modifiedBy?.name}</div>';
