@@ -8,23 +8,33 @@ class DoneDays extends cl_form.RowDataCell<List> {
 
   void render() {
     if (object[0] != null) {
+      final dateDoneField = new SpanElement();
       final dateDone = DateTime.parse(object[0]);
       final deadLineDate = DateTime.parse(object[1]);
       dateDoneDate = new local.Date(dateDone);
       int days = deadLineDate.difference(dateDone).inDays;
       String dayFormat = '';
       if (days >= 0) {
+        final dayMinus = new SpanElement()..style.color = '#55e655';
         days == 0 ? dayFormat = '$days' : dayFormat = '-$days';
-        cell.style.color = '#55e655';
+        buildCell(cell, dayMinus, dateDoneField, dayFormat);
       } else {
+        final daysPlus = new SpanElement()..style.color = '#cf4c4c';
         days *= -1;
         dayFormat = '+$days';
-        cell.style.color = '#cf4c4c';
+        buildCell(cell, daysPlus, dateDoneField, dayFormat);
       }
-      cell
-        ..style.whiteSpace = 'nowrap'
-        ..text =
-            object == null ? '' : '${dateDoneDate.getWithTime()} ($dayFormat)';
     }
+  }
+
+  void buildCell(
+      TableCellElement cell, SpanElement sp, SpanElement sp2, String days) {
+    sp
+      ..style
+      ..text = '($days)';
+    sp2
+      ..style
+      ..text = '${dateDoneDate.get()}';
+    cell..append(sp2)..append(sp);
   }
 }

@@ -102,6 +102,7 @@ class TaskList extends base.Listing {
               new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.date_done)
           ..title = intl.Done()
+          ..width = '3%'
           ..sortable = true
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.date_done))
