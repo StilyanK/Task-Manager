@@ -33,6 +33,10 @@ class ProjectList extends base.Listing {
   }
 
   List<cl_form.GridColumn> initHeader() => [
+        new cl_form.GridColumn(entity.$Project.picture)
+          ..width = '1%'
+          ..type = (grid, row, cell, object) =>
+              new ProjectCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Project.title)..title = intl.Project(),
         new cl_form.GridColumn(entity.$Project.from)
           ..title = intl.Date_start()
@@ -46,7 +50,7 @@ class ProjectList extends base.Listing {
 
   void onEdit(dynamic id) => ap.run('project/item/$id');
 
-  void customRow(dynamic row, dynamic obj) {}
+  void customRow(TableRowElement row, Map obj) {}
 }
 
 class ProjectListChoose extends ProjectList {

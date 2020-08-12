@@ -1,3 +1,17 @@
+.project-profile {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border: 1px solid $section-color;
+  @include border-radius(100%);
+  background: $section-background;
+  color: $section-color;
+  text-align: center;
+  line-height: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .ui-file-container {
   display: flex;
   align-items: center;

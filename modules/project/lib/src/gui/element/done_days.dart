@@ -15,11 +15,15 @@ class DoneDays extends cl_form.RowDataCell<List> {
       int days = deadLineDate.difference(dateDone).inDays;
       String dayFormat = '';
       if (days >= 0) {
-        final dayMinus = new SpanElement()..style.color = '#55e655';
+        final dayMinus = new SpanElement()
+          ..style.fontWeight = 'bold'
+          ..style.color = '#55e655';
         days == 0 ? dayFormat = '$days' : dayFormat = '-$days';
         buildCell(cell, dayMinus, dateDoneField, dayFormat);
       } else {
-        final daysPlus = new SpanElement()..style.color = '#cf4c4c';
+        final daysPlus = new SpanElement()
+          ..style.fontWeight = 'bold'
+          ..style.color = '#cf4c4c';
         days *= -1;
         dayFormat = '+$days';
         buildCell(cell, daysPlus, dateDoneField, dayFormat);
@@ -31,7 +35,7 @@ class DoneDays extends cl_form.RowDataCell<List> {
       TableCellElement cell, SpanElement sp, SpanElement sp2, String days) {
     sp
       ..style
-      ..text = '($days)';
+      ..text = ' ($days)';
     sp2
       ..style
       ..text = '${dateDoneDate.get()}';

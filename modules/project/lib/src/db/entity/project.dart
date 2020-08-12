@@ -4,10 +4,14 @@ part of project.entity;
 class Project {
   int project_id;
   String title;
+  int manager_id;
+  String picture;
   DateTime from;
   DateTime to;
 
   Project();
+
+  List getPictureView() => [project_id, picture, title];
 
   void init(Map data) => _$ProjectFromMap(this, data);
 

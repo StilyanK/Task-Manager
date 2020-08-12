@@ -27,6 +27,12 @@ class CProject extends base.Collection<App, Project, int> {
   }
 
 
+  Future<Map> lister(Project o) async {
+    final data = o.toJson();
+    data['picture'] = o.getPictureView();
+    return data;
+  }
+
   Future<bool> doDelete(List ids) =>
       Future.wait(ids.map(manager.app.project.deleteById)).then((_) => true);
 

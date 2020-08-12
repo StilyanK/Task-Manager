@@ -13,7 +13,17 @@ class IProject extends base.Item<App, Project, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
+    final picture = data.remove('picture');
     final project = await manager.app.project.prepare(id, data);
+    await manager.persist();
+    if (picture['insert'] != null) {
+      final sync = base.FileSync()
+        ..path_from = '${base.path}/tmp'
+        ..path_to = '${base.path}/media/project/${project.project_id}'
+        ..file_name = picture['insert']['source'];
+      project.picture = await sync.sync();
+      manager.addDirty(project);
+    }
     await manager.commit();
     return project.project_id;
   }

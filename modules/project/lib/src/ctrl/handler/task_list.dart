@@ -91,9 +91,8 @@ class TaskCollection extends base.Collection<App, Task, int> {
         .loadRoomByContext(
             'task${o.task_id}', req.session['client']['user_id']);
     data['chat_room'] = chatRoom;
-    if (project != null) {
-      data['project'] = project.title ?? '';
-    }
+    if (project != null)
+      data['project'] = project.getPictureView();
     return data;
   }
 }

@@ -44,7 +44,9 @@ class TaskList extends base.Listing {
           ..title = intl.Project()
           ..filter = (new ProjectSelect(ap, [null, intl.All()])
             ..setName(entity.$Task.project_id)
-            ..load()),
+            ..load())
+          ..type = (grid, row, cell, object) =>
+              new ProjectCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = intl.Deadline()
           ..filter =
@@ -106,8 +108,8 @@ class TaskList extends base.Listing {
           ..sortable = true
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.date_done))
-          ..type = (grid, row, cell, object) =>
-              new DoneDays(grid, row, cell, object),
+          ..type =
+              (grid, row, cell, object) => new DoneDays(grid, row, cell, object)
       ];
 
   void onEdit(dynamic id) => ap.run('task/item/$id');

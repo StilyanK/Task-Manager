@@ -30,10 +30,22 @@ class Project extends base.ItemBuilder {
     final title = new cl_form.Input()
       ..setName(entity.$Project.title)
       ..setRequired(true);
+    final manager = new SelectUser(ap, [null, ''])
+      ..setName(entity.$Project.manager_id)
+      ..setRequired(true)
+      ..load();
+    final uploader = cl_action.FileUploader(ap)
+      ..setTitle(intl.Upload())
+      ..setIcon(cl.Icon.attach_file);
+    final intro = cl_gui.ImageContainer(uploader, () => '${ap.baseurl}tmp',
+        () => '${ap.baseurl}media/image200x200/project/${getId()}')
+      ..setName(entity.$Project.picture);
     final from = new cl_form.InputDate()..setName(entity.$Project.from);
     final to = new cl_form.InputDate()..setName(entity.$Project.to);
     projectForm
+      ..addRow('', [intro])
       ..addRow(intl.Project(), [title]).addClass('col6')
+      ..addRow(intl.Manager(), [manager]).addClass('col6')
       ..addRow(intl.Date_start(), [from]).addClass('col3')
       ..addRow(intl.Date_end(), [to]).addClass('col3');
 

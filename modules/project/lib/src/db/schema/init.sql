@@ -8,6 +8,9 @@ ALTER TABLE task
 ALTER TABLE task_media
     ADD CONSTRAINT task_id_fkey FOREIGN KEY (task_id) REFERENCES "task" (task_id) ON DELETE CASCADE;
 
+ALTER TABLE project
+    ADD CONSTRAINT project_manager_id_fkey FOREIGN KEY (manager_id) REFERENCES "user" (user_id) ON DELETE RESTRICT;
+
 CREATE FUNCTION task_tsv_vector()
     RETURNS TRIGGER AS
 $$

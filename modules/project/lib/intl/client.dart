@@ -28,3 +28,4 @@ String Add_sub_task() => Intl.message('Add sub task', name: 'Add_sub_task');
 String Sub_tasks() => Intl.message('Sub tasks', name: 'Sub_tasks');
 String Hours_done() => Intl.message('Hours done', name: 'Hours_done');
 String Comments() => Intl.message('Comments', name: 'Comments');
+String Manager() => Intl.message('Manager', name:'Manager');
