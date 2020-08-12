@@ -17,13 +17,13 @@ class DoneDays extends cl_form.RowDataCell<List> {
       if (days >= 0) {
         final dayMinus = new SpanElement()
           ..style.fontWeight = 'bold'
-          ..style.color = '#55e655';
+          ..style.color = '#379E36';
         days == 0 ? dayFormat = '$days' : dayFormat = '-$days';
         buildCell(cell, dayMinus, dateDoneField, dayFormat);
       } else {
         final daysPlus = new SpanElement()
           ..style.fontWeight = 'bold'
-          ..style.color = '#cf4c4c';
+          ..style.color = '#c34545';
         days *= -1;
         dayFormat = '+$days';
         buildCell(cell, daysPlus, dateDoneField, dayFormat);
