@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:auth/server.dart' as auth;
 import 'package:cl_base/server.dart' as base;
 import 'package:mailer/smtp_server.dart';
 import 'package:project/src/mapper.dart';
 
 import 'src/ctrl.dart';
-import 'src/entity.dart' as entity;
 import 'src/path.dart';
 import 'src/permission.dart';
 
@@ -40,9 +40,6 @@ Future<void> init() async {
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;
-      if (task.modified_by == task.assigned_to ||
-          (task.modified_by == null && task.created_by == task.assigned_to))
-        return;
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);
       final modifiedBy = await manager.app.user.find(task.modified_by);
@@ -52,36 +49,40 @@ Future<void> init() async {
           '<a href="https://manager.medicframe.com/task/item/${task.task_id}">'
           'https://manager.medicframe.com/task/item/${task.task_id}</a>';
       if (event.isInserted) {
-        subject = 'Задача ${task.title} e създадена';
+        subject = 'Задача "${task.title}" e създадена';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Зададена от: ${createdBy.name}</div>'
             '<div>$link</div>';
       } else if (event.isUpdated) {
-        subject = 'Задача ${task.title} e променена';
+        subject = 'Задача "${task.title}" e променена';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Променена от: ${modifiedBy?.name}</div>'
             '<div>$link</div>';
       } else if (event.isDeleted) {
-        subject = 'Задача ${task.title} e изтрита';
+        subject = 'Задача "${task.title}" e изтрита';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Изтрита от: ${modifiedBy?.name}</div>';
       }
 
-      if (user != null && user.mail != null) {
-        final m = base.Mail(SmtpServer('ns1.centryl.net',
-            port: 25,
-            username: 'medicframe',
-            password: '!2@3#AP2JkLQ',
-            ignoreBadCertificate: true,
-            ssl: false))
-          ..from('no-reply@medicframe.com', 'Medicframe Manager')
-          ..to(user.mail)
-          ..setSubject(subject)
-          ..setHtml(text);
-        await m.send();
+      for (final user in <auth.User>[user, createdBy]) {
+        if ((task.modified_by == null && task.created_by == user.user_id) ||
+            task.modified_by == user.user_id) continue;
+        if (user != null && user.mail != null) {
+          final m = base.Mail(SmtpServer('ns1.centryl.net',
+              port: 25,
+              username: 'medicframe',
+              password: '!2@3#AP2JkLQ',
+              ignoreBadCertificate: true,
+              ssl: false))
+            ..from('no-reply@medicframe.com', 'Medicframe Manager')
+            ..to(user.mail)
+            ..setSubject(subject)
+            ..setHtml(text);
+          await m.send();
+        }
       }
     });
   });
