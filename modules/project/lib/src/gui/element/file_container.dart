@@ -2,7 +2,7 @@ part of project.gui;
 
 class FileContainer
     extends cl_gui.FileContainerBase<cl_gui.FileAttach<FileContainer>> {
-  cl.CLElement<AnchorElement> link;
+  AnchorElement link;
   DivElement container;
   SpanElement titleContainer;
   cl_action.Button del;
@@ -27,27 +27,39 @@ class FileContainer
     this.data = data;
     final p = path is Function ? path() : path;
     final source = data['source'];
-    if (isImage(source)) {
-      final img = new DivElement()
-        ..innerHtml = '<a href="$p/$source" target="_blank">'
-            '<img src="${getImageSrc(p, source, 250, 250)}"></a>';
-      container.append(img);
-      titleContainer.text = source;
-      //} else if (isPdf(source)) {
-      //TODO
-    } else {
-      final row = new DivElement();
-      link = new cl.CLElement<AnchorElement>(new AnchorElement())
-        ..appendTo(row);
-      link.dom.target = '_blank';
-      container.append(row);
-      link.dom.href = '$p/$source';
-      link.dom.title = source;
-      link.dom.text = source;
-    }
+    link = new AnchorElement()
+      ..target = '_blank'
+      ..href = '$p/$source'
+      ..title = source;
+    container.append(link);
+    titleContainer.text = source;
 
-    // '<a href="$p/${data['source']}" target="_blank">
-    // <img src="${getImageSrc(p, data['source'], 150, 150)}"></a>';
+    if (isImage(source)) {
+      link.innerHtml = '<img src="${getImageSrc(p, source, 240, 240)}">';
+    } else if (isPdf(source)) {
+      final CanvasElement canvas = document.createElement('canvas');
+      link.append(canvas);
+      final ctx = canvas.getContext('2d');
+      canvas
+        ..width = 240
+        ..height = 240;
+
+      new Future(() async {
+        final doc = pdfjsLib.getDocument('$p/$source');
+        final d = await FutureWrap<PDFDocument>(doc.promise);
+        final page = await FutureWrap<Page>(d.getPage(1));
+        final v = page.getViewport(new Arguments(
+            scale: canvas.width /
+                page.getViewport(new Arguments(scale: 1)).width));
+        final task =
+            page.render(new RenderParameters(viewport: v, canvasContext: ctx));
+        await FutureWrap(task.promise);
+      });
+    } else {
+      if (isXls(source))
+        link.append(new cl.Icon(cl.Icon.file_excel).dom);
+      else if (isDoc(source)) link.append(new cl.Icon(cl.Icon.file_word).dom);
+    }
   }
 
   bool isImage(String source) =>
@@ -57,6 +69,14 @@ class FileContainer
       source.toLowerCase().endsWith('.gif');
 
   bool isPdf(String source) => source.toLowerCase().endsWith('.pdf');
+
+  bool isXls(String source) =>
+      source.toLowerCase().endsWith('.xls') ||
+      source.toLowerCase().endsWith('.xlsx');
+
+  bool isDoc(String source) =>
+      source.toLowerCase().endsWith('.doc') ||
+      source.toLowerCase().endsWith('.docx');
 
   String getImageSrc(dynamic base_path, dynamic image, int width, int height) =>
       '$base_path/${Uri.encodeComponent(image)}'

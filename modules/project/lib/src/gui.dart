@@ -3,6 +3,7 @@ library project.gui;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:pdf/pdf.dart';
 import 'package:auth/client.dart' as auth;
 import 'package:cl/action.dart' as cl_action;
 import 'package:cl/app.dart' as cl_app;

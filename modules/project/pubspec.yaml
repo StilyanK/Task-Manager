@@ -11,6 +11,8 @@ dependencies:
     git: git@repo.centryl.org:centryl/cl_base.git
   cl_local:
     git: git@repo.centryl.org:centryl/cl_local.git
+  pdf:
+    git: git@repo.centryl.org:centryl/pdf.git
   icon:
     path: ../icon
   auth:
