@@ -38,6 +38,7 @@ part 'gui/element/select_task_status.dart';
 part 'gui/element/select_user.dart';
 part 'gui/element/status_cell.dart';
 part 'gui/element/task_status_cell.dart';
+part 'gui/element/done_days.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/project.dart';

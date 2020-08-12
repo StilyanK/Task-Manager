@@ -4,31 +4,36 @@
   flex-wrap: inherit;
   justify-content: space-around;
 }
+
 .file-cont {
   max-width: 250px;
   display: flex;
   flex-direction: column;
   margin: $rem + rem;
+
   .content {
     width: 250px;
     height: 250px;
     overflow: hidden;
     text-align: center;
   }
+
   .action {
     margin-top: $prem + rem;
     display: flex;
     align-items: center;
     width: 100%;
     height: $rem + rem;
+
     .title {
       flex: 1 1 auto;
       text-align: center;
       padding: 0 3 + rem;
       word-break: break-all;
     }
+
     .ui-button {
-      position:absolute;
+      position: absolute;
       right: 0;
     }
   }
@@ -99,13 +104,16 @@
 
   .progress {
     display: flex;
+
     & > div {
       background: $page-background;
+
       & > div {
         background-color: $color5;
       }
     }
   }
+
   .progress-0 {
     span {
       color: $base-color;
@@ -123,4 +131,10 @@
       color: $base-color;
     }
   }
+}
+
+.label-sub-task {
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
 }

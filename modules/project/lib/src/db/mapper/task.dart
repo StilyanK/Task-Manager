@@ -22,7 +22,8 @@ class TaskMapper extends Mapper<Task, TaskCollection, App> {
   Future<TaskCollection> findAllChildTasks(int task_id) =>
       loadC(selectBuilder()
         ..where('${entity.$Task.parent_task} = @p1')
-        ..setParameter('p1', task_id));
+        ..setParameter('p1', task_id)
+        ..addOrderBy('${entity.$Task.task_id}', 'ASC'));
 
   Future<bool> delete(Task object) async {
     object.is_deleted = true;

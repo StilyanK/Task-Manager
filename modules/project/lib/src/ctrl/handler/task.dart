@@ -44,6 +44,7 @@ class ITask extends base.Item<App, Task, int> {
           '${entity.$Task.priority}': o.priority,
           '${entity.$Task.title}': o.title,
           '${entity.$Task.description}': o.description,
+          '${entity.$Task.status}': o.status,
         });
       }
     }
@@ -60,13 +61,36 @@ class ITask extends base.Item<App, Task, int> {
       manager.addDirty(task);
     }
 
+    if (task.parent_task != null) {
+      final parentTask = await manager.app.task.find(task.parent_task);
+      parentTask
+        ..modified_by = user_id
+        ..date_modified = DateTime.now();
+      manager.addDirty(parentTask);
+    }
+
     final subTaskGrid = data['sub_task_grid'];
-    if(subTaskGrid != null) {
-      if (subTaskGrid['update'] != null) {
-        final List data = subTaskGrid['update'];
-        for (final o in data) {
+
+    if (subTaskGrid != null) {
+      final insertList = subTaskGrid['insert'];
+      final updateList = subTaskGrid['update'];
+      if (updateList != null && updateList.isNotEmpty) {
+        for (final o in updateList) {
+          if (o['progress'] == 100) {
+            o['status'] = TaskStatus.Done;
+          }
           await manager.app.task.prepare(o['task_id'], o);
         }
+      }
+    }
+
+    final childTasks = await manager.app.task.findAllChildTasks(task.task_id);
+
+    if (childTasks.isNotEmpty) {
+      final check =
+          childTasks.every((element) => element.status == TaskStatus.Done);
+      if (check) {
+        task.status = TaskStatus.Done;
       }
     }
 

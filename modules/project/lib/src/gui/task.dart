@@ -10,15 +10,31 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..title = intl.Task_title
     ..width = 1000
     ..height = 800;
-//    ..type = 'bound';
 
   cl_form.GridData gridSubTask;
   cl_action.Button addSubTaskBtn;
   cl_action.Button comments;
   int parentId;
-  bool isBound = false;
+  bool isBound;
 
-  TaskGui(app, {id, this.parentId, this.isBound}) : super(app, id);
+  TaskGui(app, {id, this.parentId, this.isBound = false}) : super(app, id) {
+    registerServerListener(RoutesTask.eventUpdate, (id) {
+      if (getId() != null && getId() == id && !isDirty) get();
+    });
+  }
+
+  void registerServerListener(String event, Function f) {
+    final subscr = ap.onServerCall.filter(event).listen(f);
+    wapi.addCloseHook((_) {
+      subscr.cancel();
+      return true;
+    });
+  }
+
+  void initLayout() {
+    meta.type = isBound ? 'bound' : null;
+    super.initLayout();
+  }
 
   Future<void> setDefaults() async {
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
@@ -28,6 +44,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     if (parentId != null) {
       form.getElement(entity.$Task.parent_task).setValue(parentId);
     }
+    addSubTaskBtn.disable();
   }
 
   Future setData() async {
@@ -44,6 +61,17 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
               ap.client.ch.renderRoom(new chat.Room.fromMap(room.toJson())
                 ..title = '${intl.Task()} #${getId()}');
           });
+      }
+      int done = 0;
+      if (data_response['sub_task_grid'] != null) {
+        for (final o in data_response['sub_task_grid']) {
+          if (o['status'] == TaskStatus.Done) {
+            done++;
+          }
+        }
+        form
+            .getElement('sub_task_done')
+            .setValue('$done/${data_response['sub_task_grid'].length}');
       }
     }
     comments.enable();
@@ -143,34 +171,48 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setRequired(true);
 
     final subTaskDone = new cl_form.Text()
+      ..addClass('label-sub-task')
       ..setName('sub_task_done')
       ..setValue('0/0');
-
 
     gridSubTask
       ..setName('sub_task_grid')
       ..initGridHeader([
         new cl_form.GridColumn(entity.$Task.task_id)
           ..visible = false
+          ..title = intl.Priority(),
+        new cl_form.GridColumn(entity.$Task.priority)
+          ..visible = false
           ..title = intl.Title(),
         new cl_form.GridColumn(entity.$Task.title)..title = intl.Title(),
         new cl_form.GridColumn(entity.$Task.description)
           ..title = intl.Description(),
-        new cl_form.GridColumn(entity.$Task.priority)
+        new cl_form.GridColumn(entity.$Task.status)
           ..width = '3%'
-          ..title = intl.Priority(),
+          ..title = intl.Status(),
         new cl_form.GridColumn(entity.$Task.progress)
           ..width = '10%'
           ..title = intl.Progress(),
       ])
       ..addHookRow((row, obj) {
         row.onClick.listen((event) {
-          new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
+          if (!isDirty) {
+            new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
+          }
         });
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
-        obj[entity.$Task.priority] = new SelectTaskPriority()
-          ..setValue(obj[entity.$Task.priority]);
+        obj[entity.$Task.status] = new SelectTaskStatus()
+          ..setValue(obj[entity.$Task.status])
+          ..onValueChanged.listen((event) {
+            if (event.getValue() == TaskStatus.Done) {
+              obj[entity.$Task.progress].setValue(100);
+            } else {
+              obj[entity.$Task.progress].setValue(0);
+              bar.setValue(0);
+              status.setValue(TaskStatus.InProgress);
+            }
+          });
       });
 
     addSubTaskBtn = new cl_action.Button()
@@ -193,19 +235,20 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-//      ..addSection(intl.Sub_tasks())
-//      ..addRow(null, [addSubTaskBtn, subTaskDone])
-//      ..addRow(null, [gridSubTask])
+      ..addSection('Подтаскове')
+      ..addRow(null, [addSubTaskBtn]).addClass('col5')
+      ..addRow(null, [subTaskDone]).addClass('col1')
+      ..setStyle({'margin-left': 'auto'})
+      ..addRow(null, [gridSubTask])
       ..addRow(fileuploader, [fu]);
 
     final cl_gui.TabElement mainTab = createTab(null, taskForm);
     layout.contInner.activeTab(mainTab);
   }
 
-
   @override
   void setMenuState(bool way) {
-//    addSubTaskBtn.setState(!way);
+    addSubTaskBtn.setState(!way);
     super.setMenuState(way);
   }
 }

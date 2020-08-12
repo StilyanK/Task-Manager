@@ -74,12 +74,6 @@ class TaskList extends base.Listing {
             ..setName(entity.$Task.priority))
           ..type = (grid, row, cell, object) =>
               new PriorityCell(ap, grid, row, cell, object),
-        new cl_form.GridColumn(entity.$Task.status)
-          ..title = intl.Status()
-          ..filter = (new SelectMultiTaskStatus([null, intl.All()])
-            ..setName(entity.$Task.status))
-          ..type = (grid, row, cell, object) =>
-              new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn('chat_room')
           ..title = intl.Comments()
           ..type = (grid, row, cell, object) =>
@@ -108,6 +102,12 @@ class TaskList extends base.Listing {
           ..filter = (new MultiSelectUser(ap, [null, intl.All()])
             ..setName(entity.$Task.modified_by)
             ..load()),
+        new cl_form.GridColumn(entity.$Task.status)
+          ..title = intl.Status()
+          ..filter = (new SelectMultiTaskStatus([null, intl.All()])
+            ..setName(entity.$Task.status))
+          ..type = (grid, row, cell, object) =>
+              new StatusCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.date_done)
           ..title = intl.Done()
           ..sortable = true
@@ -122,6 +122,11 @@ class TaskList extends base.Listing {
   void customRow(dynamic row, dynamic obj) {
     obj[entity.$Task.description] =
         removeHtmlTags(obj[entity.$Task.description]);
-    obj['number'] = obj[entity.$Task.task_id];
+    if (obj[entity.$Task.parent_task] != null) {
+      obj['number'] = '${obj[entity.$Task.task_id]} (п)';
+     } else {
+      obj['number'] = obj[entity.$Task.task_id];
+    }
+
   }
 }
