@@ -83,6 +83,10 @@ class TaskCollection extends base.Collection<App, Task, int> {
       o.date_created.toIso8601String(),
       o.deadline.toIso8601String()
     ];
+    data['date_done'] = [
+      o.date_done?.toIso8601String(),
+      o.deadline.toIso8601String()
+    ];
     final chatRoom = await auth.Chat(manager.convert(new auth.App()))
         .loadRoomByContext(
             'task${o.task_id}', req.session['client']['user_id']);

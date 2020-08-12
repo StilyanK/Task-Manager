@@ -106,7 +106,7 @@ class TaskList extends base.Listing {
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.date_done))
           ..type = (grid, row, cell, object) =>
-              new local.DateTimeCell(grid, row, cell, object),
+              new DoneDays(grid, row, cell, object),
       ];
 
   void onEdit(dynamic id) => ap.run('task/item/$id');
