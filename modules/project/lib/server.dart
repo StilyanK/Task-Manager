@@ -56,8 +56,7 @@ Future<void> init() async {
       final modifiedBy = await manager.app.user.find(task.modified_by);
       final project = await manager.app.project.find(task.project_id);
       final managedBy = await manager.app.user.find(project.manager_id);
-      String subject;
-      String text;
+      String subject, text;
       final link =
           '<a href="https://manager.medicframe.com/task/item/${task.task_id}">'
           'https://manager.medicframe.com/task/item/${task.task_id}</a>';
