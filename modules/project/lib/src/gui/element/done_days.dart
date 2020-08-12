@@ -33,12 +33,10 @@ class DoneDays extends cl_form.RowDataCell<List> {
 
   void buildCell(
       TableCellElement cell, SpanElement sp, SpanElement sp2, String days) {
-    sp
-      ..style
-      ..text = ' ($days)';
+    sp.text = ' $days';
     sp2
-      ..style
+      ..style.whiteSpace = 'nowrap'
       ..text = '${dateDoneDate.get()}';
-    cell..append(sp2)..append(sp);
+    cell.append(sp2..append(sp));
   }
 }
