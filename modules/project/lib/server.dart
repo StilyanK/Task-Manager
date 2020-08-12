@@ -54,6 +54,8 @@ Future<void> init() async {
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);
       final modifiedBy = await manager.app.user.find(task.modified_by);
+      final project = await manager.app.project.find(task.project_id);
+      final managedBy = await manager.app.user.find(project.manager_id);
       String subject;
       String text;
       final link =
@@ -78,8 +80,8 @@ Future<void> init() async {
             '<div>Изтрита от: ${modifiedBy?.name}</div>';
       }
 
-      Set<int> ids = {};
-      for (final user in <auth.User>[user, createdBy]) {
+      final Set<int> ids = {};
+      for (final user in <auth.User>[user, createdBy, managedBy]) {
         if (ids.contains(user.user_id)) continue;
         ids.add(user.user_id);
         if ((task.modified_by == null && task.created_by == user.user_id) ||
