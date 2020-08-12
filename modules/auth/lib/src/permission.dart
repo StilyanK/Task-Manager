@@ -16,5 +16,4 @@ abstract class Group {
 abstract class Scope {
   static const String User = 'user';
   static const String Group = 'group';
-  static const String Chat = 'chat';
 }

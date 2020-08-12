@@ -13,8 +13,19 @@ export 'src/ctrl.dart';
 export 'src/path.dart';
 
 void registerPermissions() {
-  base.permissionRegisterStandardPack(Group.Project, Scope.Project);
-  base.permissionRegisterStandardPack(Group.Project, Scope.Task);
+  auth.PermissionManager()
+    ..register(Group.Project, Scope.Project, auth.PA.crud, false)
+    ..register(Group.Project, Scope.Task, auth.PA.crud, false);
+
+  auth.PermissionManager().permission(auth.AccountGroup.User)
+    ..register(Group.Project, Scope.Project,
+        [auth.PA.create, auth.PA.read, auth.PA.update], true)
+    ..register(Group.Project, Scope.Task,
+        [auth.PA.create, auth.PA.read, auth.PA.update], true);
+
+  auth.PermissionManager().permission(auth.AccountGroup.Administrator)
+    ..register(Group.Project, Scope.Project, auth.PA.crud, true)
+    ..register(Group.Project, Scope.Task, auth.PA.crud, true);
 }
 
 Future<void> init() async {

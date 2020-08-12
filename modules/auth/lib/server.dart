@@ -94,7 +94,6 @@ void init() {
   PermissionManager()
     ..register(Group.Auth, Scope.User, PA.crud, false)
     ..register(Group.Auth, Scope.Group, PA.crud, false)
-    ..register(Group.Auth, Scope.Chat, ['updated'], true)
     ..register(Group.Auth, Scope.User, [PA.read], true)
     ..register(Group.Auth, Scope.Group, [PA.read], true);
 
