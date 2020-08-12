@@ -33,20 +33,10 @@ CREATE INDEX "task_created_by_idx" ON "task" ("created_by");
 CREATE INDEX "task_modified_by_idx" ON "task" ("modified_by");
 CREATE INDEX "task_project_id_idx" ON "task" ("project_id");
 
-CREATE TABLE IF NOT EXISTS "task_comment"
-(
-    "task_comment_id" SERIAL      NOT NULL PRIMARY KEY,
-    "task_id"         integer     NOT NULL REFERENCES "task" (task_id) ON DELETE CASCADE,
-    "user_id"         integer     NOT NULL,
-    "comment"         text        NOT NULL,
-    "date_created"    timestamptz NOT NULL DEFAULT NOW()
-);
-
 CREATE TABLE IF NOT EXISTS "task_media"
 (
     "task_media_id"   SERIAL      NOT NULL PRIMARY KEY,
     "task_id"         integer REFERENCES "task" (task_id) ON DELETE CASCADE,
-    "task_comment_id" integer REFERENCES "task_comment" (task_comment_id) ON DELETE CASCADE,
     "source"          text,
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );

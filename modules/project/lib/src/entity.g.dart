@@ -80,7 +80,6 @@ Map<String, dynamic> _$TaskToMap(Task obj, [asJson = false]) =>
 abstract class $TaskMedia {
   static const String task_media_id = 'task_media_id';
   static const String task_id = 'task_id';
-  static const String task_comment_id = 'task_comment_id';
   static const String source = 'source';
   static const String date_created = 'date_created';
 }
@@ -88,7 +87,6 @@ abstract class $TaskMedia {
 void _$TaskMediaFromMap(TaskMedia obj, Map data) => obj
   ..task_media_id = data[$TaskMedia.task_media_id]
   ..task_id = data[$TaskMedia.task_id]
-  ..task_comment_id = data[$TaskMedia.task_comment_id]
   ..source = data[$TaskMedia.source]
   ..date_created = data[$TaskMedia.date_created] is String
       ? DateTime.tryParse(data[$TaskMedia.date_created])
@@ -98,7 +96,6 @@ Map<String, dynamic> _$TaskMediaToMap(TaskMedia obj, [asJson = false]) =>
     <String, dynamic>{
       $TaskMedia.task_media_id: obj.task_media_id,
       $TaskMedia.task_id: obj.task_id,
-      $TaskMedia.task_comment_id: obj.task_comment_id,
       $TaskMedia.source: obj.source,
       $TaskMedia.date_created:
           asJson ? obj.date_created?.toIso8601String() : obj.date_created

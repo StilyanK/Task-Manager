@@ -4,7 +4,6 @@ part of project.entity;
 class TaskMedia {
   int task_media_id;
   int task_id;
-  int task_comment_id;
   String source;
   DateTime date_created;
 
