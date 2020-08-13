@@ -225,15 +225,16 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         new TaskGui(ap, parentId: getId(), isBound: true);
       });
     parentTask = new cl_action.Button()
-      ..setIcon(Icon.Edit)
+      ..setIcon(Icon.Parent)
       ..setTitle('Таск родител')
+      ..addClass('attention')
       ..addAction((_) {
         final s = form.getElement(entity.$Task.parent_task).getValue();
         if (s != null) new TaskGui(ap, id: s, isBound: true);
       });
 
     taskForm
-      ..addRow(null, [docStampCreated, docStampModified, comments])
+      ..addRow(null, [docStampCreated, docStampModified, parentTask, comments])
           .addClass('col6')
       ..addRow(intl.Title(), [title]).addClass('col6')
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
@@ -245,7 +246,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-      ..addRow(null, [parentTask]).addClass('col5')
+//      ..addRow(null, [parentTask]).addClass('col5')
       ..addSection('Подтаскове')
       ..addRow(null, [addSubTaskBtn]).addClass('col5')
       ..addRow(null, [subTaskDone]).addClass('col1')

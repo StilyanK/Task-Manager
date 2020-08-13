@@ -154,3 +154,14 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.task-id {
+  span {
+    display: flex;
+    align-items: center;
+  }
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}

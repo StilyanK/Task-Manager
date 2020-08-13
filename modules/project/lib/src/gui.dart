@@ -41,6 +41,7 @@ part 'gui/element/select_task_status.dart';
 part 'gui/element/select_user.dart';
 part 'gui/element/status_cell.dart';
 part 'gui/element/task_status_cell.dart';
+part 'gui/element/number.dart';
 part 'gui/gadgets/task_card.dart';
 part 'gui/gadgets/task_gadget.dart';
 part 'gui/project.dart';
@@ -58,7 +59,7 @@ abstract class Icon {
   static const String Project = Icon.DocComments;
   static const String ProjectList = Icon.DocComments;
   static const String Add = cl.Icon.add;
-  static const String Edit = cl.Icon.mode_comment;
+  static const String Parent = cl.Icon.device_hub;
 
   static const String Commission = icon.Icon.briefcase_doctor;
   static const String Disease = icon.Icon.bacteria;

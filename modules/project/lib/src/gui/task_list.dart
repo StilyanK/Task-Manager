@@ -39,7 +39,9 @@ class TaskList extends base.Listing {
         new cl_form.GridColumn('number')
           ..title = '#'
           ..filter = (new cl_form.Input(new cl_form.InputTypeInt())
-            ..setName(entity.$Task.task_id)),
+            ..setName(entity.$Task.task_id))
+          ..type = (grid, row, cell, object) =>
+              new NumberCell(ap, grid, row, cell, object),
         new cl_form.GridColumn('project')
           ..title = intl.Project()
           ..filter = (new ProjectSelect(ap, [null, intl.All()])
@@ -114,13 +116,5 @@ class TaskList extends base.Listing {
 
   void onEdit(dynamic id) => ap.run('task/item/$id');
 
-  void customRow(dynamic row, dynamic obj) {
-    obj[entity.$Task.description] =
-        removeHtmlTags(obj[entity.$Task.description]);
-    if (obj[entity.$Task.parent_task] != null) {
-      obj['number'] = '${obj[entity.$Task.task_id]} (п)';
-    } else {
-      obj['number'] = obj[entity.$Task.task_id];
-    }
-  }
+  void customRow(dynamic row, dynamic obj) {}
 }
