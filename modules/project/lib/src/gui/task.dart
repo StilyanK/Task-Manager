@@ -65,7 +65,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       int done = 0;
       if (data_response['sub_task_grid'] != null) {
         for (final o in data_response['sub_task_grid']) {
-          if (o['status'] == TaskStatus.Done) {
+          if (o['status'].getValue() == TaskStatus.Done) {
             done++;
           }
         }
@@ -130,7 +130,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             ..disable();
           if (listenForChange) dateDone.setValue(new DateTime.now());
         } else {
-          bar.enable();
+          bar
+            ..setValue(0)
+            ..enable();
         }
       });
 
