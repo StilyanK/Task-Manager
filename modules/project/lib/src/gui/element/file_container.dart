@@ -58,7 +58,10 @@ class FileContainer
     } else {
       if (isXls(source))
         link.append(new cl.Icon(cl.Icon.file_excel).dom);
-      else if (isDoc(source)) link.append(new cl.Icon(cl.Icon.file_word).dom);
+      else if (isDoc(source))
+        link.append(new cl.Icon(cl.Icon.file_word).dom);
+      else
+        link.append(new cl.Icon(cl.Icon.file_unknown).dom);
     }
   }
 
@@ -66,6 +69,7 @@ class FileContainer
       source.toLowerCase().endsWith('.jpg') ||
       source.toLowerCase().endsWith('.jpeg') ||
       source.toLowerCase().endsWith('.png') ||
+      source.toLowerCase().endsWith('.svg') ||
       source.toLowerCase().endsWith('.gif');
 
   bool isPdf(String source) => source.toLowerCase().endsWith('.pdf');
