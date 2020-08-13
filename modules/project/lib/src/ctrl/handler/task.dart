@@ -90,7 +90,7 @@ class ITask extends base.Item<App, Task, int> {
       if (check) {
         task.status = TaskStatus.Done;
       } else {
-        task.status = TaskStatus.ToDo;
+        task.status = TaskStatus.InProgress;
       }
     }
 
