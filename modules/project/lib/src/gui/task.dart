@@ -1,5 +1,10 @@
 part of project.gui;
 
+class TaskInit {
+  int project_id;
+  int assigned_to;
+}
+
 class TaskGui extends base.ItemBuilder<auth.Client> {
   UrlPattern contr_get = RoutesTask.itemGet;
   UrlPattern contr_save = RoutesTask.itemSave;
@@ -11,13 +16,15 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..width = 1000
     ..height = 800;
 
+  TaskInit initData;
   cl_form.GridData gridSubTask;
-  cl_action.Button addSubTaskBtn, parentTask;
+  cl_action.Button addSubTaskBtn, parentTask, newTask;
   cl_action.Button comments;
   int parentId;
   bool isBound;
 
-  TaskGui(app, {id, this.parentId, this.isBound = false}) : super(app, id) {
+  TaskGui(app, {id, this.parentId, this.isBound = false, this.initData})
+      : super(app, id) {
     registerServerListener(RoutesTask.eventUpdate, (id) {
       if (getId() != null && getId() == id && !isDirty) get();
     });
@@ -37,12 +44,21 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   }
 
   Future<void> setDefaults() async {
+    if (initData != null) {
+      form.getElement(entity.$Task.assigned_to).setValue(initData.assigned_to);
+      form.getElement(entity.$Task.project_id).setValue(initData.project_id);
+    } else {
+      form.getElement(entity.$Task.assigned_to).setValue(ap.client.userId);
+    }
     form.getElement(entity.$Task.created_by).setValue(ap.client.userId);
-    form.getElement(entity.$Task.assigned_to).setValue(ap.client.userId);
     form.getElement(entity.$Task.title).focus();
     gridSubTask.hide();
+    newTask.disable();
     if (parentId != null) {
       form.getElement(entity.$Task.parent_task).setValue(parentId);
+      parentTask.show();
+    } else {
+      parentTask.hide();
     }
     addSubTaskBtn.disable();
   }
@@ -246,7 +262,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
-//      ..addRow(null, [parentTask]).addClass('col5')
       ..addSection('Подтаскове')
       ..addRow(null, [addSubTaskBtn]).addClass('col5')
       ..addRow(null, [subTaskDone]).addClass('col1')
@@ -258,9 +273,39 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     layout.contInner.activeTab(mainTab);
   }
 
+  void setActions() {
+    super.setActions();
+
+    newTask = new cl_action.Button()
+      ..setStyle({'margin-right': 'auto'})
+      ..setIcon(Icon.Add)
+      ..setTitle(intl.Task_new())
+      ..addClass('important')
+      ..addAction((_) {
+        final projectId = form.getElement(entity.$Task.project_id).getValue();
+        final assignedTo = form.getElement(entity.$Task.assigned_to).getValue();
+        wapi.close();
+        new TaskGui(ap,
+            initData: new TaskInit()
+              ..project_id = projectId
+              ..assigned_to = assignedTo);
+      });
+
+    menu
+      ..remove('del')
+      ..add(newTask)
+      ..add(new cl_action.Button()
+        ..setName('del')
+        ..setTitle(intl.Delete())
+        ..setIcon(Icon.Delete)
+        ..addClass('warning')
+        ..addAction((e) => del()));
+  }
+
   @override
   void setMenuState(bool way) {
-    addSubTaskBtn.setState(!way);
     super.setMenuState(way);
+    addSubTaskBtn.setState(!way);
+    newTask.setState(!way);
   }
 }
