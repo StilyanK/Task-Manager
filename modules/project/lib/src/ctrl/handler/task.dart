@@ -81,14 +81,10 @@ class ITask extends base.Item<App, Task, int> {
       }
     }
 
-    final childTasks = await manager.app.task.findAllChildTasks(task.task_id);
-
-    if (childTasks.isNotEmpty) {
-      final check =
-          childTasks.every((element) => element.status == TaskStatus.Done);
-      if (check) {
-        task.status = TaskStatus.Done;
-      }
+    final curTask = new TaskStatusManager(manager, task).setStatus();
+    final parentTask = await manager.app.task.find(task.parent_task);
+    if (parentTask != null) {
+      final paTask = new TaskStatusManager(manager, parentTask).setStatus();
     }
 
     final gridData = data['files'];

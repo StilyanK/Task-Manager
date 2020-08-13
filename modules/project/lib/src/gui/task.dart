@@ -65,7 +65,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       int done = 0;
       if (data_response['sub_task_grid'] != null) {
         for (final o in data_response['sub_task_grid']) {
-          if (o['status'] == TaskStatus.Done) {
+          if (o['status'].getValue() == TaskStatus.Done) {
             done++;
           }
         }
@@ -130,7 +130,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             ..disable();
           if (listenForChange) dateDone.setValue(new DateTime.now());
         } else {
-          bar.enable();
+          bar
+            ..setValue(0)
+            ..enable();
         }
       });
 
@@ -202,8 +204,16 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         });
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
+
         obj[entity.$Task.status] = new SelectTaskStatus()
-          ..setValue(obj[entity.$Task.status]);
+          ..setValue(obj[entity.$Task.status])
+          ..onValueChanged.listen((status) {
+            if (status.getValue() == TaskStatus.Done) {
+              obj[entity.$Task.progress].setValue(100);
+            } else {
+              obj[entity.$Task.progress].setValue(0);
+            }
+          });
       });
 
     addSubTaskBtn = new cl_action.Button()
