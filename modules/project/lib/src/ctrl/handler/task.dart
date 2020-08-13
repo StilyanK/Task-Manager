@@ -81,6 +81,7 @@ class ITask extends base.Item<App, Task, int> {
       }
     }
 
+
     final childTasks = await manager.app.task.findAllChildTasks(task.task_id);
 
     if (childTasks.isNotEmpty) {
@@ -88,6 +89,8 @@ class ITask extends base.Item<App, Task, int> {
           childTasks.every((element) => element.status == TaskStatus.Done);
       if (check) {
         task.status = TaskStatus.Done;
+      } else {
+        task.status = TaskStatus.ToDo;
       }
     }
 
