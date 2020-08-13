@@ -12,7 +12,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..height = 800;
 
   cl_form.GridData gridSubTask;
-  cl_action.Button addSubTaskBtn;
+  cl_action.Button addSubTaskBtn, parentTask;
   cl_action.Button comments;
   int parentId;
   bool isBound;
@@ -73,6 +73,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             .getElement('sub_task_done')
             .setValue('$done/${data_response['sub_task_grid'].length}');
       }
+      if (form.getElement(entity.$Task.parent_task).getValue() == null)
+        parentTask.hide();
     }
     comments.enable();
   }
@@ -217,10 +219,17 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       });
 
     addSubTaskBtn = new cl_action.Button()
-      ..setIcon(cl.Icon.add)
+      ..setIcon(Icon.Add)
       ..setTitle(intl.Add_sub_task())
       ..addAction((_) {
         new TaskGui(ap, parentId: getId(), isBound: true);
+      });
+    parentTask = new cl_action.Button()
+      ..setIcon(Icon.Edit)
+      ..setTitle('Таск родител')
+      ..addAction((_) {
+        final s = form.getElement(entity.$Task.parent_task).getValue();
+        if (s != null) new TaskGui(ap, id: s, isBound: true);
       });
 
     taskForm
@@ -236,6 +245,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
+      ..addRow(null, [parentTask]).addClass('col5')
       ..addSection('Подтаскове')
       ..addRow(null, [addSubTaskBtn]).addClass('col5')
       ..addRow(null, [subTaskDone]).addClass('col1')
