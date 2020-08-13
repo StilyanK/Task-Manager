@@ -280,7 +280,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setStyle({'margin-right': 'auto'})
       ..setIcon(Icon.Add)
       ..setTitle(intl.Task_new())
-      ..addClass('important')
+      ..addClass('attention')
       ..addAction((_) {
         final projectId = form.getElement(entity.$Task.project_id).getValue();
         final assignedTo = form.getElement(entity.$Task.assigned_to).getValue();
