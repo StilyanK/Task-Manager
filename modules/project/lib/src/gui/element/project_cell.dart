@@ -16,7 +16,9 @@ class ProjectCell extends cl_form.RowDataCell<List> {
             null, null, () => '${ap.baseurl}media/image50x50/project/$key')
           ..addClass('small round')
           ..setValue(picture);
-        cell.append(r.dom);
+        cell
+          ..title = title
+          ..append(r.dom);
       } else {
         cell.append(new SpanElement()
           ..classes.add('project-profile')
