@@ -34,6 +34,17 @@ Future<void> init() async {
   base.routes.add(routesGadget);
   base.routes.add(routesProject);
 
+  auth.entityMessage.onChange.listen((o) async {
+    await base.dbWrap<void, App>(new App(), (manager) async {
+      final room = await manager.app.chat_room.find(o.entity.chat_room_id);
+      if (room.context != null && room.context.startsWith('task')) {
+        final id = room.context.replaceAll('task', '');
+        final idParsed = int.parse(id);
+        base.sendEvent(RoutesTask.eventUpdate, idParsed);
+      }
+    });
+  });
+
   notifierTask.onCreate
       .listen((o) => base.sendEvent(RoutesTask.eventCreate, o.entity.task_id));
   notifierTask.onUpdate
