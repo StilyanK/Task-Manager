@@ -36,9 +36,11 @@ CREATE TABLE IF NOT EXISTS "user_notification"
 (
     "user_notification_id" serial   NOT NULL PRIMARY KEY,
     "user_id"              smallint NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "notification_id"      int,
+    "notification_id"      int      NOT NULL,
     "read"                 bool     NOT NULL DEFAULT FALSE
 );
+
+CREATE INDEX ON "user_notification" ("user_id");
 
 CREATE TABLE IF NOT EXISTS "user_event"
 (

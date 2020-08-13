@@ -6,8 +6,13 @@ class CNotification extends base.Base<App> {
   Future<void> persist() => run(null, null, null, () async {
         final data = await getData();
         manager = await Database().init(App());
+        final not = manager.app.notification.createObject()
+          ..key = data['local_key']
+          ..value = data['local_value'];
+        await manager.app.notification.insert(not);
         final n = manager.app.user_notification.createObject(data)
           ..user_id = UserSessionDTO.fromMap(req.session['client']).user_id
+          ..notification_id = not.notification_id
           ..read = false;
         await manager.app.user_notification.insert(n);
         return response(true);
@@ -19,9 +24,7 @@ class CNotification extends base.Base<App> {
         final end = DateTime.parse(data['end']);
         manager = await Database().init(App());
         final col = await manager.app.user_notification.findByUser(
-            UserSessionDTO.fromMap(req.session['client']).user_id,
-            start,
-            end);
+            UserSessionDTO.fromMap(req.session['client']).user_id, start, end);
         for (final e in col) await e.loadNotification();
         return response(col.map(_format).toList());
       });
