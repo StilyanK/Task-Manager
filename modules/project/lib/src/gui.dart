@@ -60,6 +60,7 @@ abstract class Icon {
   static const String ProjectList = Icon.DocComments;
   static const String Add = cl.Icon.add;
   static const String Parent = cl.Icon.device_hub;
+  static const String Delete = cl.Icon.delete;
 
   static const String Commission = icon.Icon.briefcase_doctor;
   static const String Disease = icon.Icon.bacteria;
