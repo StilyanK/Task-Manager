@@ -148,10 +148,12 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             ..disable();
           if (listenForChange) dateDone.setValue(new DateTime.now());
         } else {
-          bar
-            ..setValue(0)
-            ..enable();
-          if (listenForChange) dateDone.setValue(null);
+          if (listenForChange) {
+            dateDone.setValue(null);
+            bar
+              ..setValue(0)
+              ..enable();
+          }
         }
       });
 
