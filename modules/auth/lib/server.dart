@@ -4,6 +4,7 @@ import 'src/ctrl.dart';
 import 'src/mapper.dart';
 import 'src/path.dart';
 import 'src/permission.dart';
+import 'src/server.dart';
 import 'src/svc/permission.dart';
 
 export 'src/mapper.dart';
@@ -63,11 +64,8 @@ void init() {
       final col = await manager.app.chat_membership
           .findAllByRoom(cont.entity.chat_room_id);
       final room = await manager.app.chat_room.find(cont.entity.chat_room_id);
-      final wsClients = base.getWSClients();
       for (final cm in col) {
-        final wsClient = wsClients.firstWhere(
-            (client) => client.req.session['client']['user_id'] == cm.user_id,
-            orElse: () => null);
+        final wsClient = getWsClient(cm.user_id);
         if (wsClient != null) {
           final user = await manager.app.user.find(cont.entity.user_id);
           final contr = cont.diff == null
