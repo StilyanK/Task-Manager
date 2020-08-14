@@ -229,8 +229,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           ..onValueChanged.listen((status) {
             if (status.getValue() == TaskStatus.Done) {
               obj[entity.$Task.progress].setValue(100);
-            } else {
-              obj[entity.$Task.progress].setValue(0);
             }
           });
       });
