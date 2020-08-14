@@ -45,6 +45,7 @@ class ITask extends base.Item<App, Task, int> {
           '${entity.$Task.title}': o.title,
           '${entity.$Task.description}': o.description,
           '${entity.$Task.status}': o.status,
+          '${entity.$Task.date_done}': o.date_done?.toIso8601String(),
         });
       }
     }
@@ -52,7 +53,6 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
-    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
@@ -82,12 +82,6 @@ class ITask extends base.Item<App, Task, int> {
       }
     }
 
-    await new TaskStatusManager(manager, task).setStatus();
-    final parentTask = await manager.app.task.find(task.parent_task);
-    if (parentTask != null) {
-      final paTask = new TaskStatusManager(manager, parentTask).setStatus();
-    }
-
     final gridData = data['files'];
     if (gridData != null) {
       await manager.persist();
@@ -96,7 +90,19 @@ class ITask extends base.Item<App, Task, int> {
           entity.$TaskMedia.task_id, task.task_id);
     }
 
+    await new TaskStatusManager(manager, task).setStatus();
+    manager.addDirty(task);
+
+    await manager.persist();
+
+    if (task.parent_task != null) {
+      final parentTask = await manager.app.task.find(task.parent_task);
+      await new TaskStatusManager(manager, parentTask).setStatus();
+      manager.addDirty(parentTask);
+    }
+
     await manager.commit();
+
     return task.task_id;
   }
 

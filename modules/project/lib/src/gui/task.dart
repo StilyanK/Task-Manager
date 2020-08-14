@@ -142,7 +142,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setName(entity.$Task.status)
       ..setRequired(true)
       ..onValueChanged.listen((e) {
-        if (e.getValue() == TaskStatus.Done) {
+        if (e.getValue() == TaskStatus.Done ||
+            e.getValue() == TaskStatus.Test) {
           if (listenForChange) {
             bar
               ..setValue(100)
@@ -218,6 +219,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         new cl_form.GridColumn(entity.$Task.progress)
           ..width = '10%'
           ..title = intl.Progress(),
+        new cl_form.GridColumn(entity.$Task.date_done)
+          ..width = '15%'
+          ..title = intl.Date_done(),
       ])
       ..addHookRow((row, obj) {
         row.onClick.listen((event) {
@@ -231,10 +235,27 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         obj[entity.$Task.status] = new SelectTaskStatus()
           ..setValue(obj[entity.$Task.status])
           ..onValueChanged.listen((status) {
-            if (status.getValue() == TaskStatus.Done) {
-              obj[entity.$Task.progress].setValue(100);
+            if (status.getValue() == TaskStatus.Done ||
+                status.getValue() == TaskStatus.Test) {
+              if(listenForChange) {
+                obj[entity.$Task.progress].setValue(100);
+                obj[entity.$Task.date_done].setValue(new DateTime.now());
+              }
+            } else {
+              if(listenForChange) {
+                obj[entity.$Task.progress].setValue(0);
+                obj[entity.$Task.date_done].setValue(null);
+              }
             }
           });
+
+        obj[entity.$Task.date_done] = new cl_form.InputDate()
+          //..addAction((e) => e.stopPropagation())
+          ..domAction.addAction((e) => e.stopPropagation())
+          ..setValue(obj[entity.$Task.date_done]);
+
+        obj[entity.$Task.description] =
+            removeHtmlTags(obj[entity.$Task.description]);
       });
 
     addSubTaskBtn = new cl_action.Button()
@@ -245,7 +266,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       });
     parentTask = new cl_action.Button()
       ..setIcon(Icon.Parent)
-      ..setTitle('Таск родител')
+      ..setTitle('Основен таск')
       ..addClass('attention')
       ..addAction((_) {
         final s = form.getElement(entity.$Task.parent_task).getValue();
