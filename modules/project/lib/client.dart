@@ -36,7 +36,25 @@ void init(cl_app.Application ap) {
     final taskId = int.parse(parts[1]);
     return not
       ..priority = cl_app.NotificationMessage.attention
-      ..text = '${intl.Task()} - $taskId'
+      ..text = '${intl.Task()} #$taskId - редактиран'
       ..action = (() => ap.run('task/item/$taskId'));
+  });
+
+  cl_app.NotificationMessage.registerDecorator(EVENT_TASK_CREATE, (not) {
+    final parts = not.text.split(':');
+    final userId = int.parse(parts[0]);
+    final taskId = int.parse(parts[1]);
+    return not
+      ..priority = cl_app.NotificationMessage.attention
+      ..text = '${intl.Task()} #$taskId - създаден'
+      ..action = (() => ap.run('task/item/$taskId'));
+  });
+
+  ap.onServerCall.filter(EVENT_TASK_UPDATE).listen((res) {
+    ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
+  });
+
+  ap.onServerCall.filter(EVENT_TASK_CREATE).listen((res) {
+    ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 }
