@@ -143,10 +143,12 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..setRequired(true)
       ..onValueChanged.listen((e) {
         if (e.getValue() == TaskStatus.Done) {
-          bar
-            ..setValue(100)
-            ..disable();
-          if (listenForChange) dateDone.setValue(new DateTime.now());
+          if (listenForChange) {
+            bar
+              ..setValue(100)
+              ..disable();
+            dateDone.setValue(new DateTime.now());
+          }
         } else {
           if (listenForChange) {
             dateDone.setValue(null);

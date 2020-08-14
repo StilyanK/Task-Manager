@@ -52,6 +52,7 @@ class ITask extends base.Item<App, Task, int> {
   }
 
   Future<int> doSave(int id, Map data) async {
+    print(data);
     final task = await manager.app.task.prepare(id, data);
     final user_id = req.session['client']['user_id'];
     if (id != null) {
@@ -81,7 +82,7 @@ class ITask extends base.Item<App, Task, int> {
       }
     }
 
-    final curTask = new TaskStatusManager(manager, task).setStatus();
+    await new TaskStatusManager(manager, task).setStatus();
     final parentTask = await manager.app.task.find(task.parent_task);
     if (parentTask != null) {
       final paTask = new TaskStatusManager(manager, parentTask).setStatus();
