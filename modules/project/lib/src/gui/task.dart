@@ -25,8 +25,10 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
 
   TaskGui(app, {id, this.parentId, this.isBound = false, this.initData})
       : super(app, id) {
-    registerServerListener(RoutesTask.eventUpdate, (id) {
-      if (getId() != null && getId() == id && !isDirty) get();
+    registerServerListener(RoutesTask.eventUpdate, (data) {
+      final dataParsed = data.split(':');
+      final idParsed = int.parse(dataParsed[0]);
+      if (getId() != null && getId() == idParsed && !isDirty) get();
     });
   }
 
@@ -237,12 +239,12 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           ..onValueChanged.listen((status) {
             if (status.getValue() == TaskStatus.Done ||
                 status.getValue() == TaskStatus.Test) {
-              if(listenForChange) {
+              if (listenForChange) {
                 obj[entity.$Task.progress].setValue(100);
                 obj[entity.$Task.date_done].setValue(new DateTime.now());
               }
             } else {
-              if(listenForChange) {
+              if (listenForChange) {
                 obj[entity.$Task.progress].setValue(0);
                 obj[entity.$Task.date_done].setValue(null);
               }

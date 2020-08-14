@@ -8,6 +8,7 @@ import 'package:project/src/mapper.dart';
 import 'src/ctrl.dart';
 import 'src/path.dart';
 import 'src/permission.dart';
+import 'src/svc.dart';
 
 export 'src/ctrl.dart';
 export 'src/path.dart';
@@ -60,8 +61,8 @@ Future<void> init() async {
 
   notifierTask.onCreate
       .listen((o) => base.sendEvent(RoutesTask.eventCreate, o.entity.task_id));
-  notifierTask.onUpdate
-      .listen((o) => base.sendEvent(RoutesTask.eventUpdate, o.entity.task_id));
+  notifierTask.onUpdate.listen((o) => base.sendEvent(
+      RoutesTask.eventUpdate, '${o.entity.task_id}:${o.entity.status}'));
   notifierTask.onDelete
       .listen((o) => base.sendEvent(RoutesTask.eventDelete, o.entity.task_id));
 
@@ -75,6 +76,19 @@ Future<void> init() async {
   notifierTask.onChange.listen((event) async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;
+
+      if (task.parent_task != null) {
+        final oldTask = event.diff['parent_task'];
+        if (oldTask != null) {
+          final parentTask = await manager.app.task.find(oldTask);
+          await new TaskStatusManager(manager, parentTask).setStatus();
+          await manager.app.task.update(parentTask);
+        }
+        final parentTask = await manager.app.task.find(task.parent_task);
+        await new TaskStatusManager(manager, parentTask).setStatus();
+        await manager.app.task.update(parentTask);
+      }
+
       final project = await manager.app.project.find(task.project_id);
       final user = await manager.app.user.find(task.assigned_to);
       final createdBy = await manager.app.user.find(task.created_by);

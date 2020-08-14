@@ -31,8 +31,14 @@ class TaskList extends base.Listing {
     layout.contMenu.append(listButtonsContainer);
 
     registerServerListener(RoutesTask.eventCreate, debounceGet);
-    registerServerListener(RoutesTask.eventUpdate, debounceInRangeGet);
+    registerServerListener(RoutesTask.eventUpdate, debounceInRangeGetCustom);
     registerServerListener(RoutesTask.eventDelete, debounceInRangeGet);
+  }
+
+  void debounceInRangeGetCustom(dynamic data) {
+    final parsedData = data.split(':');
+    final idParsed = int.parse(parsedData[0]);
+    debounceInRangeGet(idParsed);
   }
 
   List<cl_form.GridColumn> initHeader() => [
@@ -51,6 +57,7 @@ class TaskList extends base.Listing {
               new ProjectCell(ap, grid, row, cell, object),
         new cl_form.GridColumn(entity.$Task.deadline)
           ..title = intl.Deadline()
+          ..sortable = true
           ..filter =
               (new cl_form.InputDateRange()..setName(entity.$Task.deadline))
           ..type = (grid, row, cell, object) =>
@@ -69,6 +76,7 @@ class TaskList extends base.Listing {
         new cl_form.GridColumn(entity.$Task.priority)
           ..title = intl.Priority()
           ..filter = (new SelectMultiPriority()..setName(entity.$Task.priority))
+          ..sortable = true
           ..type = (grid, row, cell, object) =>
               new PriorityCell(ap, grid, row, cell, object),
         new cl_form.GridColumn('chat_room')
