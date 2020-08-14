@@ -1,8 +1,8 @@
 import 'package:cl/app.dart' as cl_app;
-import 'package:project/server.dart';
 
 import 'intl/client.dart' as intl;
 import 'src/gui.dart';
+import 'src/path.dart';
 
 export 'src/gui.dart';
 export 'src/path.dart';
