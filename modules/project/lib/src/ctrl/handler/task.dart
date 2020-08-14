@@ -46,6 +46,7 @@ class ITask extends base.Item<App, Task, int> {
           '${entity.$Task.description}': o.description,
           '${entity.$Task.status}': o.status,
           '${entity.$Task.date_done}': o.date_done?.toIso8601String(),
+          '${entity.$Task.parent_task}': o.parent_task,
         });
       }
     }

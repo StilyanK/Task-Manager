@@ -215,6 +215,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         new cl_form.GridColumn(entity.$Task.priority)
           ..visible = false
           ..title = intl.Title(),
+        new cl_form.GridColumn(entity.$Task.parent_task)
+          ..visible = false
+          ..title = intl.Title(),
         new cl_form.GridColumn(entity.$Task.title)..title = intl.Title(),
         new cl_form.GridColumn(entity.$Task.description)
           ..title = intl.Description(),
@@ -227,6 +230,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         new cl_form.GridColumn(entity.$Task.date_done)
           ..width = '15%'
           ..title = intl.Date_done(),
+        new cl_form.GridColumn('action')
+          ..send = false
+          ..width = '1%',
       ])
       ..addHookRow((row, obj) {
         row.onClick.listen((event) {
@@ -234,6 +240,15 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
           }
         });
+        obj['action'] = new cl_action.Button()
+          ..setIcon(Icon.Parent)
+          ..setTip('Откачи таск')
+          ..addAction((e) async {
+            e.stopPropagation();
+            row.remove();
+            obj[entity.$Task.parent_task] = null;
+            gridSubTask.rowChanged(row);
+          });
         obj[entity.$Task.progress] = new ProgressComponent()
           ..setValue(obj[entity.$Task.progress]);
 
