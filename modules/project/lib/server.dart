@@ -109,10 +109,10 @@ Future<void> init() async {
       final Set<int> ids = {};
       for (final user in <auth.User>[user, createdBy, managedBy]) {
         if (ids.contains(user.user_id)) continue;
-        ids.add(user.user_id);
         if ((task.modified_by == null && task.created_by == user.user_id) ||
             task.modified_by == user.user_id ||
             user.mail == null) continue;
+        ids.add(user.user_id);
         final m = base.Mail(SmtpServer('ns1.centryl.net',
             port: 25,
             username: 'medicframe',
