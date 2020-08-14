@@ -1,5 +1,7 @@
 import 'package:cl/app.dart' as cl_app;
+import 'package:project/server.dart';
 
+import 'intl/client.dart' as intl;
 import 'src/gui.dart';
 
 export 'src/gui.dart';
@@ -8,14 +10,14 @@ export 'src/permission.dart';
 
 abstract class MenuItem {
   static final cl_app.MenuElement TaskList = cl_app.MenuElement()
-    ..title = 'Задачи'
+    ..title = intl.Tasks()
     ..icon = Icon.Tasks
     ..action = (ap) => ap.run('task/list');
   static final cl_app.MenuElement Settings = cl_app.MenuElement()
-    ..title = 'Настройки'
+    ..title = intl.Settings()
     ..icon = Icon.Settings;
   static final cl_app.MenuElement ProjectList = cl_app.MenuElement()
-    ..title = 'Проекти'
+    ..title = intl.Projects()
     ..icon = Icon.DocComments
     ..action = (ap) => ap.run('project/list');
 }
@@ -27,4 +29,14 @@ void init(cl_app.Application ap) {
     ..addRoute(
         cl_app.Route('project/item/:int', (ap, p) => Project(ap, id: p[0])))
     ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
+
+  cl_app.NotificationMessage.registerDecorator(EVENT_TASK_UPDATE, (not) {
+    final parts = not.text.split(':');
+    final userId = int.parse(parts[0]);
+    final taskId = int.parse(parts[1]);
+    return not
+      ..priority = cl_app.NotificationMessage.attention
+      ..text = '${intl.Task()} - $taskId'
+      ..action = (() => ap.run('task/item/$taskId'));
+  });
 }

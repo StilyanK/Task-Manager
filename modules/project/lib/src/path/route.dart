@@ -1,5 +1,9 @@
 part of project.path;
 
+const String EVENT_TASK_MESSAGE = 'task:read:message';
+const String EVENT_TASK_UPDATE = 'task:read:update';
+const String EVENT_TASK_CREATE = 'task:read:create';
+
 class RoutesTask {
   static UrlPattern get itemGet => UrlPattern('task/item/get');
 

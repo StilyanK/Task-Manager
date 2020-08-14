@@ -3,10 +3,10 @@ library auth.chat;
 import 'dart:async';
 
 import 'package:mapper/mapper.dart';
-import 'package:cl_base/server.dart' as base;
 
 import '../mapper.dart';
 import '../path.dart';
+import '../server.dart';
 
 class Chat {
   Manager<App> manager;
@@ -39,13 +39,7 @@ class Chat {
         .toList();
   }
 
-  bool _isOnline(int userId) =>
-      base.getWSClients().firstWhere(
-          (client) =>
-              client.req.session['client'] != null &&
-              client.req.session['client']['user_id'] == userId,
-          orElse: () => null) !=
-      null;
+  bool _isOnline(int userId) => getWsClient(userId) != null;
 
   Future<List<ChatMessageDTO>> loadMessagesNew(ChatRoomDTO room) async {
     if (room.room_id == null && room.context != null) {

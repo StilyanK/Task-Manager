@@ -126,11 +126,6 @@ class Client extends cl_app.Client {
 
         ap.onServerCall.filter(RoutesChat.messageCreated).listen((r) {
           final cm = ChatMessageDTO.fromMap(r);
-          if (!ch.focused && cm.member.user_id != ap.client.userId)
-            ap.notify.add(cl_app.NotificationMessage()
-              ..persist = false
-              ..text = '${cm.member.name}: ${cm.content}'
-              ..date = DateTime.now());
           cc.notifierMessage.add(chat.Room()
             ..room_id = cm.room_id
             ..context = cm.context);

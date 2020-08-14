@@ -30,7 +30,7 @@ void init() {
   base.permissionMessage = permissionMessage;
   base.permissionRegister = PermissionManager().register;
 
-  base.notificator.onNotification.listen(onNotification);
+  base.notificator.onNotification.listen(_onNotification);
 
   entityRoom.onChange.listen((cont) {
     base.dbWrap<void, App>(App(), (manager) async {
@@ -119,7 +119,7 @@ bool checkPermission(Map session, String group, String scope, String access) {
 String permissionMessage(String group, String scope, String access) =>
     PermissionManager().message(group, scope, access);
 
-void onNotification(base.SMessage mes) {
+void _onNotification(base.SMessage mes) {
   base.dbWrap<void, App>(App(), (manager) async {
     final users = await manager.app.user.findAll();
     final parts = mes.key.split(':');
