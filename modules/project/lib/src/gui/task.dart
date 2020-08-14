@@ -151,6 +151,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           bar
             ..setValue(0)
             ..enable();
+          if (listenForChange) dateDone.setValue(null);
         }
       });
 
