@@ -56,12 +56,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     form.getElement(entity.$Task.title).focus();
     gridSubTask.hide();
     newTask.disable();
-    if (parentId != null) {
+    if (parentId != null)
       form.getElement(entity.$Task.parent_task).setValue(parentId);
-      parentTask.show();
-    } else {
-      parentTask.hide();
-    }
     addSubTaskBtn.disable();
   }
 
@@ -71,7 +67,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       if (data_response['chat_room'] != null) {
         final room = new auth.ChatRoomDTO.fromMap(data_response['chat_room']);
         comments
-          ..setTitle('${intl.Comments()} ${room.unseen}/${room.messages}')
+          ..setTitle('${room.unseen}/${room.messages}')
           ..removeActionsAll()
           ..addAction((e) async {
             ap.client.ch.renderChat();
@@ -91,8 +87,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
             .getElement('sub_task_done')
             .setValue('$done/${data_response['sub_task_grid'].length}');
       }
-      if (form.getElement(entity.$Task.parent_task).getValue() == null)
-        parentTask.hide();
     }
     comments.enable();
   }
@@ -102,7 +96,8 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addClass('top');
 
     comments = new cl_action.Button()
-      ..setTitle('${intl.Comments()} 0/0')
+      ..setTip(intl.Comments())
+      ..setTitle('0/0')
       ..setIcon(cl.Icon.message)
       ..disable()
       ..addAction((e) async {

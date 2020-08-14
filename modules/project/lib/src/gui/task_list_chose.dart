@@ -4,8 +4,8 @@ class TaskListChoose extends TaskList {
   String mode = base.Listing.MODE_CHOOSE;
 
   cl_app.WinMeta meta = cl_app.WinMeta()
-    ..title = intl.Choose_user()
-    ..icon = Icon.User;
+    ..title = intl.Tasks()
+    ..icon = Icon.Tasks;
 
   void Function(Map) callback;
 
