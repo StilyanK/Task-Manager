@@ -46,11 +46,23 @@ void init(cl_app.Application ap) {
       ..action = (() => ap.run('task/item/$taskId'));
   });
 
+  cl_app.NotificationMessage.registerDecorator(EVENT_TASK_MESSAGE, (not) {
+    final taskId = int.tryParse(not.text);
+    return not
+      ..priority = cl_app.NotificationMessage.attention
+      ..text = '${intl.Task()} #$taskId - коментирана'
+      ..action = (() => ap.run('task/item/$taskId'));
+  });
+
   ap.onServerCall.filter(EVENT_TASK_UPDATE).listen((res) {
     ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 
   ap.onServerCall.filter(EVENT_TASK_CREATE).listen((res) {
+    ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
+  });
+
+  ap.onServerCall.filter(EVENT_TASK_MESSAGE).listen((res) {
     ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 }
