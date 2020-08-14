@@ -13,7 +13,9 @@ class TaskStatusManager {
       final check =
           childTasks.every((element) => element.status == TaskStatus.Done);
       if (check) {
-        task.status = TaskStatus.Done;
+        task
+          ..status = TaskStatus.Done
+          ..progress = 100;
       } else {
         task.status = TaskStatus.InProgress;
       }
