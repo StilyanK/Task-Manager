@@ -1,5 +1,5 @@
 import 'package:cl/app.dart' as cl_app;
-import 'package:project/server.dart';
+//import 'package:project/server.dart';
 
 import 'intl/client.dart' as intl;
 import 'src/gui.dart';
@@ -30,7 +30,7 @@ void init(cl_app.Application ap) {
         cl_app.Route('project/item/:int', (ap, p) => Project(ap, id: p[0])))
     ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
 
-  cl_app.NotificationMessage.registerDecorator(EVENT_TASK_UPDATE, (not) {
+  cl_app.NotificationMessage.registerDecorator('task:read:update', (not) {
     final parts = not.text.split(':');
     final userId = int.parse(parts[0]);
     final taskId = int.parse(parts[1]);
@@ -40,7 +40,7 @@ void init(cl_app.Application ap) {
       ..action = (() => ap.run('task/item/$taskId'));
   });
 
-  cl_app.NotificationMessage.registerDecorator(EVENT_TASK_CREATE, (not) {
+  cl_app.NotificationMessage.registerDecorator('task:read:create', (not) {
     final parts = not.text.split(':');
     final userId = int.parse(parts[0]);
     final taskId = int.parse(parts[1]);
@@ -50,11 +50,11 @@ void init(cl_app.Application ap) {
       ..action = (() => ap.run('task/item/$taskId'));
   });
 
-  ap.onServerCall.filter(EVENT_TASK_UPDATE).listen((res) {
+  ap.onServerCall.filter('task:read:update').listen((res) {
     ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 
-  ap.onServerCall.filter(EVENT_TASK_CREATE).listen((res) {
+  ap.onServerCall.filter('task:read:create').listen((res) {
     ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 }
