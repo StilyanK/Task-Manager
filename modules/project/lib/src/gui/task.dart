@@ -122,7 +122,10 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       });
 
     final createdById = cl_form.Data()..setName(entity.$Task.created_by);
-    final parentId = new cl_form.Data()..setName(entity.$Task.parent_task);
+    final parentId = new cl_form.Data()
+      ..setName(entity.$Task.parent_task)
+      ..onValueChanged
+          .listen((e) => parentTask.setTitle(e.getValue().toString()));
 
     form..add(createdById)..add(parentId);
     final title = new cl_form.Input()
@@ -268,11 +271,14 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       });
     parentTask = new cl_action.Button()
       ..setIcon(Icon.Parent)
-      ..setTitle('Основен таск')
+      ..setTip('Основен таск')
       ..addClass('attention')
       ..addAction((_) {
-        final s = form.getElement(entity.$Task.parent_task).getValue();
-        if (s != null) new TaskGui(ap, id: s, isBound: true);
+        new TaskListChoose((el) {
+          form
+              .getElement(entity.$Task.parent_task)
+              .setValue(el[entity.$Task.task_id]);
+        }, ap);
       });
 
     taskForm

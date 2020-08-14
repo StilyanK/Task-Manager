@@ -48,6 +48,7 @@ part 'gui/project.dart';
 part 'gui/project_list.dart';
 part 'gui/task.dart';
 part 'gui/task_list.dart';
+part 'gui/task_list_chose.dart';
 
 abstract class Icon {
   static const String Task = cl.Icon.message;
