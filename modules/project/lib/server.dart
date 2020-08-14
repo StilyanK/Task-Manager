@@ -52,7 +52,7 @@ Future<void> init() async {
             mems,
             new base.SMessage()
               ..key = EVENT_TASK_MESSAGE
-              ..value = '${o.entity.user_id}:$id'
+              ..value = id.toString()
               ..date = new DateTime.now());
       }
     });
@@ -82,7 +82,6 @@ Future<void> init() async {
       final managedBy = await manager.app.user.find(project.manager_id);
       String subject, text;
       String notEvent;
-      int doerId;
       final link =
           '<a href="https://manager.medicframe.com/task/item/${task.task_id}">'
           'https://manager.medicframe.com/task/item/${task.task_id}</a>';
@@ -93,7 +92,6 @@ Future<void> init() async {
             '<div>Зададена от: ${createdBy.name}</div>'
             '<div>$link</div>';
         notEvent = EVENT_TASK_CREATE;
-        doerId = createdBy.user_id;
       } else if (event.isUpdated) {
         subject = 'Задача "${task.title}" e променена (${project.title})';
         text = '<div><b>${task.title}</b></div>'
@@ -101,13 +99,11 @@ Future<void> init() async {
             '<div>Променена от: ${modifiedBy?.name}</div>'
             '<div>$link</div>';
         notEvent = EVENT_TASK_UPDATE;
-        doerId = modifiedBy.user_id;
       } else if (event.isDeleted) {
         subject = 'Задача "${task.title}" e изтрита (${project.title})';
         text = '<div><b>${task.title}</b></div>'
             '<div>${task.description}</div>'
             '<div>Изтрита от: ${modifiedBy?.name}</div>';
-        doerId = modifiedBy.user_id;
       }
 
       final Set<int> ids = {};
@@ -134,7 +130,7 @@ Future<void> init() async {
           ids,
           new base.SMessage()
             ..key = notEvent
-            ..value = '$doerId:${task.task_id}'
+            ..value = task.task_id.toString()
             ..date = new DateTime.now());
     });
   });

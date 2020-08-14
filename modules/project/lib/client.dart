@@ -31,22 +31,18 @@ void init(cl_app.Application ap) {
     ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
 
   cl_app.NotificationMessage.registerDecorator(EVENT_TASK_UPDATE, (not) {
-    final parts = not.text.split(':');
-    final userId = int.parse(parts[0]);
-    final taskId = int.parse(parts[1]);
+    final taskId = int.parse(not.text);
     return not
       ..priority = cl_app.NotificationMessage.attention
-      ..text = '${intl.Task()} #$taskId - редактиран'
+      ..text = '${intl.Task()} #$taskId - редактирана'
       ..action = (() => ap.run('task/item/$taskId'));
   });
 
   cl_app.NotificationMessage.registerDecorator(EVENT_TASK_CREATE, (not) {
-    final parts = not.text.split(':');
-    final userId = int.parse(parts[0]);
-    final taskId = int.parse(parts[1]);
+    final taskId = int.tryParse(not.text);
     return not
       ..priority = cl_app.NotificationMessage.attention
-      ..text = '${intl.Task()} #$taskId - създаден'
+      ..text = '${intl.Task()} #$taskId - създадена'
       ..action = (() => ap.run('task/item/$taskId'));
   });
 
