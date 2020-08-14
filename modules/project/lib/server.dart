@@ -77,13 +77,13 @@ Future<void> init() async {
     await base.dbWrap<void, App>(new App(), (manager) async {
       final task = event.entity;
 
+      final oldTask = event.diff['parent_task'];
+      if (oldTask != null) {
+        final parentTask = await manager.app.task.find(oldTask);
+        await new TaskStatusManager(manager, parentTask).setStatus();
+        await manager.app.task.update(parentTask);
+      }
       if (task.parent_task != null) {
-        final oldTask = event.diff['parent_task'];
-        if (oldTask != null) {
-          final parentTask = await manager.app.task.find(oldTask);
-          await new TaskStatusManager(manager, parentTask).setStatus();
-          await manager.app.task.update(parentTask);
-        }
         final parentTask = await manager.app.task.find(task.parent_task);
         await new TaskStatusManager(manager, parentTask).setStatus();
         await manager.app.task.update(parentTask);
