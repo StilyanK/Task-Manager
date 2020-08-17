@@ -36,9 +36,13 @@ class TaskList extends base.Listing {
   }
 
   void debounceInRangeGetCustom(dynamic data) {
-    final parsedData = data.split(':');
-    final idParsed = int.parse(parsedData[0]);
-    debounceInRangeGet(idParsed);
+    if (data is String) {
+      final parsedData = data.split(':');
+      final idParsed = int.parse(parsedData[0]);
+      debounceInRangeGet(idParsed);
+    } else {
+      debounceInRangeGet(data);
+    }
   }
 
   List<cl_form.GridColumn> initHeader() => [

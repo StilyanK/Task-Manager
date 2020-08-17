@@ -21,13 +21,17 @@ class TaskGadget extends local.CardListGadget<TaskDTO, CardTask> {
     });
 
     ap.onServerCall.filter(RoutesTask.eventUpdate).listen((r) async {
-      final data = r.split(':');
-      final id = int.parse(data[0]);
-      final status = int.parse(data[1]);
-      if (status == TaskStatus.Done)
-        removeCard(id);
-      else
-        await _updateTaskWaiting(id);
+      if (r is String) {
+        final data = r.split(':');
+        final id = int.parse(data[0]);
+        final status = int.parse(data[1]);
+        if (status == TaskStatus.Done)
+          removeCard(id);
+        else
+          await _updateTaskWaiting(id);
+      } else {
+        await _updateTaskWaiting(r);
+      }
     });
 
     ap.onServerCall.filter(RoutesTask.eventDelete).listen(removeCard);

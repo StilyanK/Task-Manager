@@ -26,9 +26,13 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   TaskGui(app, {id, this.parentId, this.isBound = false, this.initData})
       : super(app, id) {
     registerServerListener(RoutesTask.eventUpdate, (data) {
-      final dataParsed = data.split(':');
-      final idParsed = int.parse(dataParsed[0]);
-      if (getId() != null && getId() == idParsed && !isDirty) get();
+      if (data is String) {
+        final dataParsed = data.split(':');
+        final idParsed = int.parse(dataParsed[0]);
+        if (getId() != null && getId() == idParsed && !isDirty) get();
+      } else {
+        if (getId() != null && getId() == data && !isDirty) get();
+      }
     });
   }
 
