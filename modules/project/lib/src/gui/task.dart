@@ -235,7 +235,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
         });
         obj['action'] = new cl_action.Button()
-          ..setIcon(Icon.Parent)
+          ..setIcon(Icon.Remove)
           ..setTip('Откачи таск')
           ..addAction((e) async {
             e.stopPropagation();

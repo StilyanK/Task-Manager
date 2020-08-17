@@ -63,6 +63,7 @@ abstract class Icon {
   static const String Parent = cl.Icon.device_hub;
   static const String Delete = cl.Icon.delete;
   static const String List = cl.Icon.menu;
+  static const String Remove = cl.Icon.block;
 
   static const String Commission = icon.Icon.briefcase_doctor;
   static const String Disease = icon.Icon.bacteria;
