@@ -265,7 +265,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
           });
 
         obj[entity.$Task.date_done] = new cl_form.InputDate()
-          //..addAction((e) => e.stopPropagation())
           ..domAction.addAction((e) => e.stopPropagation())
           ..setValue(obj[entity.$Task.date_done]);
 
