@@ -365,6 +365,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
   void setMenuState(bool way) {
     super.setMenuState(way);
     addSubTaskBtn.setState(!way);
+    addExistSubTask.setState(!way);
     newTask.setState(!way);
   }
 }
