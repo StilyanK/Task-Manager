@@ -94,14 +94,6 @@ class ITask extends base.Item<App, Task, int> {
     await new TaskStatusManager(manager, task).setStatus();
     manager.addDirty(task);
 
-    await manager.persist();
-
-//    if (task.parent_task != null) {
-//      final parentTask = await manager.app.task.find(task.parent_task);
-//      await new TaskStatusManager(manager, parentTask).setStatus();
-//      manager.addDirty(parentTask);
-//    }
-
     await manager.commit();
 
     return task.task_id;
