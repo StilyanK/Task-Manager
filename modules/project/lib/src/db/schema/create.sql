@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS "task"
     "tsv"           tsvector,
     "hours_done"    int
 );
+
+ALTER TABLE "task"
+    ADD CONSTRAINT "parent_task_check" CHECK (parent_task != task_id);
 CREATE INDEX "patient_tsv_idx" ON task USING gin ("tsv");
 CREATE INDEX "task_assigned_to_idx" ON "task" ("assigned_to");
 CREATE INDEX "task_created_by_idx" ON "task" ("created_by");
@@ -41,4 +44,6 @@ CREATE TABLE IF NOT EXISTS "task_media"
     "date_created"    timestamptz NOT NULL DEFAULT NOW()
 );
 CREATE INDEX "task_media_task_id_idx" ON "task_media" ("task_id");
+
+
 

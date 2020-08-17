@@ -81,6 +81,11 @@ class ITask extends base.Item<App, Task, int> {
           await manager.app.task.prepare(o['task_id'], o);
         }
       }
+      if (insertList != null && insertList.isNotEmpty) {
+        for (final o in insertList) {
+          await manager.app.task.prepare(o['task_id'], o);
+        }
+      }
     }
 
     final gridData = data['files'];

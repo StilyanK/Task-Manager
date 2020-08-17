@@ -22,6 +22,11 @@ class TaskStatusManager {
           .every((element) => element.status == TaskStatus.ForDiscussion);
       final checkForPostponed =
           childTasks.every((element) => element.status == TaskStatus.Postponed);
+      final containsCanceledOrDiscussion = childTasks.any((element) =>
+          element.status == TaskStatus.ForDiscussion ||
+          element.status == TaskStatus.Canceled ||
+          element.status == TaskStatus.Postponed);
+
       task.date_done = null;
       if (checkDone) {
         task
@@ -43,7 +48,7 @@ class TaskStatusManager {
         task.status = TaskStatus.ForDiscussion;
       } else if (checkForPostponed) {
         task.status = TaskStatus.Postponed;
-      } else {
+      } else if (!containsCanceledOrDiscussion) {
         task
           ..status = TaskStatus.InProgress
           ..progress = _findProgress(childTasks);

@@ -18,7 +18,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
 
   TaskInit initData;
   cl_form.GridData gridSubTask;
-  cl_action.Button addSubTaskBtn, parentTask, newTask;
+  cl_action.Button addSubTaskBtn, parentTask, newTask, addExistSubTask;
   cl_action.Button comments;
   int parentId;
   bool isBound;
@@ -231,9 +231,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ])
       ..addHookRow((row, obj) {
         row.onClick.listen((event) {
-          if (!isDirty) {
-            new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
-          }
+          new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
         });
         obj['action'] = new cl_action.Button()
           ..setIcon(Icon.Parent)
@@ -290,6 +288,25 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         }, ap);
       });
 
+    addExistSubTask = new cl_action.Button()
+      ..setIcon(Icon.List)
+      ..addClass('attention')
+      ..setTitle('Закачи подтаск')
+      ..addAction((_) {
+        new TaskListChoose((el) {
+          el[entity.$Task.parent_task] = getId();
+          gridSubTask.rowAdd({
+            entity.$Task.task_id: el[entity.$Task.task_id],
+            entity.$Task.parent_task: getId(),
+            entity.$Task.progress: el[entity.$Task.progress],
+            entity.$Task.status: el[entity.$Task.status][0],
+            entity.$Task.title: el[entity.$Task.title],
+            entity.$Task.description: el[entity.$Task.description],
+            entity.$Task.date_done: el[entity.$Task.date_done][0],
+          });
+        }, ap);
+      });
+
     taskForm
       ..addRow(null, [docStampCreated, docStampModified, parentTask, comments])
           .addClass('col6')
@@ -304,7 +321,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
       ..addRow(intl.Description(), [description]).addClass('col6')
       ..addSection('Подтаскове')
-      ..addRow(null, [addSubTaskBtn]).addClass('col5')
+      ..addRow(null, [addSubTaskBtn, addExistSubTask]).addClass('col5')
       ..addRow(null, [subTaskDone]).addClass('col1')
       ..setStyle({'margin-left': 'auto'})
       ..addRow(null, [gridSubTask])
