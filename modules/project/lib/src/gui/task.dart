@@ -56,6 +56,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     form.getElement(entity.$Task.title).focus();
     gridSubTask.hide();
     newTask.disable();
+    addExistSubTask.disable();
     if (parentId != null)
       form.getElement(entity.$Task.parent_task).setValue(parentId);
     addSubTaskBtn.disable();
