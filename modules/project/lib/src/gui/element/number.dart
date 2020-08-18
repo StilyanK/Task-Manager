@@ -7,8 +7,8 @@ class NumberCell extends cl_form.RowDataCell<List> {
 
   void render() {
     final taskId = object[0];
-    final parentId = object[1];
-    if (parentId == null) {
+    final hasChilds = object[1];
+    if (hasChilds) {
       cell
         ..append(new SpanElement()
           ..text = '$taskId'

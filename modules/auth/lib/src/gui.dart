@@ -161,7 +161,7 @@ class Client extends cl_app.Client {
             ..setIcon(cl.Icon.exit_to_app)
             ..addAction((e) => window.location.href = '${ap.baseurl}logout')
             ..setTitle(intl.Logout()))
-          ..slider.boxing.offsetTopBottom = 20;
+          ..slider.boxing.offset = 20;
         but.buttonOption
           ..setTip(ap.client.name, 'bottom')
           ..setIcon(null);
