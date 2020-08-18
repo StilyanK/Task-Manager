@@ -16,6 +16,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     ..width = 1000
     ..height = 800;
 
+
   TaskInit initData;
   cl_form.GridData gridSubTask;
   cl_action.Button addSubTaskBtn, parentTask, newTask, addExistSubTask;
@@ -48,7 +49,6 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     meta.type = isBound ? 'bound' : null;
     super.initLayout();
   }
-
   Future<void> setDefaults() async {
     if (initData != null) {
       form.getElement(entity.$Task.assigned_to).setValue(initData.assigned_to);
