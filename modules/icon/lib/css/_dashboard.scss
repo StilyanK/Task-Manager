@@ -8,19 +8,6 @@
   margin: 0 auto;
 }
 
-.ui-top {
-  border-bottom: 1px solid $page-background;
-}
-
-.ui-win-tab {
-  border: 1px solid transparent;
-
-  &.active {
-    border-left: 1px solid $page-background;
-    border-right: 1px solid $page-background;
-  }
-}
-
 .ui-gadgets {
   .gadget-outer {
     padding: 1rem;

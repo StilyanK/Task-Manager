@@ -1,12 +1,8 @@
-$card-background: #FFFFFF;
-$card-border: #EEEEEE;
-$card-shadow: 0 1px 4px 0 #F2F2F2;
-$card-background-hover: darken($card-background, 3%);
-$icon-border: $card-background-hover;
 $card-background: $page-background;
-$card-border: darken($page-background, 5%);
-$card-shadow: 0 1px 4px 0 darken($page-background, 5%);
 $card-background-hover: darken($card-background, 3%);
+$card-border: darken($card-background, 5%);
+$card-shadow: 0 1px 4px 0 darken($card-background, 5%);
+$icon-border: 1px solid $page-background;
 
 $icons-padding-default: 3px;
 $icons-padding-internal: 5px;
