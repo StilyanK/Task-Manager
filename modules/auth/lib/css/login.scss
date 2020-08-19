@@ -20,7 +20,12 @@ img {
 
 body, html {
   height: 100%;
-  padding-top: 50px;
+}
+
+body {
+  @include respond-min(phone) {
+    padding-top: 100px;
+  }
 }
 
 body {
