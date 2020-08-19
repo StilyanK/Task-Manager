@@ -131,6 +131,9 @@
 
   .gadgets-right {
     margin-left: auto;
+    @include respond-max(phone) {
+      flex: 1 1 auto !important;
+    }
   }
 }
 
@@ -140,6 +143,9 @@
   background: $stats-background;
   margin: 0.5rem;
   width: 350px;
+  @include respond-max(phone) {
+    width: 100%;
+  }
 
   & > h2 {
     padding: 10px 0;
@@ -218,7 +224,6 @@
   display: flex;
   margin-bottom: 1rem;
   @include box-shadow($card-shadow);
-  height: 120px;
   width: 100%;
   opacity: 0;
   position: relative;
