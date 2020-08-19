@@ -29,7 +29,9 @@
   .deskicon {
     justify-content: center;
     padding: 1rem;
-
+    @include respond-max(phone) {
+      display: none;
+    }
     & > div {
       border: $icon-border;
       background: $menu-submenu-background;
@@ -94,7 +96,9 @@
   .gadgets-left {
     margin: 0 auto;
     max-width: 800px;
-
+    @include respond-max(phone) {
+      display: none;
+    }
     .circle {
       display: flex;
       flex-direction: column;
@@ -326,4 +330,41 @@
     }
   }
 
+}
+
+.form-element {
+  & > .label-field.col2 {
+    @include respond-max(phone) {
+      width: 100%;
+    }
+  }
+  & > .label-field.col3 {
+    @include respond-max(phone) {
+      width: 100%;
+    }
+  }
+  & > .label-field.col4 {
+    @include respond-max(phone) {
+      width: 100%;
+    }
+  }
+  & > .label-field.col5 {
+    @include respond-max(phone) {
+      width: 100%;
+    }
+  }
+  & > .label-field.col1 {
+    @include respond-max(phone) {
+      width: 50%;
+    }
+  }
+}
+.ui-menu {
+  .ui-button {
+    .button-title {
+      @include respond-max(phone) {
+        display: none;
+      }
+    }
+  }
 }
