@@ -1,4 +1,8 @@
 $build-browser-prefix: false;
+$phone: 600px;
+$tablet: 800px;
+$desktop: 1000px;
+$large: 1500px;
 @import "package:cl/css/partial/mixin";
 
 * {
@@ -20,16 +24,20 @@ body, html {
 }
 
 body {
-  background: linear-gradient(#FFFFFF 0%, #FFFFFF 300px, #F9F9F9 300px, #F9F9F9 100%);
+  @include respond-min(phone) {
+    background: linear-gradient(#FFFFFF 0%, #FFFFFF 300px, #F9F9F9 300px, #F9F9F9 100%);
+  }
 }
 
 div.container {
-  width: 370px;
   min-height: 500px;
   background: #FFFFFF;
   margin: 0 auto 0 auto;
   padding: 50px;
-  @include box-shadow(0 0 30px 1px #CDCDCD);
+  @include respond-min(phone) {
+    width: 370px;
+    @include box-shadow(0 0 30px 1px #CDCDCD);
+  }
 
   &:not(.active) {
     @include transform(translateY(-50px));
