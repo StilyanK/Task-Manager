@@ -314,9 +314,9 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
 
     taskForm
       ..addRow(null, [docStampCreated, docStampModified])
-          .addClass('col5')
-      ..addRow(null, [parentTask, comments])
-          .addClass('col1')
+          .addClass('col4')
+      ..addRow(null, [parentTask..setStyle({'margin-left':'auto'}), comments])
+          .addClass('col2')
       ..addRow(intl.Title(), [title]).addClass('col6')
       ..addRow(intl.Project(), [inputProject]).addClass('col2')
       ..addRow(intl.Assigned_to(), [assignedTo]).addClass('col2')

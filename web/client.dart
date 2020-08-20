@@ -3,6 +3,7 @@ library hms_cloud.client;
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
+import 'dart:typed_data';
 
 import 'package:auth/client.dart' as auth;
 import 'package:cl/app.dart' as cl_app;
@@ -12,10 +13,12 @@ import 'package:communicator/client.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:project/client.dart' as project;
+import 'package:service_worker/window.dart' as sw;
 
 import 'intl/messages_all.dart';
 
 Future<void> main() async {
+  final subsData = await SWActivate(null);
   final settings = cl_app.AppSettings()
     ..desktopIcons = true
     ..menuStyle = 2
@@ -23,7 +26,7 @@ Future<void> main() async {
     ..fullWindowMode = true
     ..baseurl = '/';
   final ap = Application(settings);
-  final data = await initData(ap);
+  final data = await initData(ap, subsData);
   final client = auth.Client(data);
   ap.setClient(client);
 
@@ -82,7 +85,7 @@ Future initLocale(Application ap) async {
   }
 }
 
-Future<Map> initData(Application ap) async {
+Future<Map> initData(Application ap, Map data) async {
   final communicator = Communicator(ap.baseurl);
   final port =
       (window.location.port.isNotEmpty) ? '' : ':${window.location.port}';
@@ -92,9 +95,43 @@ Future<Map> initData(Application ap) async {
   ap
     ..on_server_call = communicator.onServerCall
     ..server_call = communicator.send;
-  return ap.serverCall<Map>('/init', null);
+  return ap.serverCall<Map>('/init', data);
 }
 
 class Application extends cl_app.Application<auth.Client> {
   Application(cl_app.AppSettings settings) : super(settings: settings);
+}
+
+Future<Map> SWActivate(String appServerKey) async {
+  if (sw.isNotSupported) return null;
+  await sw.register('/sw.dart.js');
+
+  final sw.ServiceWorkerRegistration registration = await sw.ready;
+  registration.onUpdateFound.listen((event) => registration.update());
+
+  if (appServerKey != null) {
+    try {
+      final subs = (await registration.pushManager.getSubscription()) ??
+          (await registration.pushManager.subscribe(
+              new sw.PushSubscriptionOptions(
+                  userVisibleOnly: true,
+                  applicationServerKey: urlBase64ToUint8List(appServerKey))));
+      final subsData = subs.getKeysAsString();
+      subsData['endpoint'] = subs.endpoint;
+      return subsData;
+    } on DomException catch (_) {}
+  }
+  return null;
+}
+
+Uint8List urlBase64ToUint8List(String base64String) {
+  final padding = '=' * ((4 - base64String.length % 4) % 4);
+  final base64 = (base64String + padding)
+      .replaceAll(new RegExp(r'-'), '+')
+      .replaceAll(new RegExp(r'_'), '/');
+  final rawData = window.atob(base64);
+  final outputArray = new Uint8List(rawData.length);
+  for (var i = 0; i < rawData.length; ++i)
+    outputArray[i] = rawData.codeUnitAt(i);
+  return outputArray;
 }

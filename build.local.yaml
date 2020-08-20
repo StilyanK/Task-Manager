@@ -1,0 +1,13 @@
+# Used for local testing: pub run build_runner [serve/build] --config local
+targets:
+  $default:
+    builders:
+      build_web_compilers|entrypoint:
+        generate_for:
+          - web/**.dart
+        options:
+          compiler: dart2js
+          dart2js_args:
+            - --omit-implicit-checks
+            - --trust-primitives
+            - --lax-runtime-type-to-string
