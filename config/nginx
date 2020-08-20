@@ -53,6 +53,10 @@ server {
         root <path>/web;
     }
 
+    location = /offline.html {
+        root <path>/web;
+    }
+
     #<nginx-dev>
     include <path>/config/nginx-panel;
 }
