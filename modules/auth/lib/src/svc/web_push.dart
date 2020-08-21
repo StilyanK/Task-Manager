@@ -1,3 +1,5 @@
+library auth.web_push;
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -14,20 +16,6 @@ make(String clientPublicKey, String clientAuthSecret) async {
       nonce: new cr.Nonce(utf8.encode(clientAuthSecret)),
       info: utf8.encode('Content-Encoding: auth\0'),
       outputLength: 32);
-}
-
-main() {
-  final d = new ByteData(10);
-  d.setUint8(2, 100);
-  final d2 = new ByteData(10);
-  d2.setUint8(2, 120);
-  final n = new Uint8List(d2.lengthInBytes + d.lengthInBytes);
-  n.setAll(0, d.buffer.asUint8List());
-  n.setAll(10, d2.buffer.asUint8List());
-  print(n);
-//  final n = d.buffer.asUint8List();
-//  n.addAll(d2.buffer.asUint8List());
-//  print(n);
 }
 
 //createInfo(
