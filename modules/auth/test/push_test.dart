@@ -19,6 +19,9 @@ class DataOptions {
       'BPr24F-pXbREl5LKvhVJKPHFjxOQMIgCr9gWRZNVwnbkMuyPoJzyyk7LCYdDWOeR941'
       'qfMC2yOFLDMihrxxqN-8';
   String vapid_private_key = 'fkZyuSddZC3XLux5w2zDATXcClomo03JnzeR_RqKRKs';
+  String app_server_key = 'AAAAScNcQEo:APA91bFgkwHQlDroikEwViEvsWo1W-2Xh7b3'
+      '7APRiiXk6oIEXJkqx8duGGTOQG0BhBoP3Vhkrg0E5SImVDVxUavHaZZ3DLwr33tt60bN'
+      'yFHVJufPp-obe5a4jgZeSF1RyfEs16s_EmMB';
   String app_sender_id = '316810215498';
 }
 
