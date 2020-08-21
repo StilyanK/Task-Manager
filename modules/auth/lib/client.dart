@@ -34,22 +34,18 @@ void init(cl_app.Application ap) {
   ap
     ..addRoute(cl_app.Route('user/settings', (ap, p) => Settings(ap)))
     ..addRoute(cl_app.Route('user/profile', (ap, p) => UserHome(ap)))
-    ..addRoute(
-        cl_app.Route('user/calendar', (ap, p) => UserCalendar(ap)))
+    ..addRoute(cl_app.Route('user/calendar', (ap, p) => UserCalendar(ap)))
     ..addRoute(cl_app.Route(
         'user/event/:string',
-        (ap, p) => UserEvent(ap,
-            id: p[0], initData: (p.length > 1) ? p[1] : null)))
+        (ap, p) =>
+            UserEvent(ap, id: p[0], initData: (p.length > 1) ? p[1] : null)))
     ..addRoute(cl_app.Route('user/list', (ap, p) => UserList(ap)))
     ..addRoute(cl_app.Route('user/:int', (ap, p) => User(ap, p[0])))
-    ..addRoute(
-        cl_app.Route('user_group/list', (ap, p) => UserGroupList(ap)))
-    ..addRoute(cl_app.Route(
-        'user_group/:int', (ap, p) => UserGroup(ap, p[0])));
+    ..addRoute(cl_app.Route('user_group/list', (ap, p) => UserGroupList(ap)))
+    ..addRoute(cl_app.Route('user_group/:int', (ap, p) => UserGroup(ap, p[0])));
 
   cl_app.NotificationMessage.registerDecorator('error', (not) {
-    final cont = cl.Container()
-      ..append(ParagraphElement()..text = not.text);
+    final cont = cl.Container()..append(ParagraphElement()..text = not.text);
     return not
       ..priority = cl_app.NotificationMessage.error
       ..action = (() => cl_app.Dialog(ap, cont)

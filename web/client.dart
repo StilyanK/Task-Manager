@@ -18,7 +18,8 @@ import 'package:service_worker/window.dart' as sw;
 import 'intl/messages_all.dart';
 
 Future<void> main() async {
-  final subsData = await SWActivate(null);
+  final subsData = await SWActivate('BPr24F-pXbREl5LKvhVJKPHFjxOQMIgCr9gWRZ'
+      'NVwnbkMuyPoJzyyk7LCYdDWOeR941qfMC2yOFLDMihrxxqN-8');
   final settings = cl_app.AppSettings()
     ..desktopIcons = true
     ..menuStyle = 2
@@ -56,30 +57,34 @@ void initMain(Application ap) {
     ..setMenu([
       project.MenuItem.ProjectList..desktop = true,
       project.MenuItem.TaskList..desktop = true,
-    ])
-    ..setMenu([
-      project.MenuItem.Settings
-        ..addChild(auth.MenuItem.Users)
-        ..addChild(auth.MenuItem.Groups)
-    ])
+    ])..setMenu([
+    project.MenuItem.Settings..addChild(auth.MenuItem.Users)..addChild(
+        auth.MenuItem.Groups)
+  ])
     ..done();
 
-  final leftCont = new cl.Container()..addClass('gadgets-left');
-  final rightCont = new cl.Container()..addClass('gadgets-right');
+  final leftCont = new cl.Container()
+    ..addClass('gadgets-left');
+  final rightCont = new cl.Container()
+    ..addClass('gadgets-right');
   ap.gadgetsContainer..addCol(leftCont..auto = true)..addCol(rightCont);
 
   final cont = new cl_app.GadgetContainer();
 
-  final cont2 = new cl_app.GadgetContainer()..addClass('gadget-outer');
+  final cont2 = new cl_app.GadgetContainer()
+    ..addClass('gadget-outer');
 
-  rightCont.append(project.TaskGadget(ap)..load());
+  rightCont.append(project.TaskGadget(ap)
+    ..load());
   leftCont..addRow(cont)..addRow(cont2);
 }
 
 Future initLocale(Application ap) async {
   final locale = ap.client.locale ?? Intl.getCurrentLocale();
   if (locale != 'en_US') {
-    await initializeMessages(locale.split('_').first);
+    await initializeMessages(locale
+        .split('_')
+        .first);
     Intl.defaultLocale = locale;
     await initializeDateFormatting(locale, null);
   }
@@ -88,7 +93,7 @@ Future initLocale(Application ap) async {
 Future<Map> initData(Application ap, Map data) async {
   final communicator = Communicator(ap.baseurl);
   final port =
-      (window.location.port.isNotEmpty) ? '' : ':${window.location.port}';
+  (window.location.port.isNotEmpty) ? '' : ':${window.location.port}';
   final protocol = window.location.protocol.endsWith('ps:') ? 'wss' : 'ws';
   await communicator
       .upgrade('$protocol://${window.location.host}$port${ap.baseurl}ws');

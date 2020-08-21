@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:cl_base/server.dart' as base;
+import 'dart:convert';
+import 'package:cryptography/cryptography.dart';
 
 import 'src/ctrl.dart';
 import 'src/mapper.dart';
@@ -16,7 +20,34 @@ export 'src/svc/generate/generate.dart';
 export 'src/svc/permission.dart';
 export 'src/svc/user.dart';
 
+Future<Uint8List> sendMessage(String m) async {
+  final algorithm = ecdhP256;
+  final localKeyPair = await algorithm.newKeyPair();
+  final remoteKeyPair = await algorithm.newKeyPair();
+  final sharedSecretKey = await algorithm.sharedSecret(
+    localPrivateKey: localKeyPair.privateKey,
+    remotePublicKey: remoteKeyPair.publicKey,
+  );
+
+  final message = utf8.encode(m);
+
+  const cipher = aesGcm;
+  final secretKey = cipher.newSecretKeySync(length: 128);
+  final nonce = cipher.newNonce();
+
+  // Encrypt
+  return cipher.encrypt(
+    message,
+    secretKey: secretKey,
+    nonce: nonce,
+  );
+}
 void init() {
+  base.boot_call.add((e) {
+    //TODO
+    //base.config['vapid_keys'];
+    //print(e);
+  });
   base.routes.add(routesUser);
   base.routes.add(routesGroup);
   base.routes.add(routesCalendar);
