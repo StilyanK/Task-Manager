@@ -29,7 +29,7 @@ class FileContainer
     final source = data['source'];
     link = new AnchorElement()
       ..target = '_blank'
-      ..href = '$p/$source'
+      ..href = '$p/${Uri.encodeComponent(source)}'
       ..title = source;
     container.append(link);
     titleContainer.text = source;
