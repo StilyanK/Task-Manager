@@ -5,17 +5,37 @@ import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart' as cr;
 
-make(String clientPublicKey, String clientAuthSecret) async {
-  final algorithm = cr.ecdhP256;
-  final localKeyPair = await algorithm.newKeyPair();
-  final sharedSecretKey = await algorithm.sharedSecret(
-    localPrivateKey: localKeyPair.privateKey,
-    remotePublicKey: new cr.PublicKey(utf8.encode(clientPublicKey)),
-  );
-  final prk = await const cr.Hkdf(cr.Hmac(cr.sha256)).deriveKey(sharedSecretKey,
-      nonce: new cr.Nonce(utf8.encode(clientAuthSecret)),
-      info: utf8.encode('Content-Encoding: auth\0'),
-      outputLength: 32);
+class DataOptions {
+  String p256dh;
+  String auth;
+  String endpoint;
+  String vapid_public_key;
+  String vapid_private_key;
+  String app_server_key;
+  String app_sender_id;
+}
+
+class WebPush {
+  final DataOptions options;
+
+  WebPush(this.options);
+
+  Future<cr.SecretKey> generateSecret() async {
+    final algorithm = cr.ecdhP256;
+    return algorithm.sharedSecret(
+      localPrivateKey:
+          new cr.PrivateKey(utf8.encode(options.vapid_private_key)),
+      remotePublicKey: new cr.PublicKey(utf8.encode(options.vapid_public_key)),
+    );
+  }
+
+  Future make(cr.SecretKey sharedSecretKey) async {
+    final prk = await const cr.Hkdf(cr.Hmac(cr.sha256)).deriveKey(
+        sharedSecretKey,
+        nonce: new cr.Nonce(utf8.encode(options.auth)),
+        info: utf8.encode('Content-Encoding: auth\0'),
+        outputLength: 32);
+  }
 }
 
 //createInfo(
