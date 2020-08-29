@@ -5,7 +5,7 @@ location ~ ^/media_/image(\d+x\d+)/(.*)$ {
 }
 
 location ~ ^/tmp_/image(\d+x\d+)/(.*)$ {
-    proxy_pass  $pass_media/tmp/image$1/$2;
+    proxy_pass  $pass_media/$request_uri;
     internal;
 }
 

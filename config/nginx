@@ -35,7 +35,7 @@ server {
     location @img {
         proxy_intercept_errors on;
         error_page 404 415 = /noimage;
-        proxy_pass  $pass_media/media/image$1/$2;
+        proxy_pass  $pass_media/$request_uri;
         proxy_store $path/tmp/$1/$2;
     }
 
