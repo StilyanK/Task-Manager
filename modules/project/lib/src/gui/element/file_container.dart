@@ -6,8 +6,10 @@ class FileContainer
   DivElement container;
   SpanElement titleContainer;
   cl_action.Button del;
+  final int width;
+  final int height;
 
-  FileContainer(parent) : super(parent) {
+  FileContainer(parent, {this.width = 240, this.height = 240}) : super(parent) {
     addClass('file-cont');
 
     container = new DivElement()..className = 'content';
@@ -35,14 +37,22 @@ class FileContainer
     titleContainer.text = source;
 
     if (isImage(source)) {
-      link.innerHtml = '<img src="${getImageSrc(p, source, 240, 240)}">';
+      link.append(new ImageElement()..src = getImageSrc(p, source));
+    } else if (isVideo(source)) {
+      link
+        ..onClick.listen((event) => event.preventDefault())
+        ..append(new VideoElement()
+          ..width = width
+          ..height = height
+          ..controls = true
+          ..append(new SourceElement()..src = getVideoSrc(p, source)));
     } else if (isPdf(source)) {
       final CanvasElement canvas = document.createElement('canvas');
       link.append(canvas);
       final ctx = canvas.getContext('2d');
       canvas
-        ..width = 240
-        ..height = 240;
+        ..width = width
+        ..height = height;
 
       new Future(() async {
         final doc = pdfjsLib.getDocument('$p/$source');
@@ -72,6 +82,12 @@ class FileContainer
       source.toLowerCase().endsWith('.svg') ||
       source.toLowerCase().endsWith('.gif');
 
+  bool isVideo(String source) =>
+      source.toLowerCase().endsWith('.mkv') ||
+      source.toLowerCase().endsWith('.mp4') ||
+      source.toLowerCase().endsWith('.webm') ||
+      source.toLowerCase().endsWith('.ogg');
+
   bool isPdf(String source) => source.toLowerCase().endsWith('.pdf');
 
   bool isXls(String source) =>
@@ -82,10 +98,13 @@ class FileContainer
       source.toLowerCase().endsWith('.doc') ||
       source.toLowerCase().endsWith('.docx');
 
-  String getImageSrc(dynamic base_path, dynamic image, int width, int height) =>
-      '$base_path/${Uri.encodeComponent(image)}'
+  String getImageSrc(dynamic base_path, dynamic source) =>
+      '$base_path/${Uri.encodeComponent(source)}'
           .replaceFirst('tmp/', 'tmp/image${width}x$height/')
           .replaceFirst('media/', 'media/image${width}x$height/');
+
+  String getVideoSrc(dynamic base_path, dynamic source) =>
+      '$base_path/${Uri.encodeComponent(source)}';
 
   void disable() {
     setState(false);
@@ -107,17 +126,3 @@ class FileContainer
     remove();
   }
 }
-
-/*
-    final fileuploader = new cl_action.FileUploader(ap)
-      ..setTitle(intl.Attach_file())
-      ..setIcon(cl.Icon.attach_file);
-
-    final fu = new cl_gui.FileAttach<FileContainer>(
-        fileuploader,
-        () => '${ap.baseurl}tmp',
-        () => '${ap.baseurl}media/product/${getId()}',
-        (p) => new FileContainer(p))
-      ..setName('files');
-    formElement.addRow(fileuploader, [fu]);
- */
