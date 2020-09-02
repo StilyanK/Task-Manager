@@ -240,4 +240,53 @@ class Chat {
       return false;
     return true;
   }
+
+  Future<void> onRoomChange(EntityContainer<ChatRoom> cont) async {
+    final col = await manager.app.chat_membership
+        .findAllByRoom(cont.entity.chat_room_id);
+    final room = await manager.app.chat_room.find(cont.entity.chat_room_id);
+    final wsClients = cl_base.getWSClients();
+    for (final cm in col) {
+      final wsClient = wsClients.firstWhere(
+          (client) =>
+              UserSessionDTO.fromMap(client.req.session['client']).user_id ==
+              cm.user_id,
+          orElse: () => null);
+      if (wsClient != null) {
+        final contr =
+            cont.isInserted ? RoutesChat.roomCreated : RoutesChat.roomUpdated;
+        wsClient.send(
+            contr,
+            ChatRoomDTO()
+              ..room_id = cont.entity.chat_room_id
+              ..context = room.context);
+      }
+    }
+  }
+
+  Future<void> onMessageChange(EntityContainer<ChatMessage> cont) async {
+    final col = await manager.app.chat_membership
+        .findAllByRoom(cont.entity.chat_room_id);
+    final room = await manager.app.chat_room.find(cont.entity.chat_room_id);
+    for (final cm in col) {
+      final wsClient = getWsClient(cm.user_id);
+      if (wsClient != null) {
+        final user = await manager.app.user.find(cont.entity.user_id);
+        final contr = cont.isInserted
+            ? RoutesChat.messageCreated
+            : RoutesChat.messageUpdated;
+        wsClient.send(
+            contr,
+            ChatMessageDTO()
+              ..id = cont.entity.chat_message_id
+              ..room_id = cont.entity.chat_room_id
+              ..context = room.context
+              ..content = cont.isDeleted ? null : cont.entity.content
+              ..timestamp = cont.entity.timestamp
+              ..member = (new ChatMemberDTO()
+                ..name = user.name
+                ..user_id = user.user_id));
+      }
+    }
+  }
 }
