@@ -2,6 +2,9 @@ part of auth.entity;
 
 @MSerializable()
 class ChatMessage {
+  static int typeMessage = 0;
+  static int typeFile = 1;
+
   int chat_message_id;
 
   int chat_room_id;

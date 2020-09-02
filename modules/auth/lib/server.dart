@@ -78,9 +78,8 @@ void init() {
                 cm.user_id,
             orElse: () => null);
         if (wsClient != null) {
-          final contr = cont.diff == null
-              ? RoutesChat.roomCreated
-              : RoutesChat.roomUpdated;
+          final contr =
+              cont.isInserted ? RoutesChat.roomCreated : RoutesChat.roomUpdated;
           wsClient.send(
               contr,
               ChatRoomDTO()

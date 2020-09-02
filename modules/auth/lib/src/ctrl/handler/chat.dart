@@ -4,14 +4,14 @@ class CChat extends base.Base<App> {
   CChat(req) : super(req);
 
   Future<dynamic> loadMessages() => run(null, null, null, () async {
-        final room = ChatRoomDTO.fromMap(await getData());
         manager = await Database().init(App());
+        final room = ChatRoomDTO.fromMap(await getData());
         return response(await new Chat(manager).loadMessages(room));
       });
 
   Future<dynamic> loadMessagesNew() => run(null, null, null, () async {
-        final room = ChatRoomDTO.fromMap(await getData());
         manager = await Database().init(App());
+        final room = ChatRoomDTO.fromMap(await getData());
         return response(await new Chat(manager).loadMessagesNew(room));
       });
 

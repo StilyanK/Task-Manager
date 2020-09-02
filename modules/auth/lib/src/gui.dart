@@ -102,16 +102,10 @@ class Client extends cl_app.Client {
             ch.init();
             return r;
           })
-          ..messageUpdate = ((message) async {
-            final r = await ap.serverCall(
-                RoutesChat.messageUpdate.reverse([]), message.toJson());
-            return r;
-          })
-          ..messageType = ((room) async {
-            final r = await ap.serverCall(
-                RoutesChat.messageType.reverse([]), room.toJson());
-            return r;
-          })
+          ..messageUpdate = ((message) => ap.serverCall(
+              RoutesChat.messageUpdate.reverse([]), message.toJson()))
+          ..messageType = ((room) =>
+              ap.serverCall(RoutesChat.messageType.reverse([]), room.toJson()))
           ..createRoom = ((room) async {
             final res = await ap.serverCall(
                 RoutesChat.createRoom.reverse([]),
@@ -144,12 +138,11 @@ class Client extends cl_app.Client {
           final cm = ChatRoomDTO.fromMap(r);
           cc.notifierRoom.add(chat.Room()..room_id = cm.room_id);
         });
-        ap.onServerCall.filter(RoutesChat.messageUpdated).listen((res) async {
-          cc.notifierMessageUpdate.add(chat.Message.fromMap(res));
-        });
-        ap.onServerCall.filter(RoutesChat.messageTyping).listen((res) async {
-          cc.notifierType.add(chat.Room.fromMap(res));
-        });
+        ap.onServerCall.filter(RoutesChat.messageUpdated).listen(
+            (res) => cc.notifierMessageUpdate.add(chat.Message.fromMap(res)));
+        ap.onServerCall
+            .filter(RoutesChat.messageTyping)
+            .listen((res) => cc.notifierType.add(chat.Room.fromMap(res)));
         ap.addons.append(ch.chatDom());
         ch.init();
       });

@@ -42,6 +42,7 @@ Map<String, dynamic> _$ChatRoomDTOToMap(ChatRoomDTO obj) => <String, dynamic>{
 
 abstract class $ChatMessageDTO {
   static const String id = 'id';
+  static const String type = 'type';
   static const String member = 'member';
   static const String room_id = 'room_id';
   static const String context = 'context';
@@ -51,6 +52,7 @@ abstract class $ChatMessageDTO {
 
 ChatMessageDTO _$ChatMessageDTOFromMap(Map data) => new ChatMessageDTO()
   ..id = data[$ChatMessageDTO.id]
+  ..type = data[$ChatMessageDTO.type]
   ..member = data[$ChatMessageDTO.member] == null
       ? null
       : new ChatMemberDTO.fromMap(data[$ChatMessageDTO.member])
@@ -64,6 +66,7 @@ ChatMessageDTO _$ChatMessageDTOFromMap(Map data) => new ChatMessageDTO()
 Map<String, dynamic> _$ChatMessageDTOToMap(ChatMessageDTO obj) =>
     <String, dynamic>{
       $ChatMessageDTO.id: obj.id,
+      $ChatMessageDTO.type: obj.type,
       $ChatMessageDTO.member: obj.member?.toMap(),
       $ChatMessageDTO.room_id: obj.room_id,
       $ChatMessageDTO.context: obj.context,

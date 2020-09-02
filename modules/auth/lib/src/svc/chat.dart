@@ -1,7 +1,9 @@
 library auth.chat;
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:cl_base/server.dart' as cl_base;
 import 'package:mapper/mapper.dart';
 
 import '../mapper.dart';
@@ -26,6 +28,7 @@ class Chat {
     return messages
         .map((m) => ChatMessageDTO()
           ..id = m.chat_message_id
+          ..type = m.type
           ..member = (ChatMemberDTO()
             ..user_id = m.user.user_id
             ..name = m.user.name
@@ -34,7 +37,7 @@ class Chat {
                 ? 'media/image100x100/user/${m.user.user_id}/${m.user.picture}'
                 : null)
           ..room_id = m.chat_room_id
-          ..content = m.content
+          ..content = _getContent(m.type, m.chat_room_id, m.content)
           ..timestamp = m.timestamp)
         .toList();
   }
@@ -55,6 +58,7 @@ class Chat {
     return messages
         .map((m) => ChatMessageDTO()
           ..id = m.chat_message_id
+          ..type = m.type
           ..member = (ChatMemberDTO()
             ..user_id = m.user.user_id
             ..name = m.user.name
@@ -64,9 +68,14 @@ class Chat {
                 : null)
           ..room_id = m.chat_room_id
           ..context = m.room.context
-          ..content = m.content
+          ..content = _getContent(m.type, m.chat_room_id, m.content)
           ..timestamp = m.timestamp)
         .toList();
+  }
+
+  String _getContent(int type, int roomId, String content) {
+    if (type == 0) return content;
+    return 'media/chat/$roomId/$content';
   }
 
   Future<ChatRoomDTO> createRoom(ChatRoomDTO cr, int userId) async {
@@ -160,9 +169,18 @@ class Chat {
         m.member.user_id);
     final message = manager.app.chat_message.createObject()
       ..content = m.content
+      ..type = m.type
       ..user_id = m.member.user_id
       ..chat_room_id = room.room_id
       ..timestamp = m.timestamp;
+    if (message.type == 1) {
+      final file = m.content.split('/').last;
+      final sync = new cl_base.FileSync()
+        ..path_from = '${cl_base.path}/tmp'
+        ..path_to = '${cl_base.path}/media/chat/${room.room_id}'
+        ..file_name = file;
+      message.content = await sync.sync();
+    }
     await manager.app.chat_message.insert(message);
     return true;
   }
@@ -194,6 +212,11 @@ class Chat {
   Future<bool> messageUpdate(ChatMessageDTO m) async {
     final message = await manager.app.chat_message.find(m.id);
     if (m.content == null) {
+      if (message.type == 1) {
+        final file =
+            _getContent(message.type, message.chat_room_id, message.content);
+        await new File('${cl_base.path}/$file').delete();
+      }
       await manager.app.chat_message.delete(message);
     } else {
       message

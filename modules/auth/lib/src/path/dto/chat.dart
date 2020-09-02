@@ -22,6 +22,7 @@ class ChatRoomDTO {
 @DTOSerializable()
 class ChatMessageDTO {
   int id;
+  int type;
   ChatMemberDTO member;
   int room_id;
   String context;

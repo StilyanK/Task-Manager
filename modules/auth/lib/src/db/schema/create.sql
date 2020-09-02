@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS "chat_message"
     "user_id"         integer     NOT NULL REFERENCES "user" ("user_id") ON DELETE RESTRICT,
     "timestamp"       timestamptz NOT NULL DEFAULT now(),
     "content"         text,
-    "type"            integer
+    "type"            integer     NOT NULL
 );
 CREATE INDEX ON "chat_message" ("user_id");
 CREATE INDEX ON "chat_message" ("timestamp");
