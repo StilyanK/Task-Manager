@@ -1,4 +1,5 @@
 import 'package:cl/app.dart' as cl_app;
+import 'package:auth/client.dart' as auth;
 
 import 'intl/client.dart' as intl;
 import 'src/gui.dart';
@@ -22,7 +23,7 @@ abstract class MenuItem {
     ..action = (ap) => ap.run('project/list');
 }
 
-void init(cl_app.Application ap) {
+void init(cl_app.Application<auth.Client> ap) {
   ap
     ..addRoute(cl_app.Route('task/item/:int', (ap, p) => TaskGui(ap, id: p[0])))
     ..addRoute(cl_app.Route('task/list', (ap, p) => TaskList(ap)))
@@ -63,6 +64,10 @@ void init(cl_app.Application ap) {
   });
 
   ap.onServerCall.filter(EVENT_TASK_MESSAGE).listen((res) {
-    ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
+    final text = res['text'];
+    final parts = text.split(':');
+    res['text'] = parts.first;
+    if (!ap.client.ch.isRoomVisible(int.tryParse(parts.last)))
+      ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
 }

@@ -53,7 +53,7 @@ Future<void> init() async {
             mems,
             new base.SMessage()
               ..key = EVENT_TASK_MESSAGE
-              ..value = id.toString()
+              ..value = '${id.toString()}:${room.chat_room_id}'
               ..date = new DateTime.now());
       }
     });
