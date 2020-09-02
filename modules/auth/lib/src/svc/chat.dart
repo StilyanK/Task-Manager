@@ -167,7 +167,7 @@ class Chat {
     return true;
   }
 
-  Future<bool> messageWrite(ChatRoomDTO r) async {
+  Future<bool> messageType(ChatRoomDTO r) async {
     final col = await manager.app.chat_membership.findAllByRoom(r.room_id);
     final users = col
         .where(
@@ -178,7 +178,7 @@ class Chat {
         final wsClient = getWsClient(userId);
         if (wsClient != null) {
           wsClient.send(
-              RoutesChat.messageWriting,
+              RoutesChat.messageTyping,
               ChatRoomDTO()
                 ..room_id = r.room_id
                 ..members = [

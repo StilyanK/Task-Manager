@@ -107,9 +107,9 @@ class Client extends cl_app.Client {
                 RoutesChat.messageUpdate.reverse([]), message.toJson());
             return r;
           })
-          ..write = ((room) async {
+          ..messageType = ((room) async {
             final r = await ap.serverCall(
-                RoutesChat.messageWrite.reverse([]), room.toJson());
+                RoutesChat.messageType.reverse([]), room.toJson());
             return r;
           })
           ..createRoom = ((room) async {
@@ -147,8 +147,8 @@ class Client extends cl_app.Client {
         ap.onServerCall.filter(RoutesChat.messageUpdated).listen((res) async {
           cc.notifierMessageUpdate.add(chat.Message.fromMap(res));
         });
-        ap.onServerCall.filter(RoutesChat.messageWriting).listen((res) async {
-          cc.notifierWrite.add(chat.Room.fromMap(res));
+        ap.onServerCall.filter(RoutesChat.messageTyping).listen((res) async {
+          cc.notifierType.add(chat.Room.fromMap(res));
         });
         ap.addons.append(ch.chatDom());
         ch.init();

@@ -67,11 +67,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m23(id) => "Трансфер # ${id}";
 
-  static m24(id) => "Тегло # ${id}";
+  static m24(names) => "${names} пишат...";
 
-  static m25(names) => "${names} пишат...";
+  static m25(name) => "${name} пише...";
 
-  static m26(name) => "${name} пише...";
+  static m26(id) => "Тегло # ${id}";
 
   static m27(id) => "Категория # ${id}";
 
@@ -638,6 +638,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translation" : MessageLookupByLibrary.simpleMessage("Превод"),
     "Type" : MessageLookupByLibrary.simpleMessage("Тип"),
     "Type_message" : MessageLookupByLibrary.simpleMessage("Напиши съобщение"),
+    "Typing_message_many" : m24,
+    "Typing_message_single" : m25,
     "UIC" : MessageLookupByLibrary.simpleMessage("ЕИК"),
     "URL_key" : MessageLookupByLibrary.simpleMessage("URL ключ"),
     "Unactive" : MessageLookupByLibrary.simpleMessage("Неактивен"),
@@ -671,12 +673,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Weekly" : MessageLookupByLibrary.simpleMessage("Седмично"),
     "Weight" : MessageLookupByLibrary.simpleMessage("Тегло"),
     "Weight_mod" : MessageLookupByLibrary.simpleMessage("Модификация - тегло"),
-    "Weight_title_e" : m24,
+    "Weight_title_e" : m26,
     "Weight_title_new" : MessageLookupByLibrary.simpleMessage("Ново тегло"),
     "Window" : MessageLookupByLibrary.simpleMessage("Прозорец"),
     "Work_exception" : MessageLookupByLibrary.simpleMessage("Work Exception"),
-    "Writing_message_many" : m25,
-    "Writing_message_single" : m26,
     "Year" : MessageLookupByLibrary.simpleMessage("Година"),
     "Yearly" : MessageLookupByLibrary.simpleMessage("Годишно"),
     "Yes" : MessageLookupByLibrary.simpleMessage("Да"),
