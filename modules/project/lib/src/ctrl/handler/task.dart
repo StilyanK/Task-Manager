@@ -38,6 +38,7 @@ class ITask extends base.Item<App, Task, int> {
     if (childTasks != null) {
       ret['sub_task_grid'] = [];
       for (final o in childTasks) {
+        final user = await manager.app.user.find(o.assigned_to);
         ret['sub_task_grid'].add({
           '${entity.$Task.task_id}': o.task_id,
           '${entity.$Task.progress}': o.progress,
@@ -47,6 +48,8 @@ class ITask extends base.Item<App, Task, int> {
           '${entity.$Task.status}': o.status,
           '${entity.$Task.date_done}': o.date_done?.toIso8601String(),
           '${entity.$Task.parent_task}': o.parent_task,
+          'picture': user.picture,
+          'user_id': user.user_id,
         });
       }
     }

@@ -209,6 +209,12 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
     gridSubTask
       ..setName('sub_task_grid')
       ..initGridHeader([
+        new cl_form.GridColumn('picture')
+          ..width = '1%'
+          ..title = 'Приел',
+        new cl_form.GridColumn('user_id')
+          ..visible = false
+          ..title = intl.Priority(),
         new cl_form.GridColumn(entity.$Task.task_id)
           ..visible = false
           ..title = intl.Priority(),
@@ -238,6 +244,12 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
         row.onClick.listen((event) {
           new TaskGui(ap, id: obj[entity.$Task.task_id], isBound: true);
         });
+
+        obj['picture'] = cl_gui.ImageContainer(null, null,
+            () => '${ap.baseurl}media/image50x50/user/${obj['user_id']}')
+          ..addClass('small round')
+          ..setValue(obj['picture']);
+
         obj['action'] = new cl_action.Button()
           ..setIcon(Icon.Remove)
           ..setTip('Откачи таск')
