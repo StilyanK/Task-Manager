@@ -42,6 +42,7 @@ Future<Uint8List> sendMessage(String m) async {
     nonce: nonce,
   );
 }
+
 void init() {
   base.boot_call.add((e) {
     //TODO
@@ -99,19 +100,17 @@ void init() {
         final wsClient = getWsClient(cm.user_id);
         if (wsClient != null) {
           final user = await manager.app.user.find(cont.entity.user_id);
-          final contr = cont.diff == null
+          final contr = cont.isInserted
               ? RoutesChat.messageCreated
               : RoutesChat.messageUpdated;
-          final mess = cont.entity.content.length > 50
-              ? '${cont.entity.content.substring(0, 50)}...'
-              : cont.entity.content;
-
           wsClient.send(
               contr,
               ChatMessageDTO()
+                ..id = cont.entity.chat_message_id
                 ..room_id = cont.entity.chat_room_id
                 ..context = room.context
-                ..content = mess
+                ..content = cont.isDeleted ? null : cont.entity.content
+                ..timestamp = cont.entity.timestamp
                 ..member = (new ChatMemberDTO()
                   ..name = user.name
                   ..user_id = user.user_id));

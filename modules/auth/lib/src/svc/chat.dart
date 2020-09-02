@@ -167,6 +167,43 @@ class Chat {
     return true;
   }
 
+  Future<bool> messageWrite(ChatRoomDTO r) async {
+    final col = await manager.app.chat_membership.findAllByRoom(r.room_id);
+    final users = col
+        .where(
+            (m) => _isOnline(m.user_id) && m.user_id != r.members.first.user_id)
+        .map((e) => e.user_id);
+    if (users.isNotEmpty)
+      users.forEach((userId) {
+        final wsClient = getWsClient(userId);
+        if (wsClient != null) {
+          wsClient.send(
+              RoutesChat.messageWriting,
+              ChatRoomDTO()
+                ..room_id = r.room_id
+                ..members = [
+                  new ChatMemberDTO()
+                    ..user_id = r.members.first.user_id
+                    ..name = r.members.first.name
+                ]);
+        }
+      });
+    return true;
+  }
+
+  Future<bool> messageUpdate(ChatMessageDTO m) async {
+    final message = await manager.app.chat_message.find(m.id);
+    if (m.content == null) {
+      await manager.app.chat_message.delete(message);
+    } else {
+      message
+        ..content = m.content
+        ..timestamp = new DateTime.now();
+      await manager.app.chat_message.update(message);
+    }
+    return true;
+  }
+
   Future<bool> messageSeen(ChatMessageDTO ms, int userId) async {
     if (ms.room_id == null && ms.context != null) {
       final r = await manager.app.chat_room.findByContext(ms.context);

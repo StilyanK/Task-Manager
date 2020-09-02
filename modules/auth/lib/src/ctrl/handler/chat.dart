@@ -43,6 +43,18 @@ class CChat extends base.Base<App> {
         return response(await new Chat(manager).messagePersist(m));
       });
 
+  Future<dynamic> messageUpdate() => run(null, null, null, () async {
+        manager = await Database().init(App());
+        final m = ChatMessageDTO.fromMap(await getData());
+        return response(await new Chat(manager).messageUpdate(m));
+      });
+
+  Future<dynamic> messageWrite() => run(null, null, null, () async {
+        manager = await Database().init(App());
+        final r = ChatRoomDTO.fromMap(await getData());
+        return response(await new Chat(manager).messageWrite(r));
+      });
+
   Future<dynamic> messageSeen() => run(null, null, null, () async {
         manager = await Database().init(App());
         final ms = ChatMessageDTO.fromMap(await getData());

@@ -68,6 +68,9 @@
 	"more_events": "+{how_many} още",
 	"pages": "текущи: {from} - {to} всичко: {total}",
 	"Browser_refresh": "Браузъра ще се рестартира след {seconds} секунди!",
+	"Type_message": "Напиши съобщение",
+	"Writing_message_single": "{name} пише...",
+	"Writing_message_many": "{names} пишат...",
 	"Connection_timeout": "Проблемна връзка с интернет",
 	"Save": "Запиши",
 	"Continue": "Продължи",
@@ -632,5 +635,6 @@
 	"Add_sub_task": "Добави подтаск",
 	"Sub_tasks": "Подтаскове",
 	"Hours_done": "Часове за завършване",
-	"Comments": "Коментари"
+	"Comments": "Коментари",
+	"Manager": "Manager"
 }

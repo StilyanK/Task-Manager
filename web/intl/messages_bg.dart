@@ -69,53 +69,57 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m24(id) => "Тегло # ${id}";
 
-  static m25(id) => "Категория # ${id}";
+  static m25(names) => "${names} пишат...";
 
-  static m26(id) => "Фирма # ${id}";
+  static m26(name) => "${name} пише...";
 
-  static m27(id) => "Държава # ${id}";
+  static m27(id) => "Категория # ${id}";
 
-  static m28(id) => "Купон # ${id}";
+  static m28(id) => "Фирма # ${id}";
 
-  static m29(id) => "Клиентска група # ${id}";
+  static m29(id) => "Държава # ${id}";
 
-  static m30(id) => "Клиент # ${id}";
+  static m30(id) => "Купон # ${id}";
 
-  static m31(id) => "Отстъпка # ${id}";
+  static m31(id) => "Клиентска група # ${id}";
 
-  static m32(group, scope) => "Нямате права за създаване - \"${scope}\" : \"${group}\".";
+  static m32(id) => "Клиент # ${id}";
 
-  static m33(group, scope) => "Нямате права за триене - \"${scope}\" : \"${group}\".";
+  static m33(id) => "Отстъпка # ${id}";
 
-  static m34(group, scope) => "Нямате права за четене - \"${scope}\" : \"${group}\".";
+  static m34(group, scope) => "Нямате права за създаване - \"${scope}\" : \"${group}\".";
 
-  static m35(group, scope) => "Нямате права за редакция - \"${scope}\" : \"${group}\".";
+  static m35(group, scope) => "Нямате права за триене - \"${scope}\" : \"${group}\".";
 
-  static m36(how_many) => "+${how_many} още";
+  static m36(group, scope) => "Нямате права за четене - \"${scope}\" : \"${group}\".";
 
-  static m37(id) => "Страница # ${id}";
+  static m37(group, scope) => "Нямате права за редакция - \"${scope}\" : \"${group}\".";
 
-  static m38(from, to, total) => "текущи: ${from} - ${to} всичко: ${total}";
+  static m38(how_many) => "+${how_many} още";
 
-  static m39(id) => "Продуктов атрибут # ${id}";
+  static m39(id) => "Страница # ${id}";
 
-  static m40(id) => "Продукт # ${id}";
+  static m40(from, to, total) => "текущи: ${from} - ${to} всичко: ${total}";
 
-  static m41(id) => "Продуктов тип # ${id}";
+  static m41(id) => "Продуктов атрибут # ${id}";
 
-  static m42(id) => "Магазин # ${id}";
+  static m42(id) => "Продукт # ${id}";
 
-  static m43(id) => "Група доставчици # ${id}";
+  static m43(id) => "Продуктов тип # ${id}";
 
-  static m44(id) => "Доставчик # ${id}";
+  static m44(id) => "Магазин # ${id}";
 
-  static m45(id) => "Потребителска група # ${id}";
+  static m45(id) => "Група доставчици # ${id}";
 
-  static m46(id) => "Потребител # ${id}";
+  static m46(id) => "Доставчик # ${id}";
 
-  static m47(id) => "Склад # ${id}";
+  static m47(id) => "Потребителска група # ${id}";
 
-  static m48(id) => "Област # ${id}";
+  static m48(id) => "Потребител # ${id}";
+
+  static m49(id) => "Склад # ${id}";
+
+  static m50(id) => "Област # ${id}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -382,6 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Main" : MessageLookupByLibrary.simpleMessage("Основни"),
     "Main_category" : MessageLookupByLibrary.simpleMessage("Главна категория"),
     "Male" : MessageLookupByLibrary.simpleMessage("Мъж"),
+    "Manager" : MessageLookupByLibrary.simpleMessage("Manager"),
     "Manufacture" : MessageLookupByLibrary.simpleMessage("Производство"),
     "March" : MessageLookupByLibrary.simpleMessage("March"),
     "Maximum" : MessageLookupByLibrary.simpleMessage("Максимум"),
@@ -632,6 +637,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translated" : MessageLookupByLibrary.simpleMessage("Преведен"),
     "Translation" : MessageLookupByLibrary.simpleMessage("Превод"),
     "Type" : MessageLookupByLibrary.simpleMessage("Тип"),
+    "Type_message" : MessageLookupByLibrary.simpleMessage("Напиши съобщение"),
     "UIC" : MessageLookupByLibrary.simpleMessage("ЕИК"),
     "URL_key" : MessageLookupByLibrary.simpleMessage("URL ключ"),
     "Unactive" : MessageLookupByLibrary.simpleMessage("Неактивен"),
@@ -669,6 +675,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Weight_title_new" : MessageLookupByLibrary.simpleMessage("Ново тегло"),
     "Window" : MessageLookupByLibrary.simpleMessage("Прозорец"),
     "Work_exception" : MessageLookupByLibrary.simpleMessage("Work Exception"),
+    "Writing_message_many" : m25,
+    "Writing_message_single" : m26,
     "Year" : MessageLookupByLibrary.simpleMessage("Година"),
     "Yearly" : MessageLookupByLibrary.simpleMessage("Годишно"),
     "Yes" : MessageLookupByLibrary.simpleMessage("Да"),
@@ -677,31 +685,31 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zones" : MessageLookupByLibrary.simpleMessage("Области"),
     "active" : MessageLookupByLibrary.simpleMessage("активен"),
     "all" : MessageLookupByLibrary.simpleMessage("всички"),
-    "category_e" : m25,
+    "category_e" : m27,
     "category_new" : MessageLookupByLibrary.simpleMessage("Нова категория"),
-    "company_title_e" : m26,
+    "company_title_e" : m28,
     "company_title_new" : MessageLookupByLibrary.simpleMessage("Нова фирма"),
     "countries" : MessageLookupByLibrary.simpleMessage("държави"),
     "country" : MessageLookupByLibrary.simpleMessage("държава"),
-    "country_title_e" : m27,
+    "country_title_e" : m29,
     "country_title_new" : MessageLookupByLibrary.simpleMessage("Нова държава"),
-    "coupon_title_e" : m28,
+    "coupon_title_e" : m30,
     "coupon_title_new" : MessageLookupByLibrary.simpleMessage("Нов купон"),
     "creating" : MessageLookupByLibrary.simpleMessage("създаване"),
-    "customer_group_title_e" : m29,
+    "customer_group_title_e" : m31,
     "customer_group_title_new" : MessageLookupByLibrary.simpleMessage("Нова клиентска група"),
-    "customer_title_e" : m30,
+    "customer_title_e" : m32,
     "customer_title_new" : MessageLookupByLibrary.simpleMessage("Нов клиент"),
     "days" : MessageLookupByLibrary.simpleMessage("дни"),
     "deleting" : MessageLookupByLibrary.simpleMessage("изтриване"),
-    "discount_title_e" : m31,
+    "discount_title_e" : m33,
     "discount_title_new" : MessageLookupByLibrary.simpleMessage("Нова отстъпка"),
     "done" : MessageLookupByLibrary.simpleMessage("готово"),
     "empty" : MessageLookupByLibrary.simpleMessage("празно"),
-    "error_permission_create" : m32,
-    "error_permission_delete" : m33,
-    "error_permission_read" : m34,
-    "error_permission_update" : m35,
+    "error_permission_create" : m34,
+    "error_permission_delete" : m35,
+    "error_permission_read" : m36,
+    "error_permission_update" : m37,
     "fixed" : MessageLookupByLibrary.simpleMessage("фиксиран"),
     "from" : MessageLookupByLibrary.simpleMessage("от"),
     "is_" : MessageLookupByLibrary.simpleMessage("е "),
@@ -709,29 +717,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "language" : MessageLookupByLibrary.simpleMessage("език"),
     "message_sent" : MessageLookupByLibrary.simpleMessage("Съобщението беше изпратено!"),
     "months" : MessageLookupByLibrary.simpleMessage("месеца"),
-    "more_events" : m36,
+    "more_events" : m38,
     "name" : MessageLookupByLibrary.simpleMessage("име"),
     "occurencies" : MessageLookupByLibrary.simpleMessage("събития"),
-    "page_title_e" : m37,
+    "page_title_e" : m39,
     "page_title_new" : MessageLookupByLibrary.simpleMessage("Нова страница"),
-    "pages" : m38,
+    "pages" : m40,
     "partly_discount_advance" : MessageLookupByLibrary.simpleMessage("Partly discount advance"),
     "percents" : MessageLookupByLibrary.simpleMessage("процент"),
-    "product_attribute_e" : m39,
+    "product_attribute_e" : m41,
     "product_attribute_new" : MessageLookupByLibrary.simpleMessage("Нов продуктов атрибут"),
-    "product_e" : m40,
+    "product_e" : m42,
     "product_new" : MessageLookupByLibrary.simpleMessage("Нов продукт"),
-    "product_type_e" : m41,
+    "product_type_e" : m43,
     "product_type_new" : MessageLookupByLibrary.simpleMessage("Нов продуктов тип"),
     "quantity" : MessageLookupByLibrary.simpleMessage("количество"),
     "reading" : MessageLookupByLibrary.simpleMessage("четене"),
     "repeat_every" : MessageLookupByLibrary.simpleMessage("повтаря всеки"),
     "settings" : MessageLookupByLibrary.simpleMessage("настройки"),
-    "store_title_e" : m42,
+    "store_title_e" : m44,
     "store_title_new" : MessageLookupByLibrary.simpleMessage("Нов магазин"),
-    "supplier_group_title_e" : m43,
+    "supplier_group_title_e" : m45,
     "supplier_group_title_new" : MessageLookupByLibrary.simpleMessage("Нова група доставчици"),
-    "supplier_title_e" : m44,
+    "supplier_title_e" : m46,
     "supplier_title_new" : MessageLookupByLibrary.simpleMessage("Нов доставчик"),
     "system_name" : MessageLookupByLibrary.simpleMessage("системно име"),
     "tax" : MessageLookupByLibrary.simpleMessage("такса"),
@@ -741,16 +749,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "updating" : MessageLookupByLibrary.simpleMessage("редактиране"),
     "user" : MessageLookupByLibrary.simpleMessage("потребител"),
     "user_group" : MessageLookupByLibrary.simpleMessage("потребителска група"),
-    "user_group_title_e" : m45,
+    "user_group_title_e" : m47,
     "user_group_title_new" : MessageLookupByLibrary.simpleMessage("Нова потребителска група"),
-    "user_title_e" : m46,
+    "user_title_e" : m48,
     "user_title_new" : MessageLookupByLibrary.simpleMessage("Нов потребител"),
-    "warehouse_title_e" : m47,
+    "warehouse_title_e" : m49,
     "warehouse_title_new" : MessageLookupByLibrary.simpleMessage("Нов склад"),
     "weight" : MessageLookupByLibrary.simpleMessage("тегло"),
     "years" : MessageLookupByLibrary.simpleMessage("години"),
     "zone" : MessageLookupByLibrary.simpleMessage("област"),
-    "zone_title_e" : m48,
+    "zone_title_e" : m50,
     "zone_title_new" : MessageLookupByLibrary.simpleMessage("Нова област"),
     "zones" : MessageLookupByLibrary.simpleMessage("области")
   };

@@ -102,6 +102,16 @@ class Client extends cl_app.Client {
             ch.init();
             return r;
           })
+          ..messageUpdate = ((message) async {
+            final r = await ap.serverCall(
+                RoutesChat.messageUpdate.reverse([]), message.toJson());
+            return r;
+          })
+          ..write = ((room) async {
+            final r = await ap.serverCall(
+                RoutesChat.messageWrite.reverse([]), room.toJson());
+            return r;
+          })
           ..createRoom = ((room) async {
             final res = await ap.serverCall(
                 RoutesChat.createRoom.reverse([]),
@@ -135,7 +145,10 @@ class Client extends cl_app.Client {
           cc.notifierRoom.add(chat.Room()..room_id = cm.room_id);
         });
         ap.onServerCall.filter(RoutesChat.messageUpdated).listen((res) async {
-          // TODO
+          cc.notifierMessageUpdate.add(chat.Message.fromMap(res));
+        });
+        ap.onServerCall.filter(RoutesChat.messageWriting).listen((res) async {
+          cc.notifierWrite.add(chat.Room.fromMap(res));
         });
         ap.addons.append(ch.chatDom());
         ch.init();

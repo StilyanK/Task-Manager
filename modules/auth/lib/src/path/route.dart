@@ -67,9 +67,12 @@ class RoutesChat {
   static get loadRoomMessagesNew =>
       UrlPattern(r'/user/chat/room/messages_new');
   static get messagePersist => UrlPattern(r'/user/chat/message/persist');
+  static get messageUpdate => UrlPattern(r'/user/chat/message/update');
   static get messageSeen => UrlPattern(r'/user/chat/message/seen');
+  static get messageWrite => UrlPattern(r'/user/chat/message/write');
   static String roomCreated = 'chat:room:create';
   static String roomUpdated = 'chat:room:update';
   static String messageCreated = 'chat:message:create';
   static String messageUpdated = 'chat:message:update';
+  static String messageWriting = 'chat:message:write';
 }

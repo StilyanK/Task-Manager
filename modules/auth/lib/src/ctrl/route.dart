@@ -136,6 +136,12 @@ void routesChat(Router router) {
       .serve(RoutesChat.messagePersist, method: 'POST')
       .listen((req) => CChat(req).messagePersist());
   router
+      .serve(RoutesChat.messageUpdate, method: 'POST')
+      .listen((req) => CChat(req).messageUpdate());
+  router
+      .serve(RoutesChat.messageWrite, method: 'POST')
+      .listen((req) => CChat(req).messageWrite());
+  router
       .serve(RoutesChat.messageSeen, method: 'POST')
       .listen((req) => CChat(req).messageSeen());
 }
