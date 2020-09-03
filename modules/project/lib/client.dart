@@ -32,7 +32,9 @@ void init(cl_app.Application<auth.Client> ap) {
     ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
 
   cl_app.NotificationMessage.registerDecorator(EVENT_TASK_UPDATE, (not) {
-    final taskId = int.parse(not.text);
+    final text = not.text;
+    final parts = text.split(':');
+    final taskId = int.parse(parts.first);
     return not
       ..priority = cl_app.NotificationMessage.attention
       ..text = '${intl.Task()} #$taskId - редактирана'
@@ -66,7 +68,6 @@ void init(cl_app.Application<auth.Client> ap) {
   ap.onServerCall.filter(EVENT_TASK_MESSAGE).listen((res) {
     final text = res['text'];
     final parts = text.split(':');
-    res['text'] = parts.first;
     if (!ap.client.ch.isRoomVisible(int.tryParse(parts.last)))
       ap.notify.add(new cl_app.NotificationMessage.fromMap(res));
   });
