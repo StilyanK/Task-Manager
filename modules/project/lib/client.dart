@@ -32,9 +32,7 @@ void init(cl_app.Application<auth.Client> ap) {
     ..addRoute(cl_app.Route('project/list', (ap, p) => ProjectList(ap)));
 
   cl_app.NotificationMessage.registerDecorator(EVENT_TASK_UPDATE, (not) {
-    final text = not.text;
-    final parts = text.split(':');
-    final taskId = int.parse(parts.first);
+    final taskId = int.parse(not.text);
     return not
       ..priority = cl_app.NotificationMessage.attention
       ..text = '${intl.Task()} #$taskId - редактирана'
@@ -50,7 +48,9 @@ void init(cl_app.Application<auth.Client> ap) {
   });
 
   cl_app.NotificationMessage.registerDecorator(EVENT_TASK_MESSAGE, (not) {
-    final taskId = int.tryParse(not.text);
+    final text = not.text;
+    final parts = text.split(':');
+    final taskId = int.tryParse(parts.first);
     return not
       ..priority = cl_app.NotificationMessage.attention
       ..text = '${intl.Task()} #$taskId - коментирана'
