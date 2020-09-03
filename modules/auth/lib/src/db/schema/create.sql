@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS "chat_message"
     "content"         text,
     "type"            integer     NOT NULL
 );
+CREATE INDEX ON "chat_message" ("chat_room_id");
 CREATE INDEX ON "chat_message" ("user_id");
 CREATE INDEX ON "chat_message" ("timestamp");
 
