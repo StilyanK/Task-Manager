@@ -6,28 +6,6 @@ part of auth.entity;
 // EntitySerializableGenerator
 // **************************************************************************
 
-abstract class $ChatAttachment {
-  static const String chat_attachment_id = 'chat_attachment_id';
-  static const String chat_message_id = 'chat_message_id';
-  static const String source = 'source';
-  static const String name = 'name';
-}
-
-void _$ChatAttachmentFromMap(ChatAttachment obj, Map data) => obj
-  ..chat_attachment_id = data[$ChatAttachment.chat_attachment_id]
-  ..chat_message_id = data[$ChatAttachment.chat_message_id]
-  ..source = data[$ChatAttachment.source]
-  ..name = data[$ChatAttachment.name];
-
-Map<String, dynamic> _$ChatAttachmentToMap(ChatAttachment obj,
-        [asJson = false]) =>
-    <String, dynamic>{
-      $ChatAttachment.chat_attachment_id: obj.chat_attachment_id,
-      $ChatAttachment.chat_message_id: obj.chat_message_id,
-      $ChatAttachment.source: obj.source,
-      $ChatAttachment.name: obj.name
-    };
-
 abstract class $ChatMembership {
   static const String chat_membership_id = 'chat_membership_id';
   static const String chat_room_id = 'chat_room_id';

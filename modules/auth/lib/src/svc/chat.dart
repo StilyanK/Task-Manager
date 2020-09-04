@@ -127,15 +127,7 @@ class Chat {
       ..room_id = room.chat_room_id
       ..context = room.context
       ..title = room.name
-      ..members = room.members
-          .map((u) => new ChatMemberDTO()
-            ..user_id = u.user_id
-            ..name = u.user.name
-            ..status = _isOnline(u.user_id)
-            ..picture = u.user.picture != null
-                ? 'media/image100x100/user/${u.user_id}/${u.user.picture}'
-                : null)
-          .toList()
+      ..members = room.members.map((m) => getChatMemberDTO(m.user)).toList()
       ..lsm_id = membership?.chat_message_seen_id ?? 0
       ..unseen = await room.loadUnseen(membership?.chat_message_seen_id)
       ..messages = await room.loadQuantity();

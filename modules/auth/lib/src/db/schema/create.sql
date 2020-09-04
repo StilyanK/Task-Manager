@@ -95,15 +95,6 @@ CREATE INDEX ON "chat_message" ("chat_room_id");
 CREATE INDEX ON "chat_message" ("user_id");
 CREATE INDEX ON "chat_message" ("timestamp");
 
-CREATE TABLE IF NOT EXISTS "chat_attachment"
-(
-    "chat_attachment_id" serial PRIMARY KEY,
-    "chat_message_id"    integer NOT NULL REFERENCES "chat_message" ("chat_message_id") ON DELETE RESTRICT,
-    "source"             text    NOT NULL,
-    "name"               text
-);
-CREATE INDEX ON "chat_attachment" ("chat_message_id");
-
 CREATE TABLE IF NOT EXISTS "chat_membership"
 (
     "chat_membership_id"   serial PRIMARY KEY,

@@ -9,7 +9,6 @@ import 'package:mapper/mapper.dart';
 
 import 'entity.dart' as entity;
 
-part 'db/mapper/chat_attachment.dart';
 part 'db/mapper/chat_membership.dart';
 part 'db/mapper/chat_message.dart';
 part 'db/mapper/chat_room.dart';
@@ -43,11 +42,6 @@ mixin AppMixin {
   UserEventMapper get user_event => UserEventMapper(m.convert(App()))
     ..entity = (() => UserEvent())
     ..collection = () => UserEventCollection();
-
-  ChatAttachmentMapper get chat_attachment =>
-      ChatAttachmentMapper(m.convert(App()))
-        ..entity = (() => ChatAttachment())
-        ..collection = () => ChatAttachmentCollection();
 
   ChatMembershipMapper get chat_membership =>
       ChatMembershipMapper(m.convert(App()))

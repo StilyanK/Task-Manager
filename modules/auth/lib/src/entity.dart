@@ -8,7 +8,6 @@ import 'package:mapper/client.dart';
 
 import 'path.dart';
 
-part 'db/entity/chat_attachment.dart';
 part 'db/entity/chat_membership.dart';
 part 'db/entity/chat_message.dart';
 part 'db/entity/chat_room.dart';

@@ -17,13 +17,6 @@ class ChatMembershipMapper
         ..setParameter('room_id', room_id)
         ..setParameter('user_id', user_id));
 
-  Future<ChatMembershipCollection> findAllByMessageSeen(int message_id,
-          [bool noContext = true]) =>
-      loadC(selectBuilder()
-        ..where('chat_message_seen_id = @m')
-        ..orderBy('chat_membership_id', 'ASC')
-        ..setParameter('m', message_id));
-
   Future<ChatMembershipCollection> findAllByUser(int user_id,
       [bool noContext = true]) {
     final q = selectBuilder('chat_membership.*')
