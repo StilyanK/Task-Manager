@@ -12,7 +12,8 @@ class CChat extends base.Base<App> {
   Future<dynamic> loadMessagesNew() => run(null, null, null, () async {
         manager = await Database().init(App());
         final room = ChatRoomDTO.fromMap(await getData());
-        return response(await new Chat(manager).loadMessagesNew(room));
+        return response(
+            await new Chat(manager).loadMessages(room, recent: false));
       });
 
   Future<dynamic> createRoom() => run(null, null, null, () async {
@@ -55,10 +56,10 @@ class CChat extends base.Base<App> {
         return response(await new Chat(manager).messageType(r));
       });
 
-  Future<dynamic> messageSeen() => run(null, null, null, () async {
+  Future<dynamic> messageMarkSeen() => run(null, null, null, () async {
         manager = await Database().init(App());
         final ms = ChatMessageDTO.fromMap(await getData());
         final meUserId = UserSessionDTO.fromMap(req.session['client']).user_id;
-        return response(await new Chat(manager).messageSeen(ms, meUserId));
+        return response(await new Chat(manager).messageMarkSeen(ms, meUserId));
       });
 }

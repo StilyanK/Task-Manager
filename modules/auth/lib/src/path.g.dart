@@ -44,6 +44,7 @@ abstract class $ChatMessageDTO {
   static const String id = 'id';
   static const String type = 'type';
   static const String member = 'member';
+  static const String seen = 'seen';
   static const String room_id = 'room_id';
   static const String context = 'context';
   static const String content = 'content';
@@ -56,6 +57,9 @@ ChatMessageDTO _$ChatMessageDTOFromMap(Map data) => new ChatMessageDTO()
   ..member = data[$ChatMessageDTO.member] == null
       ? null
       : new ChatMemberDTO.fromMap(data[$ChatMessageDTO.member])
+  ..seen = (data[$ChatMessageDTO.seen] as List)
+      ?.map((v0) => v0 == null ? null : new ChatMemberDTO.fromMap(v0))
+      ?.toList()
   ..room_id = data[$ChatMessageDTO.room_id]
   ..context = data[$ChatMessageDTO.context]
   ..content = data[$ChatMessageDTO.content]
@@ -68,6 +72,9 @@ Map<String, dynamic> _$ChatMessageDTOToMap(ChatMessageDTO obj) =>
       $ChatMessageDTO.id: obj.id,
       $ChatMessageDTO.type: obj.type,
       $ChatMessageDTO.member: obj.member?.toMap(),
+      $ChatMessageDTO.seen: obj.seen == null
+          ? null
+          : new List.generate(obj.seen.length, (i0) => obj.seen[i0]?.toMap()),
       $ChatMessageDTO.room_id: obj.room_id,
       $ChatMessageDTO.context: obj.context,
       $ChatMessageDTO.content: obj.content,

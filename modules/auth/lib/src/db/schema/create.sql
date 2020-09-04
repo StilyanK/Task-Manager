@@ -116,3 +116,4 @@ CREATE TABLE IF NOT EXISTS "chat_membership"
 );
 CREATE INDEX ON "chat_membership" ("chat_room_id");
 CREATE INDEX ON "chat_membership" ("user_id");
+CREATE INDEX ON "chat_membership" ("chat_message_seen_id");

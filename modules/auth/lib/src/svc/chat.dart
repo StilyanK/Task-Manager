@@ -15,63 +15,50 @@ class Chat {
 
   Chat(this.manager);
 
-  Future<List<ChatMessageDTO>> loadMessages(ChatRoomDTO room) async {
+  Future<List<ChatMessageDTO>> loadMessages(ChatRoomDTO room,
+      {bool recent = true}) async {
     if (room.room_id == null && room.context != null) {
       final r = await manager.app.chat_room.findByContext(room.context);
       if (r != null) room.room_id = r.chat_room_id;
     }
-    final messages = await manager.app.chat_message.loadRecent(room.room_id);
+    final messages = recent
+        ? await manager.app.chat_message.loadRecent(room.room_id)
+        : await manager.app.chat_message.loadNew(room.room_id, room.lsm_id);
+    final membersCol =
+        await manager.app.chat_membership.findAllByRoom(room.room_id);
+    final res = <ChatMessageDTO>[];
     for (final m in messages) {
-      await m.loadRoom();
-      await m.loadUser();
+      final mes = await getChatMessageDTO(m);
+      final seenMembers =
+          membersCol.where((m) => m.chat_message_seen_id == mes.id);
+      for (final seen in seenMembers)
+        mes.seen.add(
+            getChatMemberDTO(await seen.loadUser(), width: 25, height: 25));
+      res.add(mes);
     }
-    return messages
-        .map((m) => ChatMessageDTO()
-          ..id = m.chat_message_id
-          ..type = m.type
-          ..member = (ChatMemberDTO()
-            ..user_id = m.user.user_id
-            ..name = m.user.name
-            ..status = _isOnline(m.user_id)
-            ..picture = m.user.picture != null
-                ? 'media/image100x100/user/${m.user.user_id}/${m.user.picture}'
-                : null)
-          ..room_id = m.chat_room_id
-          ..content = _getContent(m.type, m.chat_room_id, m.content)
-          ..timestamp = m.timestamp)
-        .toList();
+    return res;
   }
+
+  ChatMemberDTO getChatMemberDTO(User u, {int width = 100, int height = 100}) =>
+      new ChatMemberDTO()
+        ..user_id = u.user_id
+        ..name = u.name
+        ..status = _isOnline(u.user_id)
+        ..picture = u.picture != null
+            ? 'media/image${width}x$height/user/${u.user_id}/${u.picture}'
+            : null;
+
+  Future<ChatMessageDTO> getChatMessageDTO(ChatMessage m) async =>
+      new ChatMessageDTO()
+        ..id = m.chat_message_id
+        ..type = m.type
+        ..seen = []
+        ..member = getChatMemberDTO(await m.loadUser())
+        ..room_id = m.chat_room_id
+        ..content = _getContent(m.type, m.chat_room_id, m.content)
+        ..timestamp = m.timestamp;
 
   bool _isOnline(int userId) => getWsClient(userId) != null;
-
-  Future<List<ChatMessageDTO>> loadMessagesNew(ChatRoomDTO room) async {
-    if (room.room_id == null && room.context != null) {
-      final r = await manager.app.chat_room.findByContext(room.context);
-      if (r != null) room.room_id = r.chat_room_id;
-    }
-    final messages =
-        await manager.app.chat_message.loadNew(room.room_id, room.lsm_id);
-    for (final m in messages) {
-      await m.loadRoom();
-      await m.loadUser();
-    }
-    return messages
-        .map((m) => ChatMessageDTO()
-          ..id = m.chat_message_id
-          ..type = m.type
-          ..member = (ChatMemberDTO()
-            ..user_id = m.user.user_id
-            ..name = m.user.name
-            ..status = _isOnline(m.user_id)
-            ..picture = m.user.picture != null
-                ? 'media/image100x100/user/${m.user.user_id}/${m.user.picture}'
-                : null)
-          ..room_id = m.chat_room_id
-          ..context = m.room.context
-          ..content = _getContent(m.type, m.chat_room_id, m.content)
-          ..timestamp = m.timestamp)
-        .toList();
-  }
 
   String _getContent(int type, int roomId, String content) {
     if (type == 0) return content;
@@ -141,7 +128,7 @@ class Chat {
       ..context = room.context
       ..title = room.name
       ..members = room.members
-          .map((u) => ChatMemberDTO()
+          .map((u) => new ChatMemberDTO()
             ..user_id = u.user_id
             ..name = u.user.name
             ..status = _isOnline(u.user_id)
@@ -197,7 +184,7 @@ class Chat {
         if (wsClient != null) {
           wsClient.send(
               RoutesChat.messageTyping,
-              ChatRoomDTO()
+              new ChatRoomDTO()
                 ..room_id = r.room_id
                 ..members = [
                   new ChatMemberDTO()
@@ -227,16 +214,17 @@ class Chat {
     return true;
   }
 
-  Future<bool> messageSeen(ChatMessageDTO ms, int userId) async {
+  Future<bool> messageMarkSeen(ChatMessageDTO ms, int userId) async {
     if (ms.room_id == null && ms.context != null) {
       final r = await manager.app.chat_room.findByContext(ms.context);
       if (r != null) ms.room_id = r.chat_room_id;
     }
     final m =
         await manager.app.chat_membership.findByRoomAndUser(ms.room_id, userId);
-    if (m != null)
+    if (m != null) {
       await manager.app.chat_membership.update(m..chat_message_seen_id = ms.id);
-    else
+      await onMessageSeen(m);
+    } else
       return false;
     return true;
   }
@@ -261,6 +249,20 @@ class Chat {
               ..room_id = cont.entity.chat_room_id
               ..context = room.context);
       }
+    }
+  }
+
+  Future<void> onMessageSeen(ChatMembership m) async {
+    final mes = await getChatMessageDTO(
+        await manager.app.chat_message.find(m.chat_message_seen_id));
+    final col = await manager.app.chat_membership.findAllByRoom(m.chat_room_id);
+    final seenMembers = col.where((m) => m.chat_message_seen_id == mes.id);
+    for (final seen in seenMembers)
+      mes.seen
+          .add(getChatMemberDTO(await seen.loadUser(), width: 25, height: 25));
+    for (final cm in col) {
+      final wsClient = getWsClient(cm.user_id);
+      if (wsClient != null) wsClient.send(RoutesChat.messageSeen, mes);
     }
   }
 

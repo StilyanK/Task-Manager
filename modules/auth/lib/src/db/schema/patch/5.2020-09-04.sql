@@ -1,0 +1,1 @@
+CREATE INDEX ON "chat_membership" ("chat_message_seen_id");

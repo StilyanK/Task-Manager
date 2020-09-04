@@ -98,7 +98,7 @@ class Client extends cl_app.Client {
               RoutesChat.messagePersist.reverse([]), message.toJson()))
           ..markMessageAsSeen = ((message) async {
             final r = await ap.serverCall(
-                RoutesChat.messageSeen.reverse([]), message.toJson());
+                RoutesChat.messageMarkSeen.reverse([]), message.toJson());
             ch.init();
             return r;
           })
@@ -140,6 +140,8 @@ class Client extends cl_app.Client {
         });
         ap.onServerCall.filter(RoutesChat.messageUpdated).listen(
             (res) => cc.notifierMessageUpdate.add(chat.Message.fromMap(res)));
+        ap.onServerCall.filter(RoutesChat.messageSeen).listen(
+            (res) => cc.notifierMessageSeen.add(chat.Message.fromMap(res)));
         ap.onServerCall
             .filter(RoutesChat.messageTyping)
             .listen((res) => cc.notifierType.add(chat.Room.fromMap(res)));

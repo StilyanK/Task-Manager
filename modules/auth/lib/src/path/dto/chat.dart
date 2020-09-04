@@ -24,6 +24,7 @@ class ChatMessageDTO {
   int id;
   int type;
   ChatMemberDTO member;
+  List<ChatMemberDTO> seen;
   int room_id;
   String context;
   String content;
