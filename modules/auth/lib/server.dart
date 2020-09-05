@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:auth/src/svc/chat.dart';
 import 'package:cl_base/server.dart' as base;
-import 'dart:convert';
 import 'package:cryptography/cryptography.dart';
 
 import 'src/ctrl.dart';
@@ -20,29 +20,6 @@ export 'src/svc/chat.dart';
 export 'src/svc/generate/generate.dart';
 export 'src/svc/permission.dart';
 export 'src/svc/user.dart';
-
-Future<Uint8List> sendMessage(String m) async {
-  final algorithm = ecdhP256;
-  final localKeyPair = await algorithm.newKeyPair();
-  final remoteKeyPair = await algorithm.newKeyPair();
-  final sharedSecretKey = await algorithm.sharedSecret(
-    localPrivateKey: localKeyPair.privateKey,
-    remotePublicKey: remoteKeyPair.publicKey,
-  );
-
-  final message = utf8.encode(m);
-
-  const cipher = aesGcm;
-  final secretKey = cipher.newSecretKeySync(length: 128);
-  final nonce = cipher.newNonce();
-
-  // Encrypt
-  return cipher.encrypt(
-    message,
-    secretKey: secretKey,
-    nonce: nonce,
-  );
-}
 
 void init() {
   base.boot_call.add((e) {
@@ -104,7 +81,6 @@ void _onNotification(base.SMessage mes) {
   base.dbWrap<void, App>(App(), (manager) async {
     final users = await manager.app.user.findAll();
     final parts = mes.key.split(':');
-    final wsClients = base.getWSClients();
     for (final user in users) {
       var hasAccess = false;
       if (parts.length > 1) {
@@ -122,11 +98,7 @@ void _onNotification(base.SMessage mes) {
           ..notification_id = mes.notification_id
           ..read = false;
         await manager.app.user_notification.insert(notification);
-        final clients = wsClients.where((client) =>
-            user.user_id ==
-            (client.req.session['client'] != null
-                ? UserSessionDTO.fromMap(client.req.session['client']).user_id
-                : null));
+        final clients = getWsClient(user.user_id);
         if (clients.isNotEmpty) {
           clients.forEach((client) {
             client.send(mes.key, {

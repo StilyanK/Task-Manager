@@ -172,9 +172,9 @@ class Chat {
         .map((e) => e.user_id);
     if (users.isNotEmpty)
       users.forEach((userId) {
-        final wsClient = getWsClient(userId);
-        if (wsClient != null) {
-          wsClient.send(
+        final wsClients = getWsClient(userId);
+        if (wsClients.isNotEmpty) {
+          wsClients.forEach((cl) => cl.send(
               RoutesChat.messageTyping,
               new ChatRoomDTO()
                 ..room_id = r.room_id
@@ -182,7 +182,7 @@ class Chat {
                   new ChatMemberDTO()
                     ..user_id = r.members.first.user_id
                     ..name = r.members.first.name
-                ]);
+                ]));
         }
       });
     return true;
@@ -253,8 +253,9 @@ class Chat {
       mes.seen
           .add(getChatMemberDTO(await seen.loadUser(), width: 25, height: 25));
     for (final cm in col) {
-      final wsClient = getWsClient(cm.user_id);
-      if (wsClient != null) wsClient.send(RoutesChat.messageSeen, mes);
+      final wsClients = getWsClient(cm.user_id);
+      if (wsClients.isNotEmpty)
+        wsClients.forEach((cl) => cl.send(RoutesChat.messageSeen, mes));
     }
   }
 
@@ -263,23 +264,25 @@ class Chat {
         .findAllByRoom(cont.entity.chat_room_id);
     final room = await manager.app.chat_room.find(cont.entity.chat_room_id);
     for (final cm in col) {
-      final wsClient = getWsClient(cm.user_id);
-      if (wsClient != null) {
+      final wsClients = getWsClient(cm.user_id);
+      if (wsClients.isNotEmpty) {
         final user = await manager.app.user.find(cont.entity.user_id);
         final contr = cont.isInserted
             ? RoutesChat.messageCreated
             : RoutesChat.messageUpdated;
-        wsClient.send(
-            contr,
-            ChatMessageDTO()
-              ..id = cont.entity.chat_message_id
-              ..room_id = cont.entity.chat_room_id
-              ..context = room.context
-              ..content = cont.isDeleted ? null : cont.entity.content
-              ..timestamp = cont.entity.timestamp
-              ..member = (new ChatMemberDTO()
-                ..name = user.name
-                ..user_id = user.user_id));
+        wsClients.forEach((cl) {
+          cl.send(
+              contr,
+              ChatMessageDTO()
+                ..id = cont.entity.chat_message_id
+                ..room_id = cont.entity.chat_room_id
+                ..context = room.context
+                ..content = cont.isDeleted ? null : cont.entity.content
+                ..timestamp = cont.entity.timestamp
+                ..member = (new ChatMemberDTO()
+                  ..name = user.name
+                  ..user_id = user.user_id));
+        });
       }
     }
   }

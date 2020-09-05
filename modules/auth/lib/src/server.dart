@@ -12,11 +12,10 @@ import 'mapper.dart';
 Future<Map<String, dynamic>> Function(Manager man, User user) updateSession =
     (man, u) async => {};
 
-Client getWsClient(int userId) => base.getWSClients().firstWhere(
-    (client) =>
+Iterable<Client> getWsClient(int userId) =>
+    base.getWSClients().where((client) =>
         client.req.session['client'] != null &&
-        client.req.session['client']['user_id'] == userId,
-    orElse: () => null);
+        client.req.session['client']['user_id'] == userId);
 
 Future<void> sendUserNotification(
     Manager<App> manager, Iterable<int> userIds, base.SMessage mes) async {
@@ -33,13 +32,14 @@ Future<void> sendUserNotification(
       ..user_id = userId;
     await manager.app.user_notification.insert(notUser);
     final ws = getWsClient(userId);
-    if (ws != null)
-      ws.send(mes.key, {
-        'event': mes.key,
-        'id': notUser.user_notification_id,
-        'read': notUser.read,
-        'text': mes.value,
-        'date': mes.date.toString()
-      });
+    if (ws.isNotEmpty) {
+      ws.forEach((cl) => cl.send(mes.key, {
+            'event': mes.key,
+            'id': notUser.user_notification_id,
+            'read': notUser.read,
+            'text': mes.value,
+            'date': mes.date.toString()
+          }));
+    }
   }
 }
