@@ -54,3 +54,35 @@ class ChatMemberDTO {
 
   Map toJson() => toMap();
 }
+
+@DTOSerializable()
+class ChatOfferDTO {
+  int from;
+  int to;
+  bool isAnswer;
+  Map description;
+
+  ChatOfferDTO();
+
+  factory ChatOfferDTO.fromMap(Map data) => _$ChatOfferDTOFromMap(data);
+
+  Map toMap() => _$ChatOfferDTOToMap(this);
+
+  Map toJson() => toMap();
+}
+
+@DTOSerializable()
+class IceCandidateDTO {
+  int from;
+  int to;
+  Map candidate;
+
+  IceCandidateDTO();
+
+  factory IceCandidateDTO.fromMap(Map data) => _$IceCandidateDTOFromMap(data);
+
+  Map toMap() => _$IceCandidateDTOToMap(this);
+
+  Map toJson() => toMap();
+}
+

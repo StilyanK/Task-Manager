@@ -1,17 +1,10 @@
 part of auth.ctrl;
 
 void routesUser(Router router) {
-  router.filter(RoutesU.isLogged,
-          (req) => CLogin(req).isLogged());
-  router
-      .serve(RoutesU.login)
-      .listen((req) => CLogin(req).login());
-  router
-      .serve(RoutesU.forgotten)
-      .listen((req) => CLogin(req).forgotten());
-  router
-      .serve(RoutesU.logout)
-      .listen((req) => CLogin(req).logout());
+  router.filter(RoutesU.isLogged, (req) => CLogin(req).isLogged());
+  router.serve(RoutesU.login).listen((req) => CLogin(req).login());
+  router.serve(RoutesU.forgotten).listen((req) => CLogin(req).forgotten());
+  router.serve(RoutesU.logout).listen((req) => CLogin(req).logout());
   router
       .serve(RoutesU.itemGet, method: 'POST')
       .listen((req) => IUser(req).get());
@@ -144,4 +137,19 @@ void routesChat(Router router) {
   router
       .serve(RoutesChat.messageMarkSeen, method: 'POST')
       .listen((req) => CChat(req).messageMarkSeen());
+  router
+      .serve(RoutesChat.sendIce, method: 'POST')
+      .listen((req) => CChat(req).sendIce());
+  router
+      .serve(RoutesChat.sendOffer, method: 'POST')
+      .listen((req) => CChat(req).sendOffer());
+  router
+      .serve(RoutesChat.callStart, method: 'POST')
+      .listen((req) => CChat(req).callStart());
+  router
+      .serve(RoutesChat.callAnswer, method: 'POST')
+      .listen((req) => CChat(req).callAnswer());
+  router
+      .serve(RoutesChat.callHangup, method: 'POST')
+      .listen((req) => CChat(req).callHangup());
 }

@@ -102,6 +102,44 @@ Map<String, dynamic> _$ChatMemberDTOToMap(ChatMemberDTO obj) =>
       $ChatMemberDTO.status: obj.status
     };
 
+abstract class $ChatOfferDTO {
+  static const String from = 'from';
+  static const String to = 'to';
+  static const String isAnswer = 'isAnswer';
+  static const String description = 'description';
+}
+
+ChatOfferDTO _$ChatOfferDTOFromMap(Map data) => new ChatOfferDTO()
+  ..from = data[$ChatOfferDTO.from]
+  ..to = data[$ChatOfferDTO.to]
+  ..isAnswer = data[$ChatOfferDTO.isAnswer]
+  ..description = data[$ChatOfferDTO.description];
+
+Map<String, dynamic> _$ChatOfferDTOToMap(ChatOfferDTO obj) => <String, dynamic>{
+      $ChatOfferDTO.from: obj.from,
+      $ChatOfferDTO.to: obj.to,
+      $ChatOfferDTO.isAnswer: obj.isAnswer,
+      $ChatOfferDTO.description: obj.description
+    };
+
+abstract class $IceCandidateDTO {
+  static const String from = 'from';
+  static const String to = 'to';
+  static const String candidate = 'candidate';
+}
+
+IceCandidateDTO _$IceCandidateDTOFromMap(Map data) => new IceCandidateDTO()
+  ..from = data[$IceCandidateDTO.from]
+  ..to = data[$IceCandidateDTO.to]
+  ..candidate = data[$IceCandidateDTO.candidate];
+
+Map<String, dynamic> _$IceCandidateDTOToMap(IceCandidateDTO obj) =>
+    <String, dynamic>{
+      $IceCandidateDTO.from: obj.from,
+      $IceCandidateDTO.to: obj.to,
+      $IceCandidateDTO.candidate: obj.candidate
+    };
+
 abstract class $PasswordDTO {
   static const String id = 'id';
   static const String password = 'password';

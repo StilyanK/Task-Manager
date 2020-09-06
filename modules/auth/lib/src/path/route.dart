@@ -70,10 +70,21 @@ class RoutesChat {
   static get messageUpdate => UrlPattern(r'/user/chat/message/update');
   static get messageMarkSeen => UrlPattern(r'/user/chat/message/seen');
   static get messageType => UrlPattern(r'/user/chat/message/write');
+  static get sendOffer => new UrlPattern(r'/user/chat/call/offer');
+  static get sendIce => new UrlPattern(r'/user/chat/call/ice');
+  static get callStart => new UrlPattern(r'/user/chat/call/start');
+  static get callAnswer => new UrlPattern(r'/user/chat/call/answer');
+  static get callHangup => new UrlPattern(r'/user/chat/call/hangup');
+
   static String roomCreated = 'chat:room:create';
   static String roomUpdated = 'chat:room:update';
   static String messageCreated = 'chat:message:create';
   static String messageUpdated = 'chat:message:update';
   static String messageTyping = 'chat:message:type';
   static String messageSeen = 'chat:message:seen';
+  static String onCallOffer = 'chat:call:offer';
+  static String onCallIce = 'chat:call:ice';
+  static String onCallStart = 'chat:call:start';
+  static String onCallAnswer = 'chat:call:answer';
+  static String onCallHangup = 'chat:call:hangup';
 }

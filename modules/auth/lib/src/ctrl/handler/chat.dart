@@ -62,4 +62,37 @@ class CChat extends base.Base<App> {
         final meUserId = UserSessionDTO.fromMap(req.session['client']).user_id;
         return response(await new Chat(manager).messageMarkSeen(ms, meUserId));
       });
+
+  Future<dynamic> sendOffer() => run(null, null, null, () async {
+        final ms = ChatOfferDTO.fromMap(await getData());
+        new Chat(manager).sendOffer(ms);
+        return response(null);
+      });
+
+  Future<dynamic> sendIce() => run(null, null, null, () async {
+        final ms = IceCandidateDTO.fromMap(await getData());
+        new Chat(manager).sendIce(ms);
+        return response(null);
+      });
+
+  Future<dynamic> callStart() => run(null, null, null, () async {
+        final r = ChatRoomDTO.fromMap(await getData());
+        final meUserId = UserSessionDTO.fromMap(req.session['client']).user_id;
+        new Chat(manager).callStartAnswer(r, meUserId, RoutesChat.onCallStart);
+        return response(null);
+      });
+
+  Future<dynamic> callAnswer() => run(null, null, null, () async {
+        final r = ChatRoomDTO.fromMap(await getData());
+        final meUserId = UserSessionDTO.fromMap(req.session['client']).user_id;
+        new Chat(manager).callStartAnswer(r, meUserId, RoutesChat.onCallAnswer);
+        return response(null);
+      });
+
+  Future<dynamic> callHangup() => run(null, null, null, () async {
+        final r = ChatRoomDTO.fromMap(await getData());
+        final meUserId = UserSessionDTO.fromMap(req.session['client']).user_id;
+        new Chat(manager).callStartAnswer(r, meUserId, RoutesChat.onCallHangup);
+        return response(null);
+      });
 }

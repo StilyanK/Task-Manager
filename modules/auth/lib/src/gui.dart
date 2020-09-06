@@ -67,10 +67,7 @@ class Client extends cl_app.Client {
   void set() {
     addApp(cl_app.ClientApp()
       ..init = (ap) {
-        final cc = chat.ChatController();
-        ch = chat.Chat(ap, ap.fieldRight, chat.RoomListContext(ap, cc),
-            chat.RoomContext(ap, cc), cc);
-        cc
+        final cc = chat.ChatController()
           ..loadUnread =
               (() => ap.serverCall(RoutesChat.loadUnread.reverse([]), null))
           ..loadRooms = () async {
@@ -117,7 +114,7 @@ class Client extends cl_app.Client {
                       .toList()));
             return new chat.Room.fromMap(res);
           })
-          ..addRoom = () async {
+          ..addRoom = (() async {
             UserListChoose((obj) async {
               if (ap.client.userId == obj['user_id']) return;
               await ch.controller.createRoom(new chat.Room()
@@ -126,8 +123,31 @@ class Client extends cl_app.Client {
                   new chat.Member()..user_id = obj['user_id']
                 ]);
             }, ap);
-          };
+          })
+          ..sendOffer = ((offer) =>
+              ap.serverCall(RoutesChat.sendOffer.reverse([]), offer.toMap()))
+          ..sendIce = ((ice) =>
+              ap.serverCall(RoutesChat.sendIce.reverse([]), ice.toMap()))
+          ..callStart = ((room) =>
+              ap.serverCall(RoutesChat.callStart.reverse([]), room.toJson()))
+          ..callAnswer = ((room) =>
+              ap.serverCall(RoutesChat.callAnswer.reverse([]), room.toJson()))
+          ..callHangup = ((room) =>
+              ap.serverCall(RoutesChat.callHangup.reverse([]), room.toJson()));
 
+        ap.onServerCall.filter(RoutesChat.onCallOffer).listen(
+            (r) => cc.notifierOffer.add(new chat.OfferRequest.fromMap(r)));
+        ap.onServerCall.filter(RoutesChat.onCallIce).listen(
+            (r) => cc.notifierIce.add(new chat.IceCandidate.fromMap(r)));
+        ap.onServerCall
+            .filter(RoutesChat.onCallStart)
+            .listen((r) => cc.notifierCallStart.add(new chat.Room.fromMap(r)));
+        ap.onServerCall
+            .filter(RoutesChat.onCallAnswer)
+            .listen((r) => cc.notifierCallAnswer.add(new chat.Room.fromMap(r)));
+        ap.onServerCall
+            .filter(RoutesChat.onCallHangup)
+            .listen((r) => cc.notifierCallHangup.add(new chat.Room.fromMap(r)));
         ap.onServerCall.filter(RoutesChat.messageCreated).listen((r) {
           final cm = ChatMessageDTO.fromMap(r);
           cc.notifierMessage.add(chat.Room()
@@ -145,9 +165,13 @@ class Client extends cl_app.Client {
         ap.onServerCall
             .filter(RoutesChat.messageTyping)
             .listen((res) => cc.notifierType.add(chat.Room.fromMap(res)));
+
+        ch = chat.Chat(ap, ap.fieldRight, chat.RoomListContext(ap, cc),
+            chat.RoomContext(ap, cc), cc);
         ap.addons.append(ch.chatDom());
         ch.init();
       });
+
     addApp(cl_app.ClientApp()
       ..init = (ap) => ap.addons.append(cl_action.Button()
         ..setIcon(cl.Icon.schedule)

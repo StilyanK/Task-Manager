@@ -286,4 +286,17 @@ class Chat {
       }
     }
   }
+
+  void sendOffer(ChatOfferDTO offer) => getWsClient(offer.to)
+      .forEach((cl) => cl.send(RoutesChat.onCallOffer, offer));
+
+  void sendIce(IceCandidateDTO ice) =>
+      getWsClient(ice.to).forEach((cl) => cl.send(RoutesChat.onCallIce, ice));
+
+  void callStartAnswer(ChatRoomDTO room, int userId, String route) {
+    final members = room.members.where((m) => m.user_id != userId);
+    for (final member in members)
+      getWsClient(member.user_id).forEach((cl) => cl.send(
+          route, room..members = [new ChatMemberDTO()..user_id = userId]));
+  }
 }
