@@ -14,12 +14,10 @@ class DescriptionCeil extends cl_form.RowDataCell<List> {
     cell..append(sp)..append(sp2);
     cell.style.maxWidth = '300px';
     if (object != null && object.isNotEmpty) {
-      final c = new cl.CLElement(cell);
-      final d = new cl_app.BubbleVisualizer(
-          c,
-          () => new DivElement()
+      new cl_app.BubbleVisualizer(
+          new cl.CLElement(cell),
+              () => new DivElement()
             ..setInnerHtml('<b>${object.first}</b><div>${object.last}</div>'));
-      c.removeAction('mouseout');
     }
   }
 }
