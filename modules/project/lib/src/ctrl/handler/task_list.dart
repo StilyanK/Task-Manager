@@ -13,6 +13,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
           entity.$Task.status,
           entity.$Task.assigned_to,
           entity.$Task.modified_by,
+          entity.$Task.created_by,
           entity.$Task.priority,
           entity.$Task.task_id,
           entity.$Task.project_id,
