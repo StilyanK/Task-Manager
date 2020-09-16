@@ -99,7 +99,7 @@ class ITask extends base.Item<App, Task, int> {
           entity.$TaskMedia.task_id, task.task_id);
     }
 
-    await new TaskStatusManager(manager, task).setStatus();
+//    await new TaskStatusManager(manager, task).setStatus();
     manager.addDirty(task);
 
     await manager.commit();
