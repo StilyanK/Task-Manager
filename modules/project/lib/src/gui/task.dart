@@ -338,7 +338,7 @@ class TaskGui extends base.ItemBuilder<auth.Client> {
       ..addRow(intl.Status(), [status]).addClass('col2')
       ..addRow(intl.Progress(), [bar]).addClass('col1')
       ..addRow(intl.Date_done(), [dateDone]).addClass('col1')
-      ..addRow(intl.Description(), [description]).addClass('col6')
+      ..addRow(intl.Description(), [description])
       ..addSection('Подтаскове')
       ..addRow(null, [addSubTaskBtn, addExistSubTask]).addClass('col5')
       ..addRow(null, [subTaskDone]).addClass('col1')
