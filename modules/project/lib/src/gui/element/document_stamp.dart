@@ -3,7 +3,7 @@ part of project.gui;
 class DocumentStamp extends cl_form.Text<Map, SpanElement> {
   int method;
 
-  DocumentStamp(this.method) : super(new SpanElement());
+  DocumentStamp(this.method) : super(el: new SpanElement());
 
   void setValue(Map value) {
     String methodText;
@@ -17,10 +17,8 @@ class DocumentStamp extends cl_form.Text<Map, SpanElement> {
     if (value != null) {
       final by = value['by'];
       dynamic date = value['date'];
-      if (date is String && value.isNotEmpty)
-        date = DateTime.parse(date);
-      if (date is DateTime)
-        date = local.Date(date.toLocal()).getWithTime();
+      if (date is String && value.isNotEmpty) date = DateTime.parse(date);
+      if (date is DateTime) date = local.Date(date.toLocal()).getWithTime();
 
       final cont = new cl.CLElement(new DivElement())
         ..append(new SpanElement()..text = methodText)
