@@ -76,7 +76,7 @@ class TaskCollection extends base.Collection<App, Task, int> {
     final assignedTo = await manager.app.user.find(data['assigned_to']);
     final project = await manager.app.project.find(o.project_id);
     final res = await manager.app.task.findAllChildTasks(o.task_id);
-    data['number'] = [o.task_id, res.isNotEmpty];
+    data['number'] = [o.task_id, res.isNotEmpty, o.parent_task];
     data['created_by'] = createdBy.name;
     data['status'] = [data['status'], data['progress']];
     data['modified_by'] = modifiedBy?.name;

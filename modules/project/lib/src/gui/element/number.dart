@@ -8,6 +8,7 @@ class NumberCell extends cl_form.RowDataCell<List> {
   void render() {
     final taskId = object[0];
     final hasChilds = object[1];
+    final parTask = object[2];
     if (hasChilds) {
       cell
         ..append(new SpanElement()
@@ -15,7 +16,11 @@ class NumberCell extends cl_form.RowDataCell<List> {
           ..append(new cl.Icon(Icon.Parent).dom))
         ..classes.add('task-id');
     } else {
-      cell.append(new SpanElement()..text = '$taskId');
+      if(parTask != null) {
+        cell.append(new SpanElement()..text = '$taskId -> $parTask');
+      } else {
+        cell.append(new SpanElement()..text = '$taskId');
+      }
     }
   }
 }
