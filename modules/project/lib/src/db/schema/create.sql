@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS "project"
     "title"      text,
     "from"       timestamptz,
     "to"         timestamptz,
+    "picture"    text,
     "manager_id" integer
 );
 
