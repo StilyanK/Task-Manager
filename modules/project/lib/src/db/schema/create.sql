@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS "project"
     "project_id" SERIAL NOT NULL PRIMARY KEY,
     "title"      text,
     "from"       timestamptz,
-    "to"         timestamptz
+    "to"         timestamptz,
+    "manager_id" integer
 );
 
 CREATE TABLE IF NOT EXISTS "task"
@@ -38,10 +39,10 @@ CREATE INDEX "task_project_id_idx" ON "task" ("project_id");
 
 CREATE TABLE IF NOT EXISTS "task_media"
 (
-    "task_media_id"   SERIAL      NOT NULL PRIMARY KEY,
-    "task_id"         integer REFERENCES "task" (task_id) ON DELETE CASCADE,
-    "source"          text,
-    "date_created"    timestamptz NOT NULL DEFAULT NOW()
+    "task_media_id" SERIAL      NOT NULL PRIMARY KEY,
+    "task_id"       integer REFERENCES "task" (task_id) ON DELETE CASCADE,
+    "source"        text,
+    "date_created"  timestamptz NOT NULL DEFAULT NOW()
 );
 CREATE INDEX "task_media_task_id_idx" ON "task_media" ("task_id");
 
